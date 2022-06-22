@@ -1,7 +1,23 @@
 package ar.edu.unju.fi.entity;
 
 import java.time.LocalDate;
-import java.util.List;
+
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 /**
  * Clase que representa a un empleador que desea registrarse
@@ -9,19 +25,70 @@ import java.util.List;
  * @author Elio
  * @version 1.0
  */
+
+@Entity
+@Table(name = "empleadores")
 public class Empleador {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="EMPLEADOR_ID")
 	private long empleador_id;
+	
+	@Column(name = "CUIT", length = 13)
+	@NotNull(message = "Debe Ingresar CUIT")
+	@Size(min=13, max=13)
 	private String cuit;
+	
+	@Column(name = "EMPLEADOR_PASS", length = 15)
+	@NotNull(message = "Debe Ingresar Contraseña")
+	@Size(min=5, max=15)
 	private String password;
+	
+	@Column(name = "RAZON_SOCIAL", length = 20)
+	@NotNull(message = "Debe Ingresar Razon Social")
+	@Size(min=5, max=20)
 	private String razonSocial;
+	
+	@Column(name = "NOMBRE_COM", length = 20)
+	@NotNull(message = "Debe Ingresar Nombre Comercial")
+	@Size(min=5, max=20)
 	private String nombreComercial;
+	
+	@Column(name = "INICIO_ACT", length = 10)
+	@NotNull(message="Debe ingresar Fecha de Inicio de Actividad") @Past(message="Debe ser fecha anterior a la actual")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate inicioActividad;
+	
+	@Column(name = "EMAIL", length = 50)
+	@NotNull(message = "Debe completar el Email")
+	@Email
 	private String email;
+	
+	@Column(name = "TELEFONO", length = 14)	
+	@NotNull (message = "Debe completar el Telefono")
+	@Size(min=10,max=14)	
 	private String telefono;
+	
+	@Column(name = "DOMICILIO", length = 30)	
+	@NotNull (message = "Debe completar el Domicilio")
+	@Size(min=10,max=30)
 	private String domicilio;
-	private List<Provincia> provincia;
+	
+	@ManyToOne()
+	@JoinColumn(name = "PROVINCIA_ID")	
+	private Provincia provincia;
+	
+	@Column(name = "PAGWEB", length = 40)	
 	private String pagWeb;
+	
+	@Column(name = "DESCRIPCION", length = 140)
+	@NotNull(message = "Debe completar Descripcion")
+	@Size(min=10, max=140)
 	private String descripcion;
+	
+	@Column(name = "EXISTEEMPLEADOR")
+	private boolean existeEmpleador;
 
 	/**
 	 * Constructor por defecto
@@ -47,7 +114,7 @@ public class Empleador {
 	 * @param descripcion     valor de descripcion de Empleador
 	 */
 	public Empleador(long empleador_id, String cuit, String password, String razonSocial, String nombreComercial,
-			LocalDate inicioActividad, String email, String telefono, String domicilio, List<Provincia> provincia,
+			LocalDate inicioActividad, String email, String telefono, String domicilio, Provincia provincia,
 			String pagWeb, String descripcion) {
 		super();
 		this.empleador_id = empleador_id;
@@ -231,7 +298,7 @@ public class Empleador {
 	 * 
 	 * @return provincia
 	 */
-	public List<Provincia> getProvincia() {
+	public Provincia getProvincia() {
 		return provincia;
 	}
 
@@ -240,7 +307,7 @@ public class Empleador {
 	 * 
 	 * @param provincia
 	 */
-	public void setProvincia(List<Provincia> provincia) {
+	public void setProvincia(Provincia provincia) {
 		this.provincia = provincia;
 	}
 
@@ -279,5 +346,16 @@ public class Empleador {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
+	public boolean isExisteEmpleador() {
+		return existeEmpleador;
+	}
+
+	public void setExisteEmpleador(boolean existeEmpleador) {
+		this.existeEmpleador = existeEmpleador;
+	}
+	
+	
+	
 
 }

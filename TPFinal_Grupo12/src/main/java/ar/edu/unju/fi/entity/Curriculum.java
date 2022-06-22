@@ -2,20 +2,71 @@ package ar.edu.unju.fi.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * Clase que representa los datos del postulante
  * 
  * @author Elio
  * @version 1.0
  */
+
+@Entity
+@Table(name = "curriculums")
 public class Curriculum {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="CURRICULUM_ID")	
 	private long curriculum_id;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "CIUDADANO_ID")
+	@NotNull (message= "Debe Seleccionar el Ciudadano")
 	private Ciudadano ciudadano;
+	
+	@OneToMany(
+			mappedBy = "curriculum", 
+			cascade = CascadeType.ALL, 
+			orphanRemoval = true)
 	private List<ExperienciaLaboral> expLaboral;
+	
+	@OneToMany(
+			mappedBy = "curriculum", 
+			cascade = CascadeType.ALL, 
+			orphanRemoval = true)
 	private List<Educacion> educacion;
+	
+	@OneToMany(
+			mappedBy = "curriculum", 
+			cascade = CascadeType.ALL, 
+			orphanRemoval = true)
 	private List<Idioma> idioma;
+	
+	@Column(name = "CONOC_INFOR", length = 50)
+	@NotNull(message = "Debe completar Conocimientos Informaticos")
+	@Size(min=20, max=50)	
 	private String conocInfor;
+	
+	@Column(name = "INFO_COMPLEMEN", length = 50)
+	@NotNull(message = "Debe completar Info Complementaria")
+	@Size(min=20, max=50)	
 	private String infoComplem;
+	
+	@Column(name = "EXISTECURRICULUM")
+	private boolean existeCurriculum;
+	
 
 	/**
 	 * Constructor por defecto
@@ -177,4 +228,13 @@ public class Curriculum {
 		this.infoComplem = infoComplem;
 	}
 
+	public boolean isExisteCurriculum() {
+		return existeCurriculum;
+	}
+
+	public void setExisteCurriculum(boolean existeCurriculum) {
+		this.existeCurriculum = existeCurriculum;
+	}
+
+	
 }
