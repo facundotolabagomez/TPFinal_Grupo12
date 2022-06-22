@@ -1,7 +1,24 @@
 package ar.edu.unju.fi.entity;
 
 import java.time.LocalDate;
-import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 /**
  * Clase que representa a un ciudadano que desea registrarse
@@ -9,16 +26,54 @@ import java.util.List;
  * @author Elio
  * @version 1.0
  */
+@Entity
+@Table(name = "ciudadanos")
 public class Ciudadano {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="CIUDADANO_ID")	
 	private long ciudadano_id;
+	
+	@Column(name = "DNI", length = 8)
+	@Min(value=999999, message = "DNI No valido")
 	private int dni;
+	
+	@Column(name = "NUMERO_TRAMITE", length = 11)
+	@Min(value=999999999, message = "Numero de Tramite No Valido")
 	private long numeroTramite;
+	
+	@Column(name = "ESTADO_CIVIL", length = 15)
+	@NotNull(message = "Debe completar Estado Civil")
+	@Size(min=5, max=15)	
 	private String estadoCivil;
-	private List <Provincia> provincia;
+	
+	@ManyToOne()
+	@JoinColumn(name = "PROVINCIA_ID")	
+	private Provincia provincia;
+	
+	@Column(name = "TELEFONO", length = 14)	
+	@NotNull (message = "Debe completar el Telefono")
+	@Size(min=7,max=14)
 	private String telefono;
+	
+	@Column(name = "FECHA_NAC", length = 10)
+	@NotNull(message="Debe ingresar Fecha de Nacimiento") @Past(message="Debe ser fecha anterior a la actual")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaNac;
+	
+	@Column(name = "CIUDADANO_PASS", length = 15)
+	@NotNull(message = "Debe completar Contraseña")
+	@Size(min=5, max=15)	
 	private String password;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "CURRICULUM_ID")
+	@NotNull (message= "Debe Seleccionar el Curriculum")
 	private Curriculum curriculum;
+	
+	@Column(name = "EXISTECIUDADANO")
+	private boolean existeCiudadano;
 
 	/**
 	 * Constructor por defecto
@@ -40,7 +95,7 @@ public class Ciudadano {
 	 * @param pasword       valor de password registrada de Ciudadano
 	 * @param curriculum    valor de tipo Curriculum de Ciudadano
 	 */
-	public Ciudadano(long ciudadano_id, int dni, long numeroTramite, String estadoCivil, List <Provincia> provincia,
+	public Ciudadano(long ciudadano_id, int dni, long numeroTramite, String estadoCivil, Provincia provincia,
 			String telefono, LocalDate fechaNac, String password, Curriculum curriculum) {
 		super();
 		this.ciudadano_id = ciudadano_id;
@@ -52,6 +107,7 @@ public class Ciudadano {
 		this.fechaNac = fechaNac;
 		this.password = password;
 		this.curriculum = curriculum;
+		
 	}
 
 	/*
@@ -63,6 +119,8 @@ public class Ciudadano {
 	 * 
 	 * @return ciudadadano_id
 	 */
+	
+	
 	public long getCiudadano_id() {
 		return ciudadano_id;
 	}
@@ -135,7 +193,7 @@ public class Ciudadano {
 	 * 
 	 * @return provincia
 	 */
-	public List<Provincia> getProvincia() {
+	public Provincia getProvincia() {
 		return provincia;
 	}
 
@@ -144,7 +202,7 @@ public class Ciudadano {
 	 * 
 	 * @param provincia
 	 */
-	public void setProvincia(List<Provincia> provincia) {
+	public void setProvincia (Provincia provincia) {
 		this.provincia = provincia;
 	}
 
@@ -219,5 +277,15 @@ public class Ciudadano {
 	public void setCurriculum(Curriculum curriculum) {
 		this.curriculum = curriculum;
 	}
+
+	public boolean isExisteCiudadano() {
+		return existeCiudadano;
+	}
+
+	public void setExisteCiudadano(boolean existeCiudadano) {
+		this.existeCiudadano = existeCiudadano;
+	}
+	
+	
 
 }

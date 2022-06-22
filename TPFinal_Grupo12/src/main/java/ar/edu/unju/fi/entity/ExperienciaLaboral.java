@@ -1,14 +1,40 @@
 package ar.edu.unju.fi.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * Clase que representa la experiencia laboral del postulante
  * 
  * @author Elio
  * @version 1.0
  */
+
+@Entity
+@Table( name = "experiencias")
 public class ExperienciaLaboral {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="EXPERIENCIA_ID")
 	private long experiencia_id;
+	
+	@Column(name = "EXPERIENCIA", length = 140)
+	@NotNull(message = "Debe completar Contraseña")
+	@Size(min=10, max=140)
 	private String experiencia;
+	
+	@ManyToOne()
+	@JoinColumn(name = "CURRICULUM_ID")
+	private Curriculum curriculum;
 
 	/**
 	 * Contructor por defecto

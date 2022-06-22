@@ -1,21 +1,73 @@
 package ar.edu.unju.fi.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * Clase que representa la oferta laboral que se desea registrar
  * 
  * @author Elio
  * @version 1.0
  */
+
+@Entity
+@Table ( name = "ofertas")
 public class OfertaLaboral {
-	private long vacante_id;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="OFERTA_ID")
+	private long oferta_id;
+	
+	
+	@Column(name = "CANT_VACANTES")
+	@NotEmpty(message = "Debe completar Cantidad de Vacantes")	
 	private int cantVacantes;
+	
+	@Column(name = "PUESTO_REQ", length = 50)
+	@NotNull(message = "Debe completar Puesto Requerido")
+	@Size(min=10, max=50)
 	private String puestoRequerido;
+	
+	@Column(name = "PUESTO_REQ", length = 150)
+	@NotNull(message = "Debe completar Resumen de Puesto")
+	@Size(min=10, max=150)
 	private String resumenPuesto;
+	
+	@Column(name = "DISP_HORARIA", length = 15)
+	@NotNull(message = "Debe completar Disponibilidad Horaria")
+	@Size(min=5, max=15)	
 	private String dispHoraria;
+	
+	@Column(name = "PRINC_TAREAS", length = 150)
+	@NotNull(message = "Debe completar Principales Tareas")
+	@Size(min=10, max=150)	
 	private String princTareas;
+	
+	@Column(name = "DATOS_CONTACTO", length = 20)
+	@NotNull(message = "Debe completar Datos de Contacto")
+	@Size(min=5, max=20)
 	private String datosContacto;
+	
+	@Column(name = "JORNADA", length = 15)
+	@NotNull(message = "Debe completar Jornada")
+	@Size(min=5, max=15)
 	private String jornada;
+	
+	@Column(name = "REQUISITOS", length = 100)
+	@NotNull(message = "Debe completar Requisitos")
+	@Size(min=10, max=100)
 	private String requisitos;
+	
+	@Column(name = "EXISTEOFERTA")
+	private boolean existeOferta;
 
 	/**
 	 * Constructor por defecto
@@ -37,10 +89,10 @@ public class OfertaLaboral {
 	 * @param jornada         valor de tipo de jornada de OfertaLaboral
 	 * @param requisitos      valor de requisitos de OfertaLaboral
 	 */
-	public OfertaLaboral(long vacante_id, int cantVacantes, String puestoRequerido, String resumenPuesto,
+	public OfertaLaboral(long oferta_id, int cantVacantes, String puestoRequerido, String resumenPuesto,
 			String dispHoraria, String princTareas, String datosContacto, String jornada, String requisitos) {
 		super();
-		this.vacante_id = vacante_id;
+		this.oferta_id = oferta_id;
 		this.cantVacantes = cantVacantes;
 		this.puestoRequerido = puestoRequerido;
 		this.resumenPuesto = resumenPuesto;
@@ -56,8 +108,8 @@ public class OfertaLaboral {
 	 * 
 	 * @return vacante_id
 	 */
-	public long getVacante_id() {
-		return vacante_id;
+	public long getOferta_id() {
+		return oferta_id;
 	}
 
 	/**
@@ -65,8 +117,8 @@ public class OfertaLaboral {
 	 * 
 	 * @param vacante_id
 	 */
-	public void setVacante_id(long vacante_id) {
-		this.vacante_id = vacante_id;
+	public void setOferta_id(long vacante_id) {
+		this.oferta_id = vacante_id;
 	}
 
 	/**
@@ -212,5 +264,15 @@ public class OfertaLaboral {
 	public void setRequisitos(String requisitos) {
 		this.requisitos = requisitos;
 	}
+
+	public boolean isExisteOferta() {
+		return existeOferta;
+	}
+
+	public void setExisteOferta(boolean existeOferta) {
+		this.existeOferta = existeOferta;
+	}
+	
+	
 
 }
