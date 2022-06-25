@@ -12,6 +12,11 @@ public class IndexController {
 		public String getIndexPage(Model model) {
 			return "index"; 
 		}
+		
+		@GetMapping("/home")
+		public String getHomePage(Model model) {
+			return "home"; 
+		}
 
 	}
 
