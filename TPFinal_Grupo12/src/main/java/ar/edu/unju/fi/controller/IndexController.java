@@ -18,5 +18,9 @@ public class IndexController {
 			return "home"; 
 		}
 
+		@GetMapping("/admin")
+		public String getAdminPage(Model model) {
+			return "admin-acces"; 
+		}
 	}
 
