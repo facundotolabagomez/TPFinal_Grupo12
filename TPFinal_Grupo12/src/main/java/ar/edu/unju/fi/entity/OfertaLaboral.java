@@ -36,7 +36,7 @@ public class OfertaLaboral {
 	@Size(min=10, max=50)
 	private String puestoRequerido;
 	
-	@Column(name = "PUESTO_REQ", length = 150)
+	@Column(name = "RESUMEN_PUESTO", length = 150)
 	@NotNull(message = "Debe completar Resumen de Puesto")
 	@Size(min=10, max=150)
 	private String resumenPuesto;
