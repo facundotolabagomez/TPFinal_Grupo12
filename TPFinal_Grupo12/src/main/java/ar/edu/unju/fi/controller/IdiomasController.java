@@ -16,9 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.entity.Idioma;
-import ar.edu.unju.fi.entity.Provincia;
 import ar.edu.unju.fi.service.IIdiomaService;
-import ar.edu.unju.fi.service.IProvinciaService;
+
 
 @Controller
 @RequestMapping("/idioma")

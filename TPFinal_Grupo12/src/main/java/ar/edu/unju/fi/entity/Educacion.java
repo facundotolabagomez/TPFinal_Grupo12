@@ -27,7 +27,7 @@ public class Educacion {
 	private long educacion_id;
 	
 	@Column(name = "NIVEL_EDUCACION", length = 30)
-	@NotNull(message = "Debe completar Estado Civil")
+	@NotNull(message = "Debe completar Nivel Alcanzado")
 	@Size(min=10, max=30)
 	private String nivelAlcanzado;
 	
