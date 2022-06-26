@@ -49,16 +49,8 @@ public class IdiomasController {
 			return mav;
 		}
 		
-		ModelAndView mavidioma = new ModelAndView("redirect:/idioma/idiomas_lista");
+		ModelAndView mavidioma = new ModelAndView("redirect:/idioma/lista_idio");
 		
-		/*
-		 * List <Curso> curso = null; for(int i=0;i < alumno.getCursos().size();i++) {
-		 * Curso e = new Curso(); e.setCodigo(alumno.getCursos().get(i).getCodigo());
-		 * cursoService.buscarCurso(e.getCodigo(), true); curso.add(e); }
-		 */
-		 
-		//Curso curso = cursoService.buscarCurso(alumno.getCursos().get(alumno.), true);
-		//ListaAlumno listaAlumnos = new ListaAlumno();
 		if (idiomaService.guardarIdioma(idioma)) {
 			LOGGER.info("Se guardo nueva provincia");
 		}
@@ -75,13 +67,13 @@ public class IdiomasController {
 	}
 	
 	
-	/*@GetMapping("/editar/{idioma_id}")
-	public ModelAndView getEditarIdiomaPage(@PathVariable(value="idioma_id")long idioma_id) {
+	@GetMapping("/editar/{nombreIdioma}")
+	public ModelAndView getEditarIdiomaPage(@PathVariable(value="nombreIdioma")String nombreIdioma) {
 		ModelAndView mav = new ModelAndView("edicion_idioma");
 		Idioma idioma = idiomaService.buscarIdioma(nombreIdioma);
 		mav.addObject("idioma",idioma);
 		return mav;
-	}*/
+	}
 	
 	
 	
@@ -97,20 +89,19 @@ public class IdiomasController {
 		
 		ModelAndView mav = new ModelAndView("redirect:/idioma/lista_idio");
 		idiomaService.modificarIdioma(idioma);
-		//mav.addObject("alumno", listaAlumnos.getAlumnos());		
+		mav.addObject("idioma", idiomaService.getListaIdioma());		
 		return mav;
 	} 
 	
 	
 	
-	/*@GetMapping("/eliminar/{idioma_id}")
+	@GetMapping("/eliminar/{idioma_id}")
 	public ModelAndView getEliminarIdiomaPage(@PathVariable(value = "idioma_id") long idioma_id) {
 		ModelAndView mavIdioma = new ModelAndView("redirect:/idioma/lista_idio");
-		idiomaService.eliminarIdioma(idiomaNombre);
+		idiomaService.eliminarIdioma(idioma_id);
 		LOGGER.info("Se eliminó el alumno");
-		//mavAlumno.addObject("candidato", listaAlumnos.getAlumnos());
 		return mavIdioma;
-	}*/
+	}
 	
 }
 	

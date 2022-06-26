@@ -38,10 +38,10 @@ public class IdiomaServiceImpSql implements IIdiomaService {
 	}
 
 	@Override
-	public void eliminarIdioma(String nombreIdioma) {
+	public void eliminarIdioma(long idioma_id) {
 		// TODO Auto-generated method stub
-		Idioma idio = buscarIdioma(nombreIdioma);
-		idiomaRepository.delete(idio);
+		
+		idiomaRepository.deleteById(idioma_id);
 	}
 
 	@Override
