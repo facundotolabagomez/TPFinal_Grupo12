@@ -90,15 +90,14 @@ public class ProvinciasController {
 	} 
 	
 	
-	/*
+	
 	@GetMapping("/eliminar/{provincia_id}")
 	public ModelAndView getEliminarProvinciaPage(@PathVariable(value = "provincia_id") long provincia_id) {
-		ModelAndView mavAlumno = new ModelAndView("redirect:/provincia/lista");
+		ModelAndView mav = new ModelAndView("redirect:/provincia/lista_prov");
 		provinciaService.eliminarProvincia(provincia_id);
 		LOGGER.info("Se eliminó el alumno");
-		//mavAlumno.addObject("candidato", listaAlumnos.getAlumnos());
-		return mavAlumno;
+		return mav;
 	}
-	*/
+	
 }
 	

@@ -38,10 +38,10 @@ public class ProvinciaServiceImpSql implements IProvinciaService {
 	}
 
 	@Override
-	public void eliminarProvincia(String nombreProvincia) {
+	public void eliminarProvincia(long provincia_id) {
 		// TODO Auto-generated method stub
-		Provincia prov = buscarProvincia(nombreProvincia);
-		provinciaRepository.delete(prov);
+		//Provincia prov = buscarProvincia(nombreProvincia);
+		provinciaRepository.deleteById(provincia_id);
 		
 	}
 
