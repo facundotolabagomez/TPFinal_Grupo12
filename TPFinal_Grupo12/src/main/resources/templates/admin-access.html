@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <link type="text/css" rel="stylesheet"
 	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"></link>
-<link type="text/css" rel="stylesheet" href="../css/style.css"></link>
+<link type="text/css" rel="stylesheet" href="../css/styles.css"></link>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
@@ -27,14 +27,17 @@
 <body>
 	<header th:replace="/layouts/headertest::headertest"></header>
 
-	<section class="page-section" id="services">
-		<div class="container">
 
-			<div class="container mt-3">
+
+
+	<section class="page-section bg-light" id="team">
+		<div class="container">
+			<div class="text-center">
+
 				<h2>Seleccione opcion a modificar</h2>
 				<p style="color: red">Recuerde que los cambios realizados aqui
 					se reflejaran en la BD</p>
-					
+
 				<div class="btn-group">
 					<a class="btn btn-primary" href="#" role="button">Empresas</a>
 				</div>
@@ -42,7 +45,7 @@
 					<a class="btn btn-primary" href="#" role="button">Ciudadanos</a>
 				</div>
 				<div class="btn-group">
-					<a class="btn btn-primary" href="#" role="button">Provincias</a>
+					<a class="btn btn-primary" href="provincias_lista" role="button">Provincias</a>
 				</div>
 
 				<div class="btn-group">
@@ -53,9 +56,11 @@
 					<a class="btn btn-primary" href="#" role="button">Curriculum</a>
 				</div>
 			</div>
-
-
 		</div>
+	</section>
+
+
+	</div>
 	</section>
 
 

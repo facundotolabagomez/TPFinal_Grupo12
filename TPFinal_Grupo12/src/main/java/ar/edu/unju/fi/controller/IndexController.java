@@ -20,7 +20,7 @@ public class IndexController {
 
 		@GetMapping("/admin")
 		public String getAdminPage(Model model) {
-			return "admin-acces"; 
+			return "admin-access"; 
 		}
 	}
 
