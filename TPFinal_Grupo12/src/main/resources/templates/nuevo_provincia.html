@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <link type="text/css" rel="stylesheet"
 	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"></link>
-<link type="text/css" rel="stylesheet" href="../css/style.css"></link>
+<link type="text/css" rel="stylesheet" href="../css/styles.css"></link>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
@@ -32,35 +32,35 @@
 			<!--inicio de contenedor row-->
 			<section class="col-md-12" style="margin: auto">
 
-				<form th:action="@{/provinacia/guardar}" method="POST"
+				<form th:action="@{/provincia/guardar}" method="POST"
 					th:object="${provincia}">
 					<header
-						style="background-color: cornflowerblue; margin-top: 1.4%; border-radius: 10px;">
-						<h3>Cargar Provincia</h3>
+						style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
+						<h3> Cargar Provincia</h3>
 					</header>
-
-					
-				<div class="mb-3">
-					<input type="hidden" th:field="*{provincia_id}"/>
-					<label for="provinciaId" class="form-label">ID</label> 
-					<input  th:value="${provincia_id}" type="number" class="form-control" id="provinciaId" disabled="disabled">
-				</div>
-					
 					<div class="mb-3">
-						<label for="NombreProvinciaId" class="form-label">Nombre Provincia</label> <input
-							th:field="*{nombreProvincia}" type="text" class="form-control"
-							id="NombreProvinciaId">
-						<div class="text-danger" th:if="${#fields.hasErrors('nombreProvincia')}"
+						<input type="hidden" th:field="*{provincia_id}" /> <label
+							for="provinciaId" class="form-label">ID</label> <input
+							th:value="${provincia_id}" type="number" class="form-control"
+							id="provinciaId" disabled="disabled">
+					</div>
+
+					<div class="mb-3">
+						<label for="NombreProvinciaId" class="form-label">Nombre
+							Provincia</label> <input th:field="*{nombreProvincia}" type="text"
+							class="form-control" id="NombreProvinciaId">
+						<div class="text-danger"
+							th:if="${#fields.hasErrors('nombreProvincia')}"
 							th:errors="*{nombreProvincia}"></div>
-					</div>					
+					</div>
 
 					<button type="submit" class="btn btn-primary">Enviar</button>
 				</form>
 			</section>
-			</div>
-			
-			</div>		
-	
+		</div>
+
+	</div>
+
 
 
 	<footer th:replace="/layouts/footertest::footertest"></footer>
