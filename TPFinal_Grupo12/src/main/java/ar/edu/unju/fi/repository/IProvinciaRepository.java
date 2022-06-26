@@ -14,4 +14,5 @@ public interface IProvinciaRepository extends JpaRepository<Provincia, Long> {
 	public Provincia findByNombreProvincia(String nombreProvincia);
 	
 	
+	
 }
