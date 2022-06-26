@@ -2,28 +2,24 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="utf-8">
-<link type="text/css" rel="stylesheet"
-	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"></link>
+<link type="text/css" rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"></link>
 <link type="text/css" rel="stylesheet" href="../css/styles.css"></link>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>empleAR - Nueva Provincia</title>
+<title>empleAR - Edicion Provincia</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="../assets/LogoIcono.ico" />
 <!-- Font Awesome icons (free version)-->
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"></script>
 <!-- Google fonts-->
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
-	rel="stylesheet" type="text/css" />
-<link
-	href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"
-	rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"	rel="stylesheet" type="text/css" />
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <!-- <link href="../css/styles.css" rel="stylesheet" /> -->
-<title>Inicio</title>
+
 </head>
+
 <body>
 	<header th:replace="/layouts/headertest::headertest"></header>
 
@@ -32,29 +28,25 @@
 			<!--inicio de contenedor row-->
 			<section class="col-md-12" style="margin: auto">
 
-				<form th:action="@{/provincia/guardar}" method="POST"
-					th:object="${provincia}">
-					<header
-						style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
-						<h3> Cargar Provincia</h3>
+				<form th:action="@{/provincia/modificar}" method="POST" th:object="${provincia}">
+					<header	style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
+						<h3> Editar Provincia</h3>
 					</header>
 					<div class="mb-3">
-						<input type="hidden" th:field="*{provincia_id}" /> <label
-							for="provinciaId" class="form-label">ID</label> <input
-							th:value="${provincia_id}" type="number" class="form-control"
-							id="provinciaId" disabled="disabled">
+						<label for="provinciaId" class="form-label">ID</label> 
+						<input th:field="*{provincia_id}" type="hidden" class="form-control"> 
+						<input th:value="${provincia_id}" type="number" class="form-control" id="provinciaId" disabled="disabled">
 					</div>
 
 					<div class="mb-3">
-						<label for="NombreProvinciaId" class="form-label">Nombre
-							Provincia</label> <input th:field="*{nombreProvincia}" type="text"
-							class="form-control" id="NombreProvinciaId">
-						<div class="text-danger"
-							th:if="${#fields.hasErrors('nombreProvincia')}"
-							th:errors="*{nombreProvincia}"></div>
+						<label for="NombreProvinciaId" class="form-label">Nombre Provincia</label> 
+						<input th:field="*{nombreProvincia}" type="text" class="form-control" id="NombreProvinciaId">
+						<div class="text-danger" th:if="${#fields.hasErrors('nombreProvincia')}" th:errors="*{nombreProvincia}"></div>
 					</div>
 
-					<button type="submit" class="btn btn-primary">Enviar</button>
+					<button class="btn btn-primary" type="submit">Editar</button>
+					<a th:href="@{/provincia/lista_prov}" id="cancel" class="btn btn-secondary">Cancelar</a>
+					
 				</form>
 			</section>
 		</div>
@@ -66,10 +58,8 @@
 	<footer th:replace="/layouts/footertest::footertest"></footer>
 
 	<script src="/webjars/jquery/jquery.min.js" type="text/javascript"></script>
-	<script src="/webjars/popper.js/umd/popper.min.js"
-		type="text/javascript"></script>
-	<script src="/webjars/bootstrap/js/bootstrap.min.js"
-		type="text/javascript"></script>
+	<script src="/webjars/popper.js/umd/popper.min.js" type="text/javascript"></script>
+	<script src="/webjars/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
 	<!-- Bootstrap core JS-->
 	<script

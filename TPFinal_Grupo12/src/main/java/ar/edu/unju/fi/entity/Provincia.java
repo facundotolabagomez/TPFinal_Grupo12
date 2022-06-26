@@ -31,13 +31,13 @@ public class Provincia {
 	@OneToMany(
 			mappedBy = "provincia", 
 			cascade = CascadeType.ALL, 
-			orphanRemoval = true)
+			orphanRemoval = false)
 	private List<Ciudadano> ciudadanos;
 	
 	@OneToMany(
 			mappedBy = "provincia", 
 			cascade = CascadeType.ALL, 
-			orphanRemoval = true)
+			orphanRemoval = false)
 	private List<Empleador> empleadores;
 	
 	

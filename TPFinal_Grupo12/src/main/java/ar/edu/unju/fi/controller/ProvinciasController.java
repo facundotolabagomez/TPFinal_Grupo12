@@ -49,14 +49,6 @@ public class ProvinciasController {
 		
 		ModelAndView mavprovincia = new ModelAndView("redirect:/provincia/lista_prov");
 		
-		/*
-		 * List <Curso> curso = null; for(int i=0;i < alumno.getCursos().size();i++) {
-		 * Curso e = new Curso(); e.setCodigo(alumno.getCursos().get(i).getCodigo());
-		 * cursoService.buscarCurso(e.getCodigo(), true); curso.add(e); }
-		 */
-		 
-		//Curso curso = cursoService.buscarCurso(alumno.getCursos().get(alumno.), true);
-		//ListaAlumno listaAlumnos = new ListaAlumno();
 		if (provinciaService.guardarProvincia(provincia)) {
 			LOGGER.info("Se guardo nueva provincia");
 		}
@@ -72,17 +64,17 @@ public class ProvinciasController {
 		return "provincias_lista";
 	}
 	
-	/*
-	@GetMapping("/editar/{provincia_id}")
-	public ModelAndView getEditarAlumnoPage(@PathVariable(value="provincia_id")long provincia_id) {
+	
+	@GetMapping("/editar/{nombreProvincia}")
+	public ModelAndView getEditarProvinciaPage(@PathVariable(value="nombreProvincia")String nombreProvincia) {
 		ModelAndView mav = new ModelAndView("edicion_provincia");
-		Alumno alumno = alumnoService.buscarAlumno(dni);
-		mav.addObject("alumno",alumno);
+		Provincia provincia = provinciaService.buscarProvincia(nombreProvincia);
+		mav.addObject("provincia",provincia);
 		return mav;
 	}
-	*/
 	
-	/*
+	
+	
 	@PostMapping("/modificar")
 	public ModelAndView editarDatosProvincia(@Validated @ModelAttribute("provincia") Provincia provincia, BindingResult bindingResult ) {
 		if(bindingResult.hasErrors()) {
@@ -91,13 +83,11 @@ public class ProvinciasController {
 			mav.addObject("provincia", provincia);
 			return mav;
 		}
-		
-		
-		ModelAndView mav = new ModelAndView("redirect:/provincia/lista");
-		provinciaService.modificarAlumno(provincia);
-		//mav.addObject("alumno", listaAlumnos.getAlumnos());		
+		ModelAndView mav = new ModelAndView("redirect:/provincia/lista_prov");
+		provinciaService.modificarProvincia(provincia);
+		mav.addObject("provincia", provinciaService.getListaProvincia());
 		return mav;
-	} */
+	} 
 	
 	
 	/*
