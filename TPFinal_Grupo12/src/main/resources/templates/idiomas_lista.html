@@ -9,7 +9,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>empleAR - Sitio Oficial</title>
+<title>empleAR - Lista Idiomas</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="../assets/LogoIcono.ico" />
 <!-- Font Awesome icons (free version)-->
@@ -22,7 +22,7 @@
 	rel="stylesheet" type="text/css" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <!-- <link href="../css/styles.css" rel="stylesheet" /> -->
-<title>Inicio</title>
+
 </head>
 <body>
 	<header th:replace="/layouts/headertest::headertest"></header>
@@ -30,7 +30,7 @@
 		<div class="container bg-light">
 	<div class="row"> <!--inicio de contenedor row-->
 	<section class="col-md-12" style="margin: auto">	
-	<header style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;"><h3> Editar Provincia</h3></header><br>
+	<header style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;"><h3> Lista Idiomas</h3></header><br>
 	<div><a th:href="@{/idioma/nuevo_idioma}" id="nuevo" class="btn btn-primary">Nuevo Idioma</a></div><br>
 			<div class="col-12 d-flex justify-content-center">
 				<table class="table table-striped table-hover">
@@ -42,7 +42,7 @@
 							<td th:text="${idioma.idioma_id}"></td>
 							<td th:text="${idioma.nombreIdioma}"></td>													
 							<td>
-							<a th:href="@{/idioma/editar/}+${idioma.idioma_id}" id="editarIdioma" class="btn btn-warning">Editar</a>
+							<a th:href="@{/idioma/editar/}+${idioma.nombreIdioma}" id="editarIdioma" class="btn btn-warning">Editar</a>
 							<a th:href="@{/idioma/eliminar/}+${idioma.idioma_id}" id="eliminarIdioma" class="btn btn-danger">Eliminar</a>
 							</td>
 						</tr>

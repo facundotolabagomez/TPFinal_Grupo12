@@ -42,7 +42,7 @@ public class Provincia {
 	
 	
 	@Column(name = "NOMBRE_PROVINCIA", length = 20)
-	@NotNull(message = "Debe Ingresar Contraseña")
+	@NotNull(message = "Debe Ingresar el nombre")
 	@Size(min=5, max=20)
 	private String nombreProvincia;
 

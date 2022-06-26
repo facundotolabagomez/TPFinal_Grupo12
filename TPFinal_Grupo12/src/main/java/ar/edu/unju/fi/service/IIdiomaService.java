@@ -10,7 +10,7 @@ public interface IIdiomaService {
 	public Idioma getIdioma();
 	public boolean guardarIdioma(Idioma idioma);
 	public void modificarIdioma (Idioma idioma);
-	public void eliminarIdioma (String nombreIdioma);
+	public void eliminarIdioma (long idioma_id);
 	public List<Idioma> getListaIdioma();
 	public Idioma buscarIdioma(String nombreIdioma);
 
