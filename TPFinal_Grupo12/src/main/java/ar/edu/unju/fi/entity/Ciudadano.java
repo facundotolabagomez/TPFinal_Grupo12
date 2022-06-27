@@ -39,9 +39,15 @@ public class Ciudadano {
 	@Min(value=999999, message = "DNI No valido")
 	private int dni;
 	
-	@Column(name = "NUMERO_TRAMITE", length = 11)
-	@Min(value=999999999, message = "Numero de Tramite No Valido")
-	private long numeroTramite;
+	@Column(name = "NOMBRES", length = 40)
+	@NotNull(message = "Debe completar Nombres")
+	@Size(min=5, max=40)	
+	private String nombresCiudadano;
+	
+	@Column(name = "APELLIDO", length = 20)
+	@NotNull(message = "Debe completar Apellido")
+	@Size(min=3, max=20)	
+	private String apellidoCiudadano;
 	
 	@Column(name = "ESTADO_CIVIL", length = 15)
 	@NotNull(message = "Debe completar Estado Civil")
@@ -95,12 +101,13 @@ public class Ciudadano {
 	 * @param pasword       valor de password registrada de Ciudadano
 	 * @param curriculum    valor de tipo Curriculum de Ciudadano
 	 */
-	public Ciudadano(long ciudadano_id, int dni, long numeroTramite, String estadoCivil, Provincia provincia,
+	public Ciudadano(long ciudadano_id, int dni, String nombresCiudadano,String apellidoCiudadano, String estadoCivil, Provincia provincia,
 			String telefono, LocalDate fechaNac, String password, Curriculum curriculum) {
 		super();
 		this.ciudadano_id = ciudadano_id;
 		this.dni = dni;
-		this.numeroTramite = numeroTramite;
+		this.nombresCiudadano = nombresCiudadano;
+		this.apellidoCiudadano = apellidoCiudadano;
 		this.estadoCivil = estadoCivil;
 		this.provincia = provincia;
 		this.telefono = telefono;
@@ -152,22 +159,24 @@ public class Ciudadano {
 		this.dni = dni;
 	}
 
-	/**
-	 * Devuelve el numero de tramite de Ciudadano
-	 * 
-	 * @return numeroTramite
-	 */
-	public long getNumeroTramite() {
-		return numeroTramite;
+	
+
+	public String getNombresCiudadano() {
+		return nombresCiudadano;
 	}
 
-	/**
-	 * Asigna un valor al numero de tramite de Ciudadano
-	 * 
-	 * @param numeroTramite
-	 */
-	public void setNumeroTramite(long numeroTramite) {
-		this.numeroTramite = numeroTramite;
+	public void setNombresCiudadano(String nombresCiudadano) {
+		this.nombresCiudadano = nombresCiudadano;
+	}
+	
+	
+
+	public String getApellidoCiudadano() {
+		return apellidoCiudadano;
+	}
+
+	public void setApellidoCiudadano(String apellidoCiudadano) {
+		this.apellidoCiudadano = apellidoCiudadano;
 	}
 
 	/**
