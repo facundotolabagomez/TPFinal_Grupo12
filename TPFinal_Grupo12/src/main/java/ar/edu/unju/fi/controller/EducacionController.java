@@ -30,7 +30,7 @@ public class EducacionController {
 	
 	@GetMapping("/nuevo_educ")
 	public String getFormEducacionPage(Model model) {
-		model.addAttribute("educacion", educacionService.getListaEducacion());
+		model.addAttribute("educacion", educacionService.getEducacion());
 		return "nuevo_educacion";
 	}
 

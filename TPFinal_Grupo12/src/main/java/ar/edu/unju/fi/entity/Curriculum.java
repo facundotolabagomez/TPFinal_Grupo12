@@ -39,19 +39,19 @@ public class Curriculum {
 	@OneToMany(
 			mappedBy = "curriculum", 
 			cascade = CascadeType.ALL, 
-			orphanRemoval = true)
+			orphanRemoval = false)
 	private List<ExperienciaLaboral> expLaboral;
 	
 	@OneToMany(
 			mappedBy = "curriculum", 
 			cascade = CascadeType.ALL, 
-			orphanRemoval = true)
+			orphanRemoval = false)
 	private List<Educacion> educacion;
 	
 	@OneToMany(
 			mappedBy = "curriculum", 
 			cascade = CascadeType.ALL, 
-			orphanRemoval = true)
+			orphanRemoval = false)
 	private List<Idioma> idioma;
 	
 	@Column(name = "CONOC_INFOR", length = 50)

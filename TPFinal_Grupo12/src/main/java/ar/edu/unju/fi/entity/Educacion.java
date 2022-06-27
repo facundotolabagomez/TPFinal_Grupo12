@@ -1,5 +1,8 @@
 package ar.edu.unju.fi.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -31,9 +35,11 @@ public class Educacion {
 	@Size(min=5, max=30)
 	private String nivelAlcanzado;
 	
-	@ManyToOne()
-	@JoinColumn(name = "CURRICULUM_ID")
-	private Curriculum curriculum;
+	@OneToMany(
+			mappedBy = "educacion", 
+			cascade = CascadeType.ALL, 
+			orphanRemoval = false)
+	private List <Curriculum> curriculum;
 	
 	/**
 	 * Constructor por defecto
@@ -92,6 +98,14 @@ public class Educacion {
 	 */
 	public void setNivelAlcanzado(String nivelAlcanzado) {
 		this.nivelAlcanzado = nivelAlcanzado;
+	}
+
+	public List<Curriculum> getCurriculum() {
+		return curriculum;
+	}
+
+	public void setCurriculum(List<Curriculum> curriculum) {
+		this.curriculum = curriculum;
 	}
 	
 	
