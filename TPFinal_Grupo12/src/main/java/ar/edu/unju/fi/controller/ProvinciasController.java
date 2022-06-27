@@ -31,13 +31,10 @@ public class ProvinciasController {
 	
 	@GetMapping("/nuevo_prov")
 	public String getFormProvinciaPage(Model model) {
-		//System.out.println(cursoService.getListaCurso().size());
-		//model.addAttribute("curso", cursoService.getListaCurso());
 		model.addAttribute("provincia", provinciaService.getProvincia());
 		return "nuevo_provincia";
 	}
 
-	
 	@PostMapping("/guardar")
 	public ModelAndView getListaProvinciaPage(@Validated @ModelAttribute("provincia")Provincia provincia, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -46,15 +43,12 @@ public class ProvinciasController {
 			mav.addObject("provincia", provincia);
 			return mav;
 		}
-		
 		ModelAndView mavprovincia = new ModelAndView("redirect:/provincia/lista_prov");
-		
 		if (provinciaService.guardarProvincia(provincia)) {
 			LOGGER.info("Se guardo nueva provincia");
 		}
 		mavprovincia.addObject("provincia", provinciaService.getListaProvincia());
 		return mavprovincia; 
-		
 	} 
 	
 	@GetMapping("/lista_prov")
@@ -85,19 +79,17 @@ public class ProvinciasController {
 		}
 		ModelAndView mav = new ModelAndView("redirect:/provincia/lista_prov");
 		provinciaService.modificarProvincia(provincia);
+		LOGGER.info("Se modificó la provincia");
 		mav.addObject("provincia", provinciaService.getListaProvincia());
 		return mav;
 	} 
-	
-	
 	
 	@GetMapping("/eliminar/{provincia_id}")
 	public ModelAndView getEliminarProvinciaPage(@PathVariable(value = "provincia_id") long provincia_id) {
 		ModelAndView mav = new ModelAndView("redirect:/provincia/lista_prov");
 		provinciaService.eliminarProvincia(provincia_id);
-		LOGGER.info("Se eliminó el alumno");
+		LOGGER.info("Se eliminó la provincia");
 		return mav;
 	}
-	
-}
+}	
 	

@@ -28,7 +28,7 @@ public class Educacion {
 	
 	@Column(name = "NIVEL_EDUCACION", length = 30)
 	@NotNull(message = "Debe completar Nivel Alcanzado")
-	@Size(min=10, max=30)
+	@Size(min=5, max=30)
 	private String nivelAlcanzado;
 	
 	@ManyToOne()
