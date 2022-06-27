@@ -27,18 +27,14 @@ public class IdiomasController {
 	@Qualifier("IdiomaServiceImpSql")
 	private IIdiomaService idiomaService;
 
-	
-	private static final Log LOGGER = LogFactory.getLog(ProvinciasController.class);
+	private static final Log LOGGER = LogFactory.getLog(IdiomasController.class);
 	
 	@GetMapping("/nuevo_idioma")
 	public String getFormIdiomaPage(Model model) {
-		//System.out.println(cursoService.getListaCurso().size());
-		//model.addAttribute("curso", cursoService.getListaCurso());
 		model.addAttribute("idioma", idiomaService.getIdioma());
 		return "nuevo_idioma";
 	}
 
-	
 	@PostMapping("/guardar")
 	public ModelAndView getListaIdiomaPage(@Validated @ModelAttribute("idioma")Idioma idioma, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -47,24 +43,19 @@ public class IdiomasController {
 			mav.addObject("idioma", idioma);
 			return mav;
 		}
-		
 		ModelAndView mavidioma = new ModelAndView("redirect:/idioma/lista_idio");
-		
 		if (idiomaService.guardarIdioma(idioma)) {
-			LOGGER.info("Se guardo nueva provincia");
+			LOGGER.info("Se guardó nuevo idioma");
 		}
 		mavidioma.addObject("idioma", idiomaService.getListaIdioma());
 		return mavidioma; 
-		
 	} 
 	
 	@GetMapping("/lista_idio")
 	public String getListaIdiomasPage(Model model) {
-		//ListaAlumno listaAlumnos = new ListaAlumno();
 		model.addAttribute("idioma", idiomaService.getListaIdioma());
 		return "idiomas_lista";
 	}
-	
 	
 	@GetMapping("/editar/{nombreIdioma}")
 	public ModelAndView getEditarIdiomaPage(@PathVariable(value="nombreIdioma")String nombreIdioma) {
@@ -74,8 +65,6 @@ public class IdiomasController {
 		return mav;
 	}
 	
-	
-	
 	@PostMapping("/modificar")
 	public ModelAndView editarDatosIdioma(@Validated @ModelAttribute("idioma") Idioma idioma, BindingResult bindingResult ) {
 		if(bindingResult.hasErrors()) {
@@ -84,24 +73,20 @@ public class IdiomasController {
 			mav.addObject("idioma", idioma);
 			return mav;
 		}
-		
-		
 		ModelAndView mav = new ModelAndView("redirect:/idioma/lista_idio");
 		idiomaService.modificarIdioma(idioma);
+		LOGGER.info("Se modificó el idioma");
 		mav.addObject("idioma", idiomaService.getListaIdioma());		
 		return mav;
 	} 
-	
-	
 	
 	@GetMapping("/eliminar/{idioma_id}")
 	public ModelAndView getEliminarIdiomaPage(@PathVariable(value = "idioma_id") long idioma_id) {
 		ModelAndView mavIdioma = new ModelAndView("redirect:/idioma/lista_idio");
 		idiomaService.eliminarIdioma(idioma_id);
-		LOGGER.info("Se eliminó el alumno");
+		LOGGER.info("Se eliminó el idioma");
 		return mavIdioma;
 	}
-	
 }
 	
 

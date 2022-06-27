@@ -28,7 +28,7 @@ public class Idioma {
 	
 	@Column(name = "NOMBRE_IDIOMA", length = 15)
 	@NotNull(message = "Debe completar Idioma")
-	@Size(min=5, max=15)	
+	@Size(min=3, max=15)	
 	private String nombreIdioma;
 	
 	@ManyToOne()
