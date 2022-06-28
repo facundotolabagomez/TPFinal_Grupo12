@@ -42,6 +42,11 @@ public class Ciudadano {
 	@Min(value=999999, message = "DNI No valido")
 	private int dni;
 	
+	@Column(name = "NUMERO_TRAMITE", length = 11)
+	@Min(value=999999999, message = "Numero de Tramite No valido")
+	private long numeroTramite;
+	
+	
 	@Column(name = "NOMBRES", length = 40)
 	@NotNull(message = "Debe completar Nombres")
 	@Size(min=5, max=40)	
@@ -78,7 +83,7 @@ public class Ciudadano {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "CURRICULUM_ID")
-	@NotNull (message= "Debe Seleccionar el Curriculum")
+	//@NotNull (message= "Debe Seleccionar el Curriculum")
 	private Curriculum curriculum;
 	
 	@ManyToMany(cascade=CascadeType.ALL)
@@ -316,6 +321,15 @@ public class Ciudadano {
 	public void setOfertas(List<OfertaLaboral> ofertas) {
 		this.ofertas = ofertas;
 	}
+
+	public long getNumeroTramite() {
+		return numeroTramite;
+	}
+
+	public void setNumeroTramite(long numeroTramite) {
+		this.numeroTramite = numeroTramite;
+	}
+	
 	
 	
 	
