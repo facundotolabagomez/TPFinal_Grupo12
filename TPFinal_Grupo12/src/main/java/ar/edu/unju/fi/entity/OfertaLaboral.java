@@ -1,10 +1,15 @@
 package ar.edu.unju.fi.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -66,6 +71,13 @@ public class OfertaLaboral {
 	@Size(min=10, max=100)
 	private String requisitos;
 	
+	@ManyToOne()
+	@JoinColumn(name = "EMPLEADOR_ID")	
+	private Empleador empleador;
+	
+	@ManyToMany(mappedBy="ofertas")
+	private List<Ciudadano> ciudadano;
+	
 	@Column(name = "EXISTEOFERTA")
 	private boolean existeOferta;
 
@@ -90,7 +102,7 @@ public class OfertaLaboral {
 	 * @param requisitos      valor de requisitos de OfertaLaboral
 	 */
 	public OfertaLaboral(long oferta_id, int cantVacantes, String puestoRequerido, String resumenPuesto,
-			String dispHoraria, String princTareas, String datosContacto, String jornada, String requisitos) {
+			String dispHoraria, String princTareas, String datosContacto, String jornada,Empleador empleador, String requisitos,List<Ciudadano> ciudadano, boolean existeOferta) {
 		super();
 		this.oferta_id = oferta_id;
 		this.cantVacantes = cantVacantes;
@@ -100,7 +112,10 @@ public class OfertaLaboral {
 		this.princTareas = princTareas;
 		this.datosContacto = datosContacto;
 		this.jornada = jornada;
+		this.empleador = empleador;
 		this.requisitos = requisitos;
+		this.ciudadano = ciudadano;
+		this.existeOferta = existeOferta;
 	}
 
 	/**
@@ -272,6 +287,23 @@ public class OfertaLaboral {
 	public void setExisteOferta(boolean existeOferta) {
 		this.existeOferta = existeOferta;
 	}
+
+	public Empleador getEmpleador() {
+		return empleador;
+	}
+
+	public void setEmpleador(Empleador empleador) {
+		this.empleador = empleador;
+	}
+
+	public List<Ciudadano> getCiudadano() {
+		return ciudadano;
+	}
+
+	public void setCiudadano(List<Ciudadano> ciudadano) {
+		this.ciudadano = ciudadano;
+	}
+	
 	
 	
 

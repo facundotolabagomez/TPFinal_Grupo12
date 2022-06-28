@@ -1,8 +1,9 @@
 package ar.edu.unju.fi.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -87,6 +89,12 @@ public class Empleador {
 	@Size(min=10, max=140)
 	private String descripcion;
 	
+	@OneToMany(
+			mappedBy = "curriculum", 
+			cascade = CascadeType.ALL, 
+			orphanRemoval = false)
+	private List<OfertaLaboral> oferLaboral;
+	
 	@Column(name = "EXISTEEMPLEADOR")
 	private boolean existeEmpleador;
 
@@ -115,7 +123,7 @@ public class Empleador {
 	 */
 	public Empleador(long empleador_id, String cuit, String password, String razonSocial, String nombreComercial,
 			LocalDate inicioActividad, String email, String telefono, String domicilio, Provincia provincia,
-			String pagWeb, String descripcion) {
+			String pagWeb, String descripcion,List<OfertaLaboral> oferLaboral, boolean existeEmpleador) {
 		super();
 		this.empleador_id = empleador_id;
 		this.cuit = cuit;
@@ -127,8 +135,10 @@ public class Empleador {
 		this.telefono = telefono;
 		this.domicilio = domicilio;
 		this.provincia = provincia;
-		this.pagWeb = pagWeb;
+		this.pagWeb = pagWeb;		
 		this.descripcion = descripcion;
+		this.oferLaboral=oferLaboral;
+		this.existeEmpleador = existeEmpleador;
 	}
 
 	/**
@@ -353,6 +363,14 @@ public class Empleador {
 
 	public void setExisteEmpleador(boolean existeEmpleador) {
 		this.existeEmpleador = existeEmpleador;
+	}
+
+	public List<OfertaLaboral> getOferLaboral() {
+		return oferLaboral;
+	}
+
+	public void setOferLaboral(List<OfertaLaboral> oferLaboral) {
+		this.oferLaboral = oferLaboral;
 	}
 	
 	

@@ -1,6 +1,7 @@
 package ar.edu.unju.fi.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -78,6 +81,15 @@ public class Ciudadano {
 	@NotNull (message= "Debe Seleccionar el Curriculum")
 	private Curriculum curriculum;
 	
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(
+			name= "rel_ciudadanos_ofertaslab",
+			joinColumns= {@JoinColumn(name="CIUDADANO_ID")},
+			inverseJoinColumns= {@JoinColumn(name="OFERTA_ID")}
+			)
+	
+	private List <OfertaLaboral> ofertas;
+	
 	@Column(name = "EXISTECIUDADANO")
 	private boolean existeCiudadano;
 
@@ -102,7 +114,7 @@ public class Ciudadano {
 	 * @param curriculum    valor de tipo Curriculum de Ciudadano
 	 */
 	public Ciudadano(long ciudadano_id, int dni, String nombresCiudadano,String apellidoCiudadano, String estadoCivil, Provincia provincia,
-			String telefono, LocalDate fechaNac, String password, Curriculum curriculum) {
+			String telefono, LocalDate fechaNac, String password, Curriculum curriculum,List <OfertaLaboral> ofertas,boolean existeCiudadano) {
 		super();
 		this.ciudadano_id = ciudadano_id;
 		this.dni = dni;
@@ -114,6 +126,8 @@ public class Ciudadano {
 		this.fechaNac = fechaNac;
 		this.password = password;
 		this.curriculum = curriculum;
+		this.ofertas = ofertas;
+		this.existeCiudadano = existeCiudadano; 
 		
 	}
 
@@ -294,6 +308,15 @@ public class Ciudadano {
 	public void setExisteCiudadano(boolean existeCiudadano) {
 		this.existeCiudadano = existeCiudadano;
 	}
+
+	public List<OfertaLaboral> getOfertas() {
+		return ofertas;
+	}
+
+	public void setOfertas(List<OfertaLaboral> ofertas) {
+		this.ofertas = ofertas;
+	}
+	
 	
 	
 
