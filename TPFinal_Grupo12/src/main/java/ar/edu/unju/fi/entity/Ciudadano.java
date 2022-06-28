@@ -95,6 +95,9 @@ public class Ciudadano {
 	
 	private List <OfertaLaboral> ofertas;
 	
+	@ManyToMany(mappedBy="empleadores")
+	private List<Empleador> empleador;
+	
 	@Column(name = "EXISTECIUDADANO")
 	private boolean existeCiudadano;
 
