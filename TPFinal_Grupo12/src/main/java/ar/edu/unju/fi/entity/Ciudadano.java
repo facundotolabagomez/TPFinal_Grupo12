@@ -43,13 +43,13 @@ public class Ciudadano {
 	private int dni;
 	
 	@Column(name = "NUMERO_TRAMITE", length = 11)
-	@Min(value=999999999, message = "Numero de Tramite No valido")
+	//@Min(value=999999999, message = "Numero de Tramite No valido")
 	private long numeroTramite;
 	
 	
 	@Column(name = "NOMBRES", length = 40)
 	@NotNull(message = "Debe completar Nombres")
-	@Size(min=5, max=40)	
+	@Size(min=2, max=40)	
 	private String nombresCiudadano;
 	
 	@Column(name = "APELLIDO", length = 20)
@@ -95,8 +95,8 @@ public class Ciudadano {
 	
 	private List <OfertaLaboral> ofertas;
 	
-	@ManyToMany(mappedBy="empleadores")
-	private List<Empleador> empleador;
+	@ManyToMany(mappedBy="ciudadanos")
+	private List<Empleador> empleadores;
 	
 	@Column(name = "EXISTECIUDADANO")
 	private boolean existeCiudadano;

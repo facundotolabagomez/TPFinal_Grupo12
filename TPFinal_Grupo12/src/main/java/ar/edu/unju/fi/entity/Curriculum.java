@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -42,17 +43,15 @@ public class Curriculum {
 			orphanRemoval = false)
 	private List<ExperienciaLaboral> expLaboral;
 	
-	@OneToMany(
-			mappedBy = "curriculum", 
-			cascade = CascadeType.ALL, 
-			orphanRemoval = false)
-	private List<Educacion> educacion;
+	@ManyToOne()
+	@JoinColumn(name = "EDUCACION_ID")
+	private Educacion educacion;
 	
 	@OneToMany(
 			mappedBy = "curriculum", 
 			cascade = CascadeType.ALL, 
 			orphanRemoval = false)
-	private List<Idioma> idioma;
+	private List<Idioma> idiomas;
 	
 	@Column(name = "CONOC_INFOR", length = 50)
 	@NotNull(message = "Debe completar Conocimientos Informaticos")
@@ -86,14 +85,14 @@ public class Curriculum {
 	 * @param conocInfor    valor de conociemientos informaticos de Curriculum
 	 * @param infoComplem   valor de informacion complementaria de Curriculum
 	 */
-	public Curriculum(long curriculum_id, Ciudadano ciudadano, List<ExperienciaLaboral> expLaboral, List<Educacion> educacion,
-			List<Idioma> idioma, String conocInfor, String infoComplem) {
+	public Curriculum(long curriculum_id, Ciudadano ciudadano, List<ExperienciaLaboral> expLaboral, Educacion educacion,
+			List<Idioma> idiomas, String conocInfor, String infoComplem) {
 		super();
 		this.curriculum_id = curriculum_id;
 		this.ciudadano = ciudadano;
 		this.expLaboral = expLaboral;
 		this.educacion = educacion;
-		this.idioma = idioma;
+		this.idiomas = idiomas;
 		this.conocInfor = conocInfor;
 		this.infoComplem = infoComplem;
 	}
@@ -161,7 +160,7 @@ public class Curriculum {
 	 * 
 	 * @return educacion
 	 */
-	public List<Educacion> getEducacion() {
+	public Educacion getEducacion() {
 		return educacion;
 	}
 
@@ -170,7 +169,7 @@ public class Curriculum {
 	 * 
 	 * @param educacion
 	 */
-	public void setEducacion(List<Educacion> educacion) {
+	public void setEducacion(Educacion educacion) {
 		this.educacion = educacion;
 	}
 
@@ -179,8 +178,8 @@ public class Curriculum {
 	 * 
 	 * @return idioma
 	 */
-	public List<Idioma> getIdioma() {
-		return idioma;
+	public List<Idioma> getIdiomas() {
+		return idiomas;
 	}
 
 	/**
@@ -188,8 +187,8 @@ public class Curriculum {
 	 * 
 	 * @param idioma
 	 */
-	public void setIdioma(List<Idioma> idioma) {
-		this.idioma = idioma;
+	public void setIdiomas(List<Idioma> idioma) {
+		this.idiomas = idioma;
 	}
 
 	/**

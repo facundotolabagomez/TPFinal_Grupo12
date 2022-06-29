@@ -92,10 +92,10 @@ public class Empleador {
 	private String descripcion;
 	
 	@OneToMany(
-			mappedBy = "curriculum", 
+			mappedBy = "empleador", 
 			cascade = CascadeType.ALL, 
 			orphanRemoval = false)
-	private List<OfertaLaboral> oferLaboral;
+	private List<OfertaLaboral> oferLaborales;
 	
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(
@@ -104,7 +104,7 @@ public class Empleador {
 			inverseJoinColumns= {@JoinColumn(name="CIUDADANO_ID")}
 			)
 	
-	private List <Ciudadano> ciudadano;
+	private List <Ciudadano> ciudadanos;
 	
 	@Column(name = "EXISTEEMPLEADOR")
 	private boolean existeEmpleador;
@@ -134,7 +134,7 @@ public class Empleador {
 	 */
 	public Empleador(long empleador_id, String cuit, String password, String razonSocial, String nombreComercial,
 			LocalDate inicioActividad, String email, String telefono, String domicilio, Provincia provincia,
-			String pagWeb, String descripcion,List<OfertaLaboral> oferLaboral, boolean existeEmpleador) {
+			String pagWeb, String descripcion,List<OfertaLaboral> oferLaborales, boolean existeEmpleador) {
 		super();
 		this.empleador_id = empleador_id;
 		this.cuit = cuit;
@@ -148,7 +148,7 @@ public class Empleador {
 		this.provincia = provincia;
 		this.pagWeb = pagWeb;		
 		this.descripcion = descripcion;
-		this.oferLaboral=oferLaboral;
+		this.oferLaborales=oferLaborales;
 		this.existeEmpleador = existeEmpleador;
 	}
 
@@ -376,12 +376,12 @@ public class Empleador {
 		this.existeEmpleador = existeEmpleador;
 	}
 
-	public List<OfertaLaboral> getOferLaboral() {
-		return oferLaboral;
+	public List<OfertaLaboral> getOferLaborales() {
+		return oferLaborales;
 	}
 
-	public void setOferLaboral(List<OfertaLaboral> oferLaboral) {
-		this.oferLaboral = oferLaboral;
+	public void setOferLaboral(List<OfertaLaboral> oferLaborales) {
+		this.oferLaborales = oferLaborales;
 	}
 	
 	

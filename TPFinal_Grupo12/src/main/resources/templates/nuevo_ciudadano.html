@@ -108,7 +108,7 @@
 
 					<div class="mb-3">
 						<label for="CiudadanoPassword" class="form-label">PASSWORD</label>
-						<input th:field="*{password}" type="text" class="form-control"
+						<input th:field="*{password}" type="password" class="form-control"
 							id="CiudadanoPassword">
 						<div class="text-danger" th:if="${#fields.hasErrors('password')}"
 							th:errors="*{password}"></div>
@@ -116,7 +116,7 @@
 
 
 					<button type="submit" class="btn btn-primary">Registrarme</button>
-					<a th:href="@{empleos/inicio}" id="cancel" class="btn btn-secondary">Cancelar</a>
+					<a th:href="@{/empleos/inicio}" id="cancel" class="btn btn-secondary">Cancelar</a>
 				</form>
 			</section>
 		</div>

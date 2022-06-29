@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -34,12 +32,13 @@ public class Educacion {
 	@NotNull(message = "Debe completar Nivel Alcanzado")
 	@Size(min=5, max=30)
 	private String nivelAlcanzado;
+		
 	
 	@OneToMany(
 			mappedBy = "educacion", 
 			cascade = CascadeType.ALL, 
 			orphanRemoval = false)
-	private List <Curriculum> curriculum;
+	private List <Curriculum> curriculums;
 	
 	/**
 	 * Constructor por defecto
@@ -100,12 +99,12 @@ public class Educacion {
 		this.nivelAlcanzado = nivelAlcanzado;
 	}
 
-	public List<Curriculum> getCurriculum() {
-		return curriculum;
+	public List<Curriculum> getCurriculums() {
+		return curriculums;
 	}
 
 	public void setCurriculum(List<Curriculum> curriculum) {
-		this.curriculum = curriculum;
+		this.curriculums = curriculum;
 	}
 	
 	

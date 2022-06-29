@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import ar.edu.unju.fi.entity.Ciudadano;
 import ar.edu.unju.fi.service.ICiudadanoService;
+import ar.edu.unju.fi.service.IProvinciaService;
 
 
 @Controller
@@ -25,12 +26,16 @@ public class CiudadanoController {
 	@Autowired
 	@Qualifier("CiudadanoServiceImpSql")
 	private ICiudadanoService ciudadanoService;
+	@Autowired
+	@Qualifier("ProvinciaServiceImpSql")
+	private IProvinciaService provinciaService;
 	
 	private static final Log LOGGER = LogFactory.getLog(CiudadanoController.class);
 	
 	@GetMapping("/nuevo_ciud")
 	public String getFormCiudadanoPage(Model model) {
 		model.addAttribute("ciudadano", ciudadanoService.getCiudadano());
+		model.addAttribute("provincia", provinciaService.getListaProvincia());
 		return "nuevo_ciudadano";
 	}
 
