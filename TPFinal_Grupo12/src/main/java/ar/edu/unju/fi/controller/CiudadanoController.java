@@ -32,6 +32,11 @@ public class CiudadanoController {
 	
 	private static final Log LOGGER = LogFactory.getLog(CiudadanoController.class);
 	
+	@GetMapping("/home")
+	public String getHomeUsuarioPage(Model model) {
+		return "home_usuario"; 
+	}
+	
 	@GetMapping("/nuevo_ciud")
 	public String getFormCiudadanoPage(Model model) {
 		model.addAttribute("ciudadano", ciudadanoService.getCiudadano());
@@ -47,7 +52,7 @@ public class CiudadanoController {
 			mav.addObject("ciudadano", ciudadano);
 			return mav;
 		}
-		ModelAndView mavciudadano = new ModelAndView("redirect:/ciudadano/lista_ciud");
+		ModelAndView mavciudadano = new ModelAndView("redirect:/ciudadano/home");
 		if (ciudadanoService.guardarCiudadano(ciudadano)) {
 			LOGGER.info("Se guardo nuevo ciudadano");
 		}
@@ -62,13 +67,13 @@ public class CiudadanoController {
 		return "ciudadanos_lista";
 	}
 	
-	@GetMapping("/editar/{ciudadano_id}")
+	/*@GetMapping("/editar/{ciudadano_id}")
 	public ModelAndView getEditarCiudadanoPage(@PathVariable(value="ciudadano_id")int dni) {
 		ModelAndView mav = new ModelAndView("edicion_ciudadano");
 		Ciudadano ciudadano = ciudadanoService.buscarCiudadano(dni);
 		mav.addObject("ciudadano",ciudadano);
 		return mav;
-	}
+	}*/
 	
 	@PostMapping("/modificar")
 	public ModelAndView editarDatosCiudadano(@Validated @ModelAttribute("ciudadano") Ciudadano ciudadano, BindingResult bindingResult ) {
@@ -85,11 +90,11 @@ public class CiudadanoController {
 		return mav;
 	} 
 	
-	@GetMapping("/eliminar/{ciudadano_id}")
+	/*@GetMapping("/eliminar/{ciudadano_id}")
 	public ModelAndView getEliminarCiudadanoPage(@PathVariable(value = "ciudadano_id") long ciudadano_id) {
 		ModelAndView mav = new ModelAndView("redirect:/ciudadano/lista_ciud");
 		ciudadanoService.eliminarCiudadano(ciudadano_id);
 		LOGGER.info("Se eliminó el ciudadano");
 		return mav;
-	}
+	}*/
 }

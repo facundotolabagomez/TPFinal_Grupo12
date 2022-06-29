@@ -9,7 +9,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>empleAR - Registro Usuario</title>
+<title>empleAR - Editar Datos Usuario</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="../assets/LogoIcono.ico" />
 <!-- Font Awesome icons (free version)-->
@@ -32,11 +32,11 @@
 			<!--inicio de contenedor row-->
 			<section class="col-md-12" style="margin: auto">
 
-				<form th:action="@{/ciudadano/guardar}" method="POST"
+				<form th:action="@{/ciudadano/modificar}" method="POST"
 					th:object="${ciudadano}">
 					<header
 						style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
-						<h3>Registro Usuario</h3>
+						<h3>Modificar Datos de Usuario</h3>
 					</header>
 					<div class="mb-3">
 						<input type="hidden" th:field="*{ciudadano_id}" /> <label
@@ -51,6 +51,14 @@
 							id="CiudadanoDNI" placeholder="Solo numeros sin puntos">
 						<div class="text-danger" th:if="${#fields.hasErrors('dni')}"
 							th:errors="*{dni}"></div>
+					</div>
+					
+						<div class="mb-3">
+						<label for="CiudadanoNumeroTram" class="form-label">NUMERO DE TRAMITE</label> <input
+							th:field="*{numeroTramite}" type="number" class="form-control"
+							id="CiudadanoNumeroTram" placeholder="Solo numeros sin puntos">
+						<div class="text-danger" th:if="${#fields.hasErrors('numeroTramite')}"
+							th:errors="*{numeroTramite}"></div>
 					</div>
 
 					<div class="mb-3">
@@ -115,8 +123,8 @@
 					</div>
 
 
-					<button type="submit" class="btn btn-primary">Registrarme</button>
-					<a th:href="@{/empleos/inicio}" id="cancel" class="btn btn-secondary">Cancelar</a>
+					<button type="submit" class="btn btn-primary">Guardar Cambios</button>
+					<a th:href="@{/ciudadano/home}" id="cancel" class="btn btn-secondary">Cancelar</a>
 				</form>
 			</section>
 		</div>
