@@ -44,6 +44,7 @@ public class CiudadanoController {
 		return "nuevo_ciudadano";
 	}
 
+	
 	@PostMapping("/guardar")
 	public ModelAndView getListaCiudadanoPage(@Validated @ModelAttribute("ciudadano")Ciudadano ciudadano, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -59,6 +60,7 @@ public class CiudadanoController {
 		mavciudadano.addObject("ciudadano", ciudadanoService.getListaCiudadano());
 		return mavciudadano; 
 	}
+	
 	
 	@GetMapping("/lista_ciud")
 	public String getListaCiudadanosPage(Model model) {

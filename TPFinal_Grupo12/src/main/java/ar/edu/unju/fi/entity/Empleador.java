@@ -106,6 +106,10 @@ public class Empleador {
 	
 	private List <Ciudadano> ciudadanos;
 	
+	@ManyToOne()
+	@JoinColumn(name = "USUARIO_ID")
+	private Usuario usuario;
+	
 	@Column(name = "EXISTEEMPLEADOR")
 	private boolean existeEmpleador;
 
@@ -132,9 +136,28 @@ public class Empleador {
 	 * @param pagWeb          valor de pagina web de Empleador
 	 * @param descripcion     valor de descripcion de Empleador
 	 */
-	public Empleador(long empleador_id, String cuit, String password, String razonSocial, String nombreComercial,
-			LocalDate inicioActividad, String email, String telefono, String domicilio, Provincia provincia,
-			String pagWeb, String descripcion,List<OfertaLaboral> oferLaborales, boolean existeEmpleador) {
+	
+
+	/**
+	 * Devuelve id de Empleador
+	 * 
+	 * @return empleador_id
+	 */
+	public long getEmpleador_id() {
+		return empleador_id;
+	}
+
+	public Empleador(long empleador_id, @NotNull(message = "Debe Ingresar CUIT") @Size(min = 13, max = 13) String cuit,
+			@NotNull(message = "Debe Ingresar Contraseña") @Size(min = 5, max = 15) String password,
+			@NotNull(message = "Debe Ingresar Razon Social") @Size(min = 5, max = 20) String razonSocial,
+			@NotNull(message = "Debe Ingresar Nombre Comercial") @Size(min = 5, max = 20) String nombreComercial,
+			@NotNull(message = "Debe ingresar Fecha de Inicio de Actividad") @Past(message = "Debe ser fecha anterior a la actual") LocalDate inicioActividad,
+			@NotNull(message = "Debe completar el Email") @Email String email,
+			@NotNull(message = "Debe completar el Telefono") @Size(min = 10, max = 14) String telefono,
+			@NotNull(message = "Debe completar el Domicilio") @Size(min = 10, max = 30) String domicilio,
+			Provincia provincia, String pagWeb,
+			@NotNull(message = "Debe completar Descripcion") @Size(min = 10, max = 140) String descripcion,
+			List<OfertaLaboral> oferLaborales, List<Ciudadano> ciudadanos, Usuario usuario, boolean existeEmpleador) {
 		super();
 		this.empleador_id = empleador_id;
 		this.cuit = cuit;
@@ -146,19 +169,12 @@ public class Empleador {
 		this.telefono = telefono;
 		this.domicilio = domicilio;
 		this.provincia = provincia;
-		this.pagWeb = pagWeb;		
+		this.pagWeb = pagWeb;
 		this.descripcion = descripcion;
-		this.oferLaborales=oferLaborales;
+		this.oferLaborales = oferLaborales;
+		this.ciudadanos = ciudadanos;
+		this.usuario = usuario;
 		this.existeEmpleador = existeEmpleador;
-	}
-
-	/**
-	 * Devuelve id de Empleador
-	 * 
-	 * @return empleador_id
-	 */
-	public long getEmpleador_id() {
-		return empleador_id;
 	}
 
 	/**
@@ -380,9 +396,26 @@ public class Empleador {
 		return oferLaborales;
 	}
 
-	public void setOferLaboral(List<OfertaLaboral> oferLaborales) {
+	public List<Ciudadano> getCiudadanos() {
+		return ciudadanos;
+	}
+
+	public void setCiudadanos(List<Ciudadano> ciudadanos) {
+		this.ciudadanos = ciudadanos;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public void setOferLaborales(List<OfertaLaboral> oferLaborales) {
 		this.oferLaborales = oferLaborales;
 	}
+	
 	
 	
 	

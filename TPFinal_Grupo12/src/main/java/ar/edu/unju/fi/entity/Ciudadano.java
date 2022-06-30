@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -57,6 +58,11 @@ public class Ciudadano {
 	@Size(min=3, max=20)	
 	private String apellidoCiudadano;
 	
+	@Column(name = "EMAIL", length = 50)
+	@NotNull(message = "Debe completar el Email")
+	@Email
+	private String email;
+	
 	@Column(name = "ESTADO_CIVIL", length = 15)
 	@NotNull(message = "Debe completar Estado Civil")
 	@Size(min=5, max=15)	
@@ -85,6 +91,10 @@ public class Ciudadano {
 	@JoinColumn(name = "CURRICULUM_ID")
 	//@NotNull (message= "Debe Seleccionar el Curriculum")
 	private Curriculum curriculum;
+	
+	@ManyToOne()
+	@JoinColumn(name = "USUARIO_ID")
+	private Usuario usuario;
 	
 	@ManyToMany(cascade=CascadeType.ALL)
 	@JoinTable(
@@ -121,22 +131,35 @@ public class Ciudadano {
 	 * @param pasword       valor de password registrada de Ciudadano
 	 * @param curriculum    valor de tipo Curriculum de Ciudadano
 	 */
-	public Ciudadano(long ciudadano_id, int dni, String nombresCiudadano,String apellidoCiudadano, String estadoCivil, Provincia provincia,
-			String telefono, LocalDate fechaNac, String password, Curriculum curriculum,List <OfertaLaboral> ofertas,boolean existeCiudadano) {
+	
+	public Ciudadano(long ciudadano_id, @Min(value = 999999, message = "DNI No valido") int dni, long numeroTramite,
+			@NotNull(message = "Debe completar Nombres") @Size(min = 2, max = 40) String nombresCiudadano,
+			@NotNull(message = "Debe completar Apellido") @Size(min = 3, max = 20) String apellidoCiudadano,
+			@NotNull(message = "Debe completar el Email") @Email String email,
+			@NotNull(message = "Debe completar Estado Civil") @Size(min = 5, max = 15) String estadoCivil,
+			Provincia provincia,
+			@NotNull(message = "Debe completar el Telefono") @Size(min = 7, max = 14) String telefono,
+			@NotNull(message = "Debe ingresar Fecha de Nacimiento") @Past(message = "Debe ser fecha anterior a la actual") LocalDate fechaNac,
+			@NotNull(message = "Debe completar Contraseña") @Size(min = 5, max = 15) String password,
+			Curriculum curriculum, Usuario usuario, List<OfertaLaboral> ofertas, List<Empleador> empleadores,
+			boolean existeCiudadano) {
 		super();
 		this.ciudadano_id = ciudadano_id;
 		this.dni = dni;
+		this.numeroTramite = numeroTramite;
 		this.nombresCiudadano = nombresCiudadano;
 		this.apellidoCiudadano = apellidoCiudadano;
+		this.email = email;
 		this.estadoCivil = estadoCivil;
 		this.provincia = provincia;
 		this.telefono = telefono;
 		this.fechaNac = fechaNac;
 		this.password = password;
 		this.curriculum = curriculum;
+		this.usuario = usuario;
 		this.ofertas = ofertas;
-		this.existeCiudadano = existeCiudadano; 
-		
+		this.empleadores = empleadores;
+		this.existeCiudadano = existeCiudadano;
 	}
 
 	/*
@@ -153,6 +176,8 @@ public class Ciudadano {
 	public long getCiudadano_id() {
 		return ciudadano_id;
 	}
+
+	
 
 	/**
 	 * Asigna un valor a ciudadano_id
@@ -331,6 +356,30 @@ public class Ciudadano {
 
 	public void setNumeroTramite(long numeroTramite) {
 		this.numeroTramite = numeroTramite;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public List<Empleador> getEmpleadores() {
+		return empleadores;
+	}
+
+	public void setEmpleadores(List<Empleador> empleadores) {
+		this.empleadores = empleadores;
 	}
 	
 	
