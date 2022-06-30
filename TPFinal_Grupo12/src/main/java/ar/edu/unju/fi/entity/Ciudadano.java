@@ -105,6 +105,14 @@ public class Ciudadano {
 	
 	private List <OfertaLaboral> ofertas;
 	
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(
+			name= "rel_ciudadanos_cursos",
+			joinColumns= {@JoinColumn(name="CIUDADANO_ID")},
+			inverseJoinColumns= {@JoinColumn(name="CURSO_ID")}
+			)	
+	private List <Curso> cursos;
+	
 	@ManyToMany(mappedBy="ciudadanos")
 	private List<Empleador> empleadores;
 	
@@ -118,20 +126,6 @@ public class Ciudadano {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * Constructor Parametrizado
-	 * 
-	 * @param ciudadano_id  Identificador univoco BD
-	 * @param dni           valor del numero documento de Ciudadano
-	 * @param numeroTramite valor del numero del tramite de Ciudadano
-	 * @param estadoCivil   valor del estado civil de Ciudadano
-	 * @param provincia     valor de tipo Provincia de Ciudadano
-	 * @param telefono      valor de telefono de Ciudadano
-	 * @param fechaNac      valor de fecha nacimiento de Ciudadano
-	 * @param pasword       valor de password registrada de Ciudadano
-	 * @param curriculum    valor de tipo Curriculum de Ciudadano
-	 */
-	
 	public Ciudadano(long ciudadano_id, @Min(value = 999999, message = "DNI No valido") int dni, long numeroTramite,
 			@NotNull(message = "Debe completar Nombres") @Size(min = 2, max = 40) String nombresCiudadano,
 			@NotNull(message = "Debe completar Apellido") @Size(min = 3, max = 20) String apellidoCiudadano,
@@ -141,8 +135,8 @@ public class Ciudadano {
 			@NotNull(message = "Debe completar el Telefono") @Size(min = 7, max = 14) String telefono,
 			@NotNull(message = "Debe ingresar Fecha de Nacimiento") @Past(message = "Debe ser fecha anterior a la actual") LocalDate fechaNac,
 			@NotNull(message = "Debe completar Contraseña") @Size(min = 5, max = 15) String password,
-			Curriculum curriculum, Usuario usuario, List<OfertaLaboral> ofertas, List<Empleador> empleadores,
-			boolean existeCiudadano) {
+			Curriculum curriculum, Usuario usuario, List<OfertaLaboral> ofertas, List<Curso> cursos,
+			List<Empleador> empleadores, boolean existeCiudadano) {
 		super();
 		this.ciudadano_id = ciudadano_id;
 		this.dni = dni;
@@ -158,196 +152,25 @@ public class Ciudadano {
 		this.curriculum = curriculum;
 		this.usuario = usuario;
 		this.ofertas = ofertas;
+		this.cursos = cursos;
 		this.empleadores = empleadores;
 		this.existeCiudadano = existeCiudadano;
 	}
 
-	/*
-	 * metodos accesores
-	 */
-
-	/**
-	 * Devuelve id de Ciudadano
-	 * 
-	 * @return ciudadadano_id
-	 */
-	
-	
 	public long getCiudadano_id() {
 		return ciudadano_id;
 	}
 
-	
-
-	/**
-	 * Asigna un valor a ciudadano_id
-	 * 
-	 * @param ciudadano_id
-	 */
 	public void setCiudadano_id(long ciudadano_id) {
 		this.ciudadano_id = ciudadano_id;
 	}
 
-	/**
-	 * Devuelve dni de Ciudadano
-	 * 
-	 * @return dni
-	 */
 	public int getDni() {
 		return dni;
 	}
 
-	/**
-	 * Asigna un valor a dni de Ciudadano
-	 * 
-	 * @param dni
-	 */
 	public void setDni(int dni) {
 		this.dni = dni;
-	}
-
-	
-
-	public String getNombresCiudadano() {
-		return nombresCiudadano;
-	}
-
-	public void setNombresCiudadano(String nombresCiudadano) {
-		this.nombresCiudadano = nombresCiudadano;
-	}
-	
-	
-
-	public String getApellidoCiudadano() {
-		return apellidoCiudadano;
-	}
-
-	public void setApellidoCiudadano(String apellidoCiudadano) {
-		this.apellidoCiudadano = apellidoCiudadano;
-	}
-
-	/**
-	 * Devuelve estado civil de Ciudadano
-	 * 
-	 * @return estadoCivil
-	 */
-	public String getEstadoCivil() {
-		return estadoCivil;
-	}
-
-	/**
-	 * Asigna un valor a estado civil de Ciudadano
-	 * 
-	 * @param estadoCivil
-	 */
-	public void setEstadoCivil(String estadoCivil) {
-		this.estadoCivil = estadoCivil;
-	}
-
-	/**
-	 * Devuelve procincia de Ciudadano
-	 * 
-	 * @return provincia
-	 */
-	public Provincia getProvincia() {
-		return provincia;
-	}
-
-	/**
-	 * Asigna valor de tipo Provincia a provincia de Ciudadano
-	 * 
-	 * @param provincia
-	 */
-	public void setProvincia (Provincia provincia) {
-		this.provincia = provincia;
-	}
-
-	/**
-	 * Devuelve  telefono de Ciudadano
-	 * 
-	 * @return telefono
-	 */
-	public String getTelefono() {
-		return telefono;
-	}
-
-	/**
-	 * Asigna un valor a telefeno de Ciudadano
-	 * 
-	 * @param telefono
-	 */
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
-
-	/**
-	 * Devuelve fecha de naciemiento de Ciudadano
-	 * 
-	 * @return fechanac
-	 */
-	public LocalDate getFechaNac() {
-		return fechaNac;
-	}
-
-	/**
-	 * Asigna un valor a fecha de nacieminto de Ciudadano
-	 * 
-	 * @param fechaNac
-	 */
-	public void setFechaNac(LocalDate fechaNac) {
-		this.fechaNac = fechaNac;
-	}
-
-	/**
-	 * Devuelve password de Ciudadano
-	 * 
-	 * @return password
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * Asigna un valor a password de Ciudadano
-	 * 
-	 * @param pasword
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	/**
-	 * Devuelve Curriculum de Ciudadano
-	 * 
-	 * @return curriculum
-	 */
-	public Curriculum getCurriculum() {
-		return curriculum;
-	}
-
-	/**
-	 * Asigna un valor a curriculum de Ciudadano
-	 * 
-	 * @param curriculum
-	 */
-	public void setCurriculum(Curriculum curriculum) {
-		this.curriculum = curriculum;
-	}
-
-	public boolean isExisteCiudadano() {
-		return existeCiudadano;
-	}
-
-	public void setExisteCiudadano(boolean existeCiudadano) {
-		this.existeCiudadano = existeCiudadano;
-	}
-
-	public List<OfertaLaboral> getOfertas() {
-		return ofertas;
-	}
-
-	public void setOfertas(List<OfertaLaboral> ofertas) {
-		this.ofertas = ofertas;
 	}
 
 	public long getNumeroTramite() {
@@ -358,12 +181,76 @@ public class Ciudadano {
 		this.numeroTramite = numeroTramite;
 	}
 
+	public String getNombresCiudadano() {
+		return nombresCiudadano;
+	}
+
+	public void setNombresCiudadano(String nombresCiudadano) {
+		this.nombresCiudadano = nombresCiudadano;
+	}
+
+	public String getApellidoCiudadano() {
+		return apellidoCiudadano;
+	}
+
+	public void setApellidoCiudadano(String apellidoCiudadano) {
+		this.apellidoCiudadano = apellidoCiudadano;
+	}
+
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getEstadoCivil() {
+		return estadoCivil;
+	}
+
+	public void setEstadoCivil(String estadoCivil) {
+		this.estadoCivil = estadoCivil;
+	}
+
+	public Provincia getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(Provincia provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public LocalDate getFechaNac() {
+		return fechaNac;
+	}
+
+	public void setFechaNac(LocalDate fechaNac) {
+		this.fechaNac = fechaNac;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Curriculum getCurriculum() {
+		return curriculum;
+	}
+
+	public void setCurriculum(Curriculum curriculum) {
+		this.curriculum = curriculum;
 	}
 
 	public Usuario getUsuario() {
@@ -374,6 +261,22 @@ public class Ciudadano {
 		this.usuario = usuario;
 	}
 
+	public List<OfertaLaboral> getOfertas() {
+		return ofertas;
+	}
+
+	public void setOfertas(List<OfertaLaboral> ofertas) {
+		this.ofertas = ofertas;
+	}
+
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
+	}
+
 	public List<Empleador> getEmpleadores() {
 		return empleadores;
 	}
@@ -381,9 +284,16 @@ public class Ciudadano {
 	public void setEmpleadores(List<Empleador> empleadores) {
 		this.empleadores = empleadores;
 	}
-	
-	
-	
+
+	public boolean isExisteCiudadano() {
+		return existeCiudadano;
+	}
+
+	public void setExisteCiudadano(boolean existeCiudadano) {
+		this.existeCiudadano = existeCiudadano;
+	}
+
+		
 	
 
 }

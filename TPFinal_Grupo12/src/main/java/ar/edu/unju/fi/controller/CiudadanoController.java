@@ -69,7 +69,7 @@ public class CiudadanoController {
 		return "ciudadanos_lista";
 	}
 	
-	/*@GetMapping("/editar/{ciudadano_id}")
+	/*@GetMapping("/inscripcion/{ciudadano_id}")
 	public ModelAndView getEditarCiudadanoPage(@PathVariable(value="ciudadano_id")int dni) {
 		ModelAndView mav = new ModelAndView("edicion_ciudadano");
 		Ciudadano ciudadano = ciudadanoService.buscarCiudadano(dni);
