@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,23 +33,24 @@ public class UsuarioController {
 	}
 	
 	@PostMapping("/guardar")
-	public ModelAndView getRegistroPage(@Validated @ModelAttribute("usuario")Usuario usuario, BindingResult bindingResult,ModelMap model) {
+	public ModelAndView getRegistroPage(@Validated @ModelAttribute("usuario")Usuario usuario, BindingResult bindingResult) {
+		ModelAndView mav = new ModelAndView();
 		if (bindingResult.hasErrors()) {
 			LOGGER.info(usuario.getTipoUsuario()+"asdasas");
 			LOGGER.error("No se cumplen las reglas de validación");
-			ModelAndView mav = new ModelAndView("registro");
-			mav.addObject("usuario", usuario);
-			return mav;
+			ModelAndView mavError = new ModelAndView("registro");
+			mavError.addObject("usuario", usuario);
+			return mavError;
 		}else {
 			LOGGER.info(usuario.getTipoUsuario()+"asdasas");
 			try {
 				LOGGER.info(usuario.getTipoUsuario());
 				usuarioService.crearUsuario(usuario);
-				model.addAttribute("usuario", usuario);
+				mav.addObject("usuario", usuario);
 				LOGGER.info("Se guardo nuevo usuario");
 				
 			}catch (Exception e){
-				model.addAttribute("formUsuarioErrorMessage", e.getMessage());
+				mav.addObject("formUsuarioErrorMessage", e.getMessage());
 				LOGGER.error("ERROR AL REGISTRAR");
 			}
 		}

@@ -25,6 +25,7 @@ public class UsuarioServiceImpSql implements IUsuarioService {
 		if (usuarioRepository.findByEmailUserAndExisteUsuario(usuario.getEmailUser(), true)!=null) {
 			LOGGER.error("EL USUARIO YA EXISTE");
 		}else {
+			LOGGER.error("ENCRIPTANDO PASS");
 			String pw = usuario.getPasswordUser();
 			BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
 			usuario.setPasswordUser(bCryptPasswordEncoder.encode(pw));
@@ -53,13 +54,18 @@ public class UsuarioServiceImpSql implements IUsuarioService {
 	}
 
 	@Override
-	public Usuario buscarUsuario(String emailUser, boolean existeUsuario) {
+	public Usuario buscarUsuario(String emailUser, boolean existeUsuario)  {
 		// TODO Auto-generated method stub
 		Optional <Usuario> usuario_busc = usuarioRepository.findByEmailUserAndExisteUsuario(emailUser, existeUsuario);
 		Usuario usu = usuario_busc.get();
 		return usu;
 	}
 
+	@Override
+	public Usuario encontrarUsuario(String emailUser, boolean existeUsuario) throws Exception {
+		return usuarioRepository.findByEmailUserAndExisteUsuario(emailUser, existeUsuario).orElseThrow(()-> new Exception("El Usuario no Existe"));
+	}
+	
 	@Override
 	public Usuario getUsuario() {
 		// TODO Auto-generated method stub

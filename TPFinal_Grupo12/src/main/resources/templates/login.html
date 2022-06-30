@@ -22,7 +22,25 @@
 <body>
 <header th:replace="/layouts/headertest::headertest"></header>
 
-	<section class="page-section bg-light" id="team">
+	<div class="login-page">
+		<div class="form">
+			<form class="login-form" th:action="@{/usuario/login}" method="POST" th:object="${usuario}">
+				<input th:field="*{usuario_id}" type="hidden" class="form-control"	id="usuarioId" th:value="${usuario_id}">
+				<input type="text" placeholder="Email" /> 
+				<input type="password" placeholder="Contraseña" />
+				<button type="submit">Entrar</button>
+				<p class="message">
+					No estas registrado? <a th:href="@{/usuario/registro}">Crear una cuenta</a>
+				</p>
+				<div class="alert-danger text-center" th:if="${formLoginErrorMessage}" th:text="${formLoginErrorMessage}">Name Error</div>
+			</form>
+			<div th:if="${param.error}" class="alert alert-danger" role="alert">
+						Usuario y Contraseña Invalido</div>
+					<div th:if="${param.logout}" class="alert alert-success"
+						role="alert">Sesion Finalizada. Gracias!</div>
+		</div>
+	</div>
+	<!--  	<section class="page-section bg-light" id="team">
 		<div class="container">
 			<div class="text-center">
 				<h3 class="section-subheading text-muted">LOGIN</h3>
@@ -61,7 +79,7 @@
 			</div>
 		</div>
 	</section>
-
+-->
 
 	<footer th:replace="/layouts/footertest::footertest"></footer>
 

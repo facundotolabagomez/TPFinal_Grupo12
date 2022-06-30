@@ -8,5 +8,6 @@ public interface IUsuarioService {
 	public boolean guardarUsuario(Usuario usuario);
 	public void eliminarUsuario(long usuario_id);
 	public Usuario buscarUsuario(String emailUser, boolean existeUsuario);
+	public Usuario encontrarUsuario(String emailUser, boolean existeUsuario) throws Exception;
 	
 }

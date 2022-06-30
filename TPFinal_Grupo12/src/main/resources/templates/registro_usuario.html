@@ -21,8 +21,26 @@
 <body>
 <header th:replace="/layouts/headertest::headertest"></header>
 
+<div class="login-page">
+		<div class="form">
+			<form class="login-form" th:action="@{/usuario/guardar}" method="POST" th:object="${usuario}">
+				<input type="text" th:field="*{emailUser}" placeholder="Email" /> 
+				<input type="password" th:field="*{passwordUser}" placeholder="Contraseña" /> 
+				<select name="tipo_Usuario" th:field="*{tipoUsuario}" >
+					<option selected="selected"  th:value="'EMPLEADOR'" >EMPRESA</option>
+   					<option th:value="'CIUDADANO'" >BUSCO TRABAJO</option>
+				</select><br><br>
+				<button type="submit">Crear</button>
+				<p class="message">
+					Ya estas registrado? <a th:href="@{/usuario/login}">Inicia Sesion</a>
+				</p>
+			</form>
+			
+		</div>
+	</div>
 
-<section class="page-section bg-light" id="team">
+
+<!-- <section class="page-section bg-light" id="team">
 		<div class="container">
 			<div class="text-center">
 				<h3 class="section-subheading text-muted">LOGIN</h3>
@@ -70,7 +88,7 @@
 
 			</div>
 		</div>
-	</section>
+	</section>   -->
 
 
 
