@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+
 import ar.edu.unju.fi.entity.Usuario;
 import ar.edu.unju.fi.service.IUsuarioService;
 
@@ -33,29 +34,48 @@ public class UsuarioController {
 		return "registro_usuario";
 	}
 	
-	@PostMapping("/guardar")
-	public ModelAndView getRegistroPage(@Validated @ModelAttribute("usuario")Usuario usuario, BindingResult bindingResult,ModelMap model) {
+	/* @PostMapping("/guardar")
+	public ModelAndView getRegistroPage(@Validated @ModelAttribute("usuario")Usuario usuario, BindingResult bindingResult) {
+		LOGGER.info(usuario.getTipoUsuario()+"asdasas");
+		ModelAndView mav = new ModelAndView();
 		if (bindingResult.hasErrors()) {
 			LOGGER.info(usuario.getTipoUsuario()+"asdasas");
 			LOGGER.error("No se cumplen las reglas de validación");
-			ModelAndView mav = new ModelAndView("registro");
-			mav.addObject("usuario", usuario);
-			return mav;
+			ModelAndView mavError = new ModelAndView("registro");
+			mavError.addObject("usuario", usuario);
+			return mavError;
 		}else {
 			LOGGER.info(usuario.getTipoUsuario()+"asdasas");
 			try {
 				LOGGER.info(usuario.getTipoUsuario());
-				usuarioService.crearUsuario(usuario);
-				model.addAttribute("usuario", usuario);
-				LOGGER.info("Se guardo nuevo usuario");
+				if(usuarioService.guardarUsuario(usuario)) {
+					mav.addObject("usuario", usuario);
+					LOGGER.info("Se guardo nuevo usuario");
+				}
 				
 			}catch (Exception e){
-				model.addAttribute("formUsuarioErrorMessage", e.getMessage());
+				mav.addObject("formUsuarioErrorMessage", e.getMessage());
 				LOGGER.error("ERROR AL REGISTRAR");
 			}
 		}
 		ModelAndView mavUs = new ModelAndView("/empleos/inicio");
 		return mavUs; 
+	} */
+	
+	@PostMapping("/guardar")
+	public ModelAndView getListaProvinciaPage(@Validated @ModelAttribute("usuario")Usuario usuario, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			LOGGER.error("No se cumplen las reglas de validación");
+			ModelAndView mav = new ModelAndView("nuevo_provincia");
+			mav.addObject("usuario", usuario);
+			return mav;
+		}
+		ModelAndView mav = new ModelAndView("redirect:/empleos/inicio");
+		if (usuarioService.guardarUsuario(usuario)) {
+			LOGGER.info("Se guardo nueva provincia");
+		}
+		mav.addObject("usuario");
+		return mav; 
 	}
 	
 	@GetMapping({"/", "/login"})

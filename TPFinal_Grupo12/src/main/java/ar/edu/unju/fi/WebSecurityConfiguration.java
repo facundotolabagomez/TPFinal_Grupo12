@@ -25,7 +25,7 @@ public class WebSecurityConfiguration{
 
 		http.authorizeRequests()
 				.antMatchers("/login")
-				.permitAll().antMatchers("/", "/empleos/inicio", "/usuario/registro").permitAll()
+				.permitAll().antMatchers("/", "/empleos/inicio", "/usuario/registro", "/usuario/guardar", "/provincia/guardar", "/provincia/nuevo_prov","/provincia/lista_prov").permitAll()
 				.antMatchers(resources).permitAll()
 				.anyRequest().authenticated()
 				.and()
