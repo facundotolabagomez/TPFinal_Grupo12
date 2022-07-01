@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,6 +37,7 @@ public class CiudadanoController {
 		return "home_usuario"; 
 	}
 	
+	/*
 	@GetMapping("/nuevo_ciud")
 	public String getFormCiudadanoPage(Model model) {
 		model.addAttribute("ciudadano", ciudadanoService.getCiudadano());
@@ -43,9 +45,10 @@ public class CiudadanoController {
 		return "nuevo_ciudadano";
 	}
 
+	*/
 	
 	@PostMapping("/guardar")
-	public ModelAndView getListaCiudadanoPage(@Validated @ModelAttribute("ciudadano")Ciudadano ciudadano, BindingResult bindingResult) {
+	public ModelAndView getDatosCiudadanoPage(@Validated @ModelAttribute("ciudadano")Ciudadano ciudadano, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			LOGGER.error("No se cumplen las reglas de validación");
 			ModelAndView mav = new ModelAndView("nuevo_ciudadano");
@@ -56,25 +59,29 @@ public class CiudadanoController {
 		if (ciudadanoService.guardarCiudadano(ciudadano)) {
 			LOGGER.info("Se guardo nuevo ciudadano");
 		}
-		mavciudadano.addObject("ciudadano", ciudadanoService.getListaCiudadano());
-		return mavciudadano; 
+		mavciudadano.addObject("ciudadano", ciudadano);
+		return mavciudadano;
 	}
 	
 	
+	//comento el lista ciudadano, porque solo lo usaría el admin
+	/*
 	@GetMapping("/lista_ciud")
 	public String getListaCiudadanosPage(Model model) {
 		//ListaAlumno listaAlumnos = new ListaAlumno();
 		model.addAttribute("ciudadano", ciudadanoService.getListaCiudadano());
 		return "ciudadanos_lista";
 	}
+	*/
 	
-	/*@GetMapping("/inscripcion/{ciudadano_id}")
-	public ModelAndView getEditarCiudadanoPage(@PathVariable(value="ciudadano_id")int dni) {
+	@GetMapping("/edicion/{email}")
+	public ModelAndView getEditarCiudadanoPage(@PathVariable(value="email")String email) {
 		ModelAndView mav = new ModelAndView("edicion_ciudadano");
-		Ciudadano ciudadano = ciudadanoService.buscarCiudadano(dni);
+		Ciudadano ciudadano = ciudadanoService.buscarCiudadanoPorEmail(email);
 		mav.addObject("ciudadano",ciudadano);
+		mav.addObject("provincia", provinciaService.getListaProvincia());
 		return mav;
-	}*/
+	}
 	
 	@PostMapping("/modificar")
 	public ModelAndView editarDatosCiudadano(@Validated @ModelAttribute("ciudadano") Ciudadano ciudadano, BindingResult bindingResult ) {
@@ -84,8 +91,9 @@ public class CiudadanoController {
 			mav.addObject("ciudadano", ciudadano);
 			return mav;
 		}
-		ModelAndView mav = new ModelAndView("redirect:/ciudadano/lista_ciud");
+		ModelAndView mav = new ModelAndView("redirect:/ciudadano/home");
 		ciudadanoService.modificarCiudadano(ciudadano);
+		
 		LOGGER.info("Se modificó ciudadano");
 		mav.addObject("ciudadano", ciudadanoService.getListaCiudadano());
 		return mav;

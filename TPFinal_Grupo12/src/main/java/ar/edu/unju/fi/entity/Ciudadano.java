@@ -40,7 +40,7 @@ public class Ciudadano {
 	private long ciudadano_id;
 	
 	@Column(name = "DNI", length = 8)
-	@Min(value=999999, message = "DNI No valido")
+	//@Min(value=999999, message = "DNI No valido")
 	private int dni;
 	
 	@Column(name = "NUMERO_TRAMITE", length = 11)
@@ -49,23 +49,23 @@ public class Ciudadano {
 	
 	
 	@Column(name = "NOMBRES", length = 40)
-	@NotNull(message = "Debe completar Nombres")
-	@Size(min=2, max=40)	
+	//@NotNull(message = "Debe completar Nombres")
+	//@Size(min=2, max=40)	
 	private String nombresCiudadano;
 	
 	@Column(name = "APELLIDO", length = 20)
-	@NotNull(message = "Debe completar Apellido")
-	@Size(min=3, max=20)	
+	//@NotNull(message = "Debe completar Apellido")
+	//@Size(min=3, max=20)	
 	private String apellidoCiudadano;
 	
 	@Column(name = "EMAIL", length = 50)
-	@NotNull(message = "Debe completar el Email")
-	@Email
+	//@NotNull(message = "Debe completar el Email")
+	//@Email
 	private String email;
 	
 	@Column(name = "ESTADO_CIVIL", length = 15)
-	@NotNull(message = "Debe completar Estado Civil")
-	@Size(min=5, max=15)	
+	//@NotNull(message = "Debe completar Estado Civil")
+	//@Size(min=5, max=15)	
 	private String estadoCivil;
 	
 	@ManyToOne()
@@ -73,18 +73,16 @@ public class Ciudadano {
 	private Provincia provincia;
 	
 	@Column(name = "TELEFONO", length = 14)	
-	@NotNull (message = "Debe completar el Telefono")
-	@Size(min=7,max=14)
+	//@NotNull (message = "Debe completar el Telefono")
+	//@Size(min=7,max=14)
 	private String telefono;
 	
 	@Column(name = "FECHA_NAC", length = 10)
-	@NotNull(message="Debe ingresar Fecha de Nacimiento") @Past(message="Debe ser fecha anterior a la actual")
+	//@NotNull(message="Debe ingresar Fecha de Nacimiento") @Past(message="Debe ser fecha anterior a la actual")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaNac;
 	
-	@Column(name = "CIUDADANO_PASS", length = 15)
-	@NotNull(message = "Debe completar Contraseña")
-	@Size(min=5, max=15)	
+	@Column(name = "CIUDADANO_PASS", length = 100)
 	private String password;
 	
 	@OneToOne(cascade = CascadeType.ALL)
@@ -92,7 +90,13 @@ public class Ciudadano {
 	//@NotNull (message= "Debe Seleccionar el Curriculum")
 	private Curriculum curriculum;
 	
-	@ManyToOne()
+	/*
+	 @ManyToOne()
+	 @JoinColumn(name = "USUARIO_ID") 
+	 private Usuario usuario;
+	 */
+	
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "USUARIO_ID")
 	private Usuario usuario;
 	
@@ -292,7 +296,8 @@ public class Ciudadano {
 	public void setExisteCiudadano(boolean existeCiudadano) {
 		this.existeCiudadano = existeCiudadano;
 	}
-
+	
+	
 		
 	
 

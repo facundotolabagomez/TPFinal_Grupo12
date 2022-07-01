@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -40,42 +41,40 @@ public class Empleador {
 	private long empleador_id;
 	
 	@Column(name = "CUIT", length = 13)
-	@NotNull(message = "Debe Ingresar CUIT")
+	//@NotNull(message = "Debe Ingresar CUIT")
 	@Size(min=13, max=13)
 	private String cuit;
 	
-	@Column(name = "EMPLEADOR_PASS", length = 15)
-	@NotNull(message = "Debe Ingresar Contraseña")
-	@Size(min=5, max=15)
+	@Column(name = "EMPLEADOR_PASS", length = 100)
 	private String password;
 	
 	@Column(name = "RAZON_SOCIAL", length = 20)
-	@NotNull(message = "Debe Ingresar Razon Social")
+	//@NotNull(message = "Debe Ingresar Razon Social")
 	@Size(min=5, max=20)
 	private String razonSocial;
 	
 	@Column(name = "NOMBRE_COM", length = 20)
-	@NotNull(message = "Debe Ingresar Nombre Comercial")
+	//@NotNull(message = "Debe Ingresar Nombre Comercial")
 	@Size(min=5, max=20)
 	private String nombreComercial;
 	
 	@Column(name = "INICIO_ACT", length = 10)
-	@NotNull(message="Debe ingresar Fecha de Inicio de Actividad") @Past(message="Debe ser fecha anterior a la actual")
+	//@NotNull(message="Debe ingresar Fecha de Inicio de Actividad") @Past(message="Debe ser fecha anterior a la actual")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate inicioActividad;
 	
 	@Column(name = "EMAIL", length = 50)
-	@NotNull(message = "Debe completar el Email")
+	//@NotNull(message = "Debe completar el Email")
 	@Email
 	private String email;
 	
 	@Column(name = "TELEFONO", length = 14)	
-	@NotNull (message = "Debe completar el Telefono")
+	//@NotNull (message = "Debe completar el Telefono")
 	@Size(min=10,max=14)	
 	private String telefono;
 	
 	@Column(name = "DOMICILIO", length = 30)	
-	@NotNull (message = "Debe completar el Domicilio")
+	//@NotNull (message = "Debe completar el Domicilio")
 	@Size(min=10,max=30)
 	private String domicilio;
 	
@@ -87,7 +86,7 @@ public class Empleador {
 	private String pagWeb;
 	
 	@Column(name = "DESCRIPCION", length = 140)
-	@NotNull(message = "Debe completar Descripcion")
+	//@NotNull(message = "Debe completar Descripcion")
 	@Size(min=10, max=140)
 	private String descripcion;
 	
@@ -103,10 +102,15 @@ public class Empleador {
 			joinColumns= {@JoinColumn(name="EMPLEADOR_ID")},
 			inverseJoinColumns= {@JoinColumn(name="CIUDADANO_ID")}
 			)
-	
 	private List <Ciudadano> ciudadanos;
 	
-	@ManyToOne()
+	/*
+	 @ManyToOne()
+	 @JoinColumn(name = "USUARIO_ID") 
+	 private Usuario usuario;
+	 */
+	
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "USUARIO_ID")
 	private Usuario usuario;
 	
@@ -118,33 +122,6 @@ public class Empleador {
 	 */
 	public Empleador() {
 		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * Constructor parametrizado
-	 * 
-	 * @param empleador_id    identificador univoco BD
-	 * @param cuit            valor de cuit de Empleador
-	 * @param password        valor de password de Empleador
-	 * @param razonSocial     valor de razon social de Empleador
-	 * @param nombreComercial valor de nombre comercial de Empleador
-	 * @param inicioActividad valor de inicio de actividad de Empleador
-	 * @param email           valor de email de Empleador
-	 * @param telefono        valor de telefono de Empleador
-	 * @param domicilio       valor de domicilio de Empleador
-	 * @param provincia       valor de tipo Provincia de Empleador
-	 * @param pagWeb          valor de pagina web de Empleador
-	 * @param descripcion     valor de descripcion de Empleador
-	 */
-	
-
-	/**
-	 * Devuelve id de Empleador
-	 * 
-	 * @return empleador_id
-	 */
-	public long getEmpleador_id() {
-		return empleador_id;
 	}
 
 	public Empleador(long empleador_id, @NotNull(message = "Debe Ingresar CUIT") @Size(min = 13, max = 13) String cuit,
@@ -177,223 +154,108 @@ public class Empleador {
 		this.existeEmpleador = existeEmpleador;
 	}
 
-	/**
-	 * Asigna valor a id de Empleador
-	 * 
-	 * @param empleador_id
-	 */
+	public long getEmpleador_id() {
+		return empleador_id;
+	}
+
 	public void setEmpleador_id(long empleador_id) {
 		this.empleador_id = empleador_id;
 	}
 
-	/**
-	 * Devuelve de cuit de Empleador
-	 * 
-	 * @return cuit
-	 */
 	public String getCuit() {
 		return cuit;
 	}
 
-	/**
-	 * Asigna valor a cuit de Empleador
-	 * 
-	 * @param cuit
-	 */
 	public void setCuit(String cuit) {
 		this.cuit = cuit;
 	}
 
-	/**
-	 * Devuelve password de Empleador
-	 * 
-	 * @return password
-	 */
 	public String getPassword() {
 		return password;
 	}
 
-	/**
-	 * Asigna valor a password de Empleador
-	 * 
-	 * @param password
-	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	/**
-	 * Devuelve razon social de Empleador
-	 * 
-	 * @return razonSocial
-	 */
 	public String getRazonSocial() {
 		return razonSocial;
 	}
 
-	/**
-	 * Asigna valor a razon social de Empleador
-	 * 
-	 * @param razonSocial
-	 */
 	public void setRazonSocial(String razonSocial) {
 		this.razonSocial = razonSocial;
 	}
 
-	/**
-	 * Devuelve nombre comercial de Empleador
-	 * 
-	 * @return nombreComercial
-	 */
 	public String getNombreComercial() {
 		return nombreComercial;
 	}
 
-	/**
-	 * Asigna valor a nombre comercial de Empleador
-	 * 
-	 * @param nombreComercial
-	 */
 	public void setNombreComercial(String nombreComercial) {
 		this.nombreComercial = nombreComercial;
 	}
 
-	/**
-	 * Devuelve fecha de inicio de actividad de Empleador
-	 * 
-	 * @return inicioActividad
-	 */
 	public LocalDate getInicioActividad() {
 		return inicioActividad;
 	}
 
-	/**
-	 * Asigna valor a fecha de inicio de actividad de Empleador
-	 * 
-	 * @param inicioActividad
-	 */
 	public void setInicioActividad(LocalDate inicioActividad) {
 		this.inicioActividad = inicioActividad;
 	}
 
-	/**
-	 * Devuelve email de Empleador
-	 * 
-	 * @return email
-	 */
 	public String getEmail() {
 		return email;
 	}
 
-	/**
-	 * Asigna valor a email de Empleador
-	 * 
-	 * @param email
-	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	/**
-	 * Devuelve telefono de Empleador
-	 * 
-	 * @return telefono
-	 */
 	public String getTelefono() {
 		return telefono;
 	}
 
-	/**
-	 * Asigna valor a telefono de Empleador
-	 * 
-	 * @param telefono
-	 */
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 
-	/**
-	 * Devuelve domicilio de Empleador
-	 * 
-	 * @return domicilio
-	 */
 	public String getDomicilio() {
 		return domicilio;
 	}
 
-	/**
-	 * Asigna valor a domicilio de Empleador
-	 * 
-	 * @param domicilio
-	 */
 	public void setDomicilio(String domicilio) {
 		this.domicilio = domicilio;
 	}
 
-	/**
-	 * Devuelve provincia de Empleador
-	 * 
-	 * @return provincia
-	 */
 	public Provincia getProvincia() {
 		return provincia;
 	}
 
-	/**
-	 * Asigna valor de tipo Provincia a provincia de Empleador
-	 * 
-	 * @param provincia
-	 */
 	public void setProvincia(Provincia provincia) {
 		this.provincia = provincia;
 	}
 
-	/**
-	 * Devuelve pagina web(url) de Empleador
-	 * 
-	 * @return pagWeb
-	 */
 	public String getPagWeb() {
 		return pagWeb;
 	}
 
-	/**
-	 * Asigna valor a pagina web (url) de Empleador
-	 * 
-	 * @param pagWeb
-	 */
 	public void setPagWeb(String pagWeb) {
 		this.pagWeb = pagWeb;
 	}
 
-	/**
-	 * Devuelve breve descripcion de Empleador
-	 * 
-	 * @return
-	 */
 	public String getDescripcion() {
 		return descripcion;
 	}
 
-	/**
-	 * Asigna valor a descripcion de Empleador
-	 * 
-	 * @param descripcion
-	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
-	public boolean isExisteEmpleador() {
-		return existeEmpleador;
-	}
-
-	public void setExisteEmpleador(boolean existeEmpleador) {
-		this.existeEmpleador = existeEmpleador;
-	}
-
 	public List<OfertaLaboral> getOferLaborales() {
 		return oferLaborales;
+	}
+
+	public void setOferLaborales(List<OfertaLaboral> oferLaborales) {
+		this.oferLaborales = oferLaborales;
 	}
 
 	public List<Ciudadano> getCiudadanos() {
@@ -412,12 +274,14 @@ public class Empleador {
 		this.usuario = usuario;
 	}
 
-	public void setOferLaborales(List<OfertaLaboral> oferLaborales) {
-		this.oferLaborales = oferLaborales;
+	public boolean isExisteEmpleador() {
+		return existeEmpleador;
 	}
-	
-	
-	
-	
 
+	public void setExisteEmpleador(boolean existeEmpleador) {
+		this.existeEmpleador = existeEmpleador;
+	}
+
+	
+	
 }
