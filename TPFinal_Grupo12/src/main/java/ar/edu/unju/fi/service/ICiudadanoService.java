@@ -13,5 +13,6 @@ public interface ICiudadanoService {
 	public void eliminarCiudadano (long ciudadano_id);
 	public List<Ciudadano> getListaCiudadano();
 	public Ciudadano buscarCiudadano(int dni);
+	public Ciudadano buscarCiudadanoPorEmail(String email);
 
 }

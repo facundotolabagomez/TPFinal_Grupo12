@@ -32,8 +32,7 @@
 			<!--inicio de contenedor row-->
 			<section class="col-md-12" style="margin: auto">
 
-				<form th:action="@{/ciudadano/modificar}" method="POST"
-					th:object="${ciudadano}">
+				<form th:action="@{/ciudadano/modificar}" method="POST"	th:object="${ciudadano}">
 					<header
 						style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
 						<h3>Modificar Datos de Usuario</h3>
@@ -90,11 +89,8 @@
 
 					<div class="mb-3">
 						<label for="CiudadanoProv" class="form-label">PROVINCIA</label> <select
-							th:field="*{provincia.provincia_id}" class="form-control"
-							id="CiudadanoProv">
-							<option th:each="provincia : ${provincia}"
-								th:value="${provincia.provincia_id}"
-								th:text="${provincia.nombreProvincia}" />
+							th:field="*{provincia.provincia_id}" class="form-control" id="CiudadanoProv">
+							<option th:each="provincia : ${provincia}"	th:value="${provincia.provincia_id}" th:text="${provincia.nombreProvincia}" />
 						</select>					
 					</div>
 
@@ -114,13 +110,13 @@
 							th:errors="*{fechaNac}"></div>
 					</div>
 
-					<div class="mb-3">
+					<!-- <div class="mb-3">
 						<label for="CiudadanoPassword" class="form-label">PASSWORD</label>
 						<input th:field="*{password}" type="password" class="form-control"
 							id="CiudadanoPassword">
 						<div class="text-danger" th:if="${#fields.hasErrors('password')}"
 							th:errors="*{password}"></div>
-					</div>
+					</div> -->
 
 
 					<button type="submit" class="btn btn-primary">Guardar Cambios</button>

@@ -1,6 +1,6 @@
 package ar.edu.unju.fi.entity;
 
-import java.util.List;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -30,7 +32,6 @@ public class Usuario {
 	
 	@Column(name = "USUARIO_PASS", length = 100)
 	@NotNull(message = "Debe completar Contraseña")
-		
 	private String passwordUser;
 	
 	@Column(name = "TIPOUSUARIO", length = 15)
@@ -41,23 +42,35 @@ public class Usuario {
 	@Column(name = "EXISTEUSUARIO")
 	private boolean existeUsuario;
 	
-	@OneToMany(
-			mappedBy = "usuario", 
-			cascade = CascadeType.ALL, 
-			orphanRemoval = false)
-	private List <Ciudadano> ciudadanos;
+	/*
+	 * @OneToMany( mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval =
+	 * false) private List <Ciudadano> ciudadanos;
+	 */
 	
-	@OneToMany(
-			mappedBy = "usuario", 
-			cascade = CascadeType.ALL, 
-			orphanRemoval = false)
-	private List <Empleador> empleadores;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "CIUDADANO_ID")
+	private Ciudadano ciudadano;
+	
+	/*
+	 * @OneToMany( mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval =
+	 * false) private List <Empleador> empleadores;
+	 */
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "EMPLEADOR_ID")
+	private Empleador empleador;
 
 	
+	
+
+
 
 	public long getUsuario_id() {
 		return usuario_id;
 	}
+
+
+
 
 
 
@@ -67,9 +80,15 @@ public class Usuario {
 
 
 
+
+
+
 	public String getEmailUser() {
 		return emailUser;
 	}
+
+
+
 
 
 
@@ -79,9 +98,15 @@ public class Usuario {
 
 
 
+
+
+
 	public String getPasswordUser() {
 		return passwordUser;
 	}
+
+
+
 
 
 
@@ -91,9 +116,15 @@ public class Usuario {
 
 
 
+
+
+
 	public String getTipoUsuario() {
 		return tipoUsuario;
 	}
+
+
+
 
 
 
@@ -103,9 +134,15 @@ public class Usuario {
 
 
 
+
+
+
 	public boolean isExisteUsuario() {
 		return existeUsuario;
 	}
+
+
+
 
 
 
@@ -115,47 +152,66 @@ public class Usuario {
 
 
 
-	public List<Ciudadano> getCiudadanos() {
-		return ciudadanos;
+
+
+
+	public Ciudadano getCiudadano() {
+		return ciudadano;
 	}
 
 
 
-	public void setCiudadanos(List<Ciudadano> ciudadanos) {
-		this.ciudadanos = ciudadanos;
+
+
+
+	public void setCiudadano(Ciudadano ciudadano) {
+		this.ciudadano = ciudadano;
 	}
 
 
 
-	public List<Empleador> getEmpleadores() {
-		return empleadores;
+
+
+
+	public Empleador getEmpleador() {
+		return empleador;
 	}
 
 
 
-	public void setEmpleadores(List<Empleador> empleadores) {
-		this.empleadores = empleadores;
+
+
+
+	public void setEmpleador(Empleador empleador) {
+		this.empleador = empleador;
 	}
+
+
+
+
+
+
+	public Usuario() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 
 
 
 	public Usuario(long usuario_id, @NotNull(message = "Debe completar el Email") @Email String emailUser,
-			@NotNull(message = "Debe completar Contraseña") @Size(min = 5, max = 15) String passwordUser,
-			String tipoUsuario, boolean existeUsuario, List<Ciudadano> ciudadanos, List<Empleador> empleadores) {
+			@NotNull(message = "Debe completar Contraseña") String passwordUser,
+			@NotNull(message = "Seleccionar el tipo de usuario") @Size(min = 5, max = 15) String tipoUsuario,
+			boolean existeUsuario, Ciudadano ciudadano, Empleador empleador) {
 		super();
 		this.usuario_id = usuario_id;
 		this.emailUser = emailUser;
 		this.passwordUser = passwordUser;
 		this.tipoUsuario = tipoUsuario;
 		this.existeUsuario = existeUsuario;
-		this.ciudadanos = ciudadanos;
-		this.empleadores = empleadores;
-	}
-
-
-
-	public Usuario() {
-		// TODO Auto-generated constructor stub
+		this.ciudadano = ciudadano;
+		this.empleador = empleador;
 	}
 
 	

@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import ar.edu.unju.fi.entity.Ciudadano;
+import ar.edu.unju.fi.entity.Empleador;
 import ar.edu.unju.fi.entity.Usuario;
+import ar.edu.unju.fi.service.ICiudadanoService;
+import ar.edu.unju.fi.service.IEmpleadorService;
 import ar.edu.unju.fi.service.IUsuarioService;
 
 @Controller
@@ -25,6 +28,12 @@ public class UsuarioController {
 	@Autowired
 	@Qualifier("UsuarioServiceImpSql")
 	private IUsuarioService usuarioService;
+	@Autowired
+	@Qualifier("CiudadanoServiceImpSql")
+	private ICiudadanoService ciudadanoService;
+	@Autowired
+	@Qualifier("EmpleadorServiceImpSql")
+	private IEmpleadorService empleadorService;
 	
 	private static final Log LOGGER = LogFactory.getLog(UsuarioController.class);
 
@@ -63,7 +72,7 @@ public class UsuarioController {
 	} */
 	
 	@PostMapping("/guardar")
-	public ModelAndView getListaProvinciaPage(@Validated @ModelAttribute("usuario")Usuario usuario, BindingResult bindingResult) {
+	public ModelAndView getHomePage(@Validated @ModelAttribute("usuario")Usuario usuario, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			LOGGER.error("No se cumplen las reglas de validación");
 			ModelAndView mav = new ModelAndView("nuevo_provincia");
@@ -71,8 +80,29 @@ public class UsuarioController {
 			return mav;
 		}
 		ModelAndView mav = new ModelAndView("redirect:/empleos/inicio");
+		//preguntamos si el tipo de usuario es ciudadano
+		if (usuario.getTipoUsuario().equals("CIUDADANO")) {
+			//en caso de ser asi, le asignamos el id de un ciudadano nuevo
+			Ciudadano ciudadano = ciudadanoService.getCiudadano();
+			//y a este ciudadano nuevo le asignamos el mismo email y pass del usuario
+			ciudadano.setEmail(usuario.getEmailUser());
+			ciudadano.setPassword(usuario.getPasswordUser());
+			ciudadano.setExisteCiudadano(true);
+			usuario.setCiudadano(ciudadano);
+		}else if (usuario.getTipoUsuario().equals("EMPLEADOR")) {
+			//en caso de ser empleador, le asignamos el id de un empleador nuevo
+			Empleador empleador = empleadorService.getEmpleador();
+			//y a este empleador nuevo le asignamos el mismo email y pass del usuario
+			empleador.setEmail(usuario.getEmailUser());
+			empleador.setPassword(usuario.getPasswordUser());
+			empleador.setExisteEmpleador(true);
+			usuario.setEmpleador(empleador);
+		}else {
+			LOGGER.error("NO SE PUDO VINCULAR NI CON CIUDADANO NI CON EMPLEADOR");
+		}
+			
 		if (usuarioService.guardarUsuario(usuario)) {
-			LOGGER.info("Se guardo nueva provincia");
+			LOGGER.info("Se guardo el nuevo usuario");
 		}
 		mav.addObject("usuario");
 		return mav; 

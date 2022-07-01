@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -50,10 +52,17 @@ public class AutenticacionSuccessHandler implements AuthenticationSuccessHandler
 			redirectStrategy.sendRedirect(request, response, "/empleos/admin");
 		} else {
 			if (tipoEmpresa) {
-				redirectStrategy.sendRedirect(request, response, "/empleador/home");
+				Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				String username = ((UserDetails)principal).getUsername();
+				String url = "/empleador/edicion/"+username;
+				redirectStrategy.sendRedirect(request, response, url);
 		} else {
 			if (tipoCiudadano) {
-				redirectStrategy.sendRedirect(request, response, "/ciudadano/home");
+				//String email = authentication.getPrincipal().getUsername();
+				Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				String username = ((UserDetails)principal).getUsername();
+				String url = "/ciudadano/edicion/"+username;
+				redirectStrategy.sendRedirect(request, response, url);
 			} else {
 				redirectStrategy.sendRedirect(request, response, "/empleos/inicio");
 				//throw new IllegalStateException();	

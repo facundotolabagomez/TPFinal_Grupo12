@@ -10,6 +10,8 @@ import ar.edu.unju.fi.entity.Ciudadano;
 public interface ICiudadanoRepository  extends JpaRepository<Ciudadano, Long> {
 	
 	public Ciudadano findByDni(int dni);
+	
+	public Ciudadano findByEmail(String email);
 
 	
 

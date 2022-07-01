@@ -55,4 +55,10 @@ public class EmpleadorServiceImpSql implements IEmpleadorService {
 		return empleadorRepository.findByCuit(cuit);
 	}
 
+	@Override
+	public Empleador buscarEmpleadorPorEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

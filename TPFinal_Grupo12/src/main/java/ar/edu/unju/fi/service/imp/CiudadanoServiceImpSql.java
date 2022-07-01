@@ -55,4 +55,10 @@ public class CiudadanoServiceImpSql implements ICiudadanoService {
 		return ciudadanoRepository.findByDni(dni);
 	}
 
+	@Override
+	public Ciudadano buscarCiudadanoPorEmail(String email) {
+		// TODO Auto-generated method stub
+		return ciudadanoRepository.findByEmail(email);
+	}
+
 }

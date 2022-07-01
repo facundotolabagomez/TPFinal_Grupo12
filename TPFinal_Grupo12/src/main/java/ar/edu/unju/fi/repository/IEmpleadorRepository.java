@@ -9,5 +9,6 @@ import ar.edu.unju.fi.entity.Empleador;
 public interface IEmpleadorRepository extends JpaRepository<Empleador, Long>  {
 		
 	public Empleador findByCuit(String cuit);
+	public Empleador findByEmail(String email);
 
 }

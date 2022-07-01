@@ -12,5 +12,6 @@ public interface IEmpleadorService {
 	public void eliminarEmpleador (long empleador_id);
 	public List<Empleador> getListaEmpleador();
 	public Empleador buscarEmpleador(String cuit);
+	public Empleador buscarEmpleadorPorEmail(String email);
 
 }
