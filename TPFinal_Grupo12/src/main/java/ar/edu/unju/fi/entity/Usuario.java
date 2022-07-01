@@ -28,9 +28,9 @@ public class Usuario {
 	@Email
 	private String emailUser;
 	
-	@Column(name = "USUARIO_PASS", length = 15)
+	@Column(name = "USUARIO_PASS", length = 100)
 	@NotNull(message = "Debe completar Contraseña")
-	@Size(min=5, max=15)	
+		
 	private String passwordUser;
 	
 	@Column(name = "TIPOUSUARIO", length = 15)

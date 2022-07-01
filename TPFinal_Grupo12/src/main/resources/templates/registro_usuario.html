@@ -23,14 +23,26 @@
 
 <div class="login-page">
 		<div class="form">
-			<form class="login-form" th:action="@{/usuario/guardar}" method="POST" th:object="${usuario}">
-				<input type="text" th:field="*{emailUser}" placeholder="Email" /> 
-				<input type="password" th:field="*{passwordUser}" placeholder="Contraseña" /> 
-				<select name="tipo_Usuario" th:field="*{tipoUsuario}" >
+			<form th:action="@{/usuario/guardar}" method="POST" th:object="${usuario}" data-sb-form-api-token="7d6026c3-8be1-4664-a44a-06c9e729a3b9">
+				<input th:value="${usuario.usuario_id}" class="form-control" type="hidden"  id="usuarioId" disabled="disabled"> 
+				
+				<input type="text" class="form-control" th:field="*{emailUser}" placeholder="Email" data-sb-validations="required" id="emailUser"/>
+				<div class="invalid-feedback" data-sb-feedback="email:required">Email requerido.</div>
+				<div class="invalid-feedback" data-sb-feedback="email:email">Email no valido.</div>
+				
+				<input type="password" class="form-control" th:field="*{passwordUser}" placeholder="Contraseña" data-sb-validations="required" id="passwordUser" /> 
+				<div class="invalid-feedback" data-sb-feedback="pass:required">Contraseña requerida.</div>
+				
+				<select name="tipo_Usuario" class="regform" th:field="*{tipoUsuario}" >
 					<option selected="selected"  th:value="'EMPLEADOR'" >EMPRESA</option>
    					<option th:value="'CIUDADANO'" >BUSCO TRABAJO</option>
 				</select><br><br>
-				<button type="submit">Crear</button>
+				
+				<div class="d-none" id="submitSuccessMessage">Enviado correctamente!</div>
+    			<div class="d-none" id="submitErrorMessage">Fallo el envio de datos!</div>
+				
+				<button  type="submit">Crear</button>
+				
 				<p class="message">
 					Ya estas registrado? <a th:href="@{/usuario/login}">Inicia Sesion</a>
 				</p>
