@@ -23,7 +23,8 @@
 
 <div class="login-page">
 		<div class="form">
-			<form th:action="@{/usuario/guardar}" method="POST" th:object="${usuario}" data-sb-form-api-token="7d6026c3-8be1-4664-a44a-06c9e729a3b9">
+			<form th:action="@{/usuario/guardar}" method="POST" sec:authorize="!isAuthenticated()" th:object="${usuario}" data-sb-form-api-token="7d6026c3-8be1-4664-a44a-06c9e729a3b9">
+			    <fieldset>
 				<input th:value="${usuario.usuario_id}" class="form-control" type="hidden"  id="usuarioId" disabled="disabled"> 
 				
 				<input type="text" class="form-control" th:field="*{emailUser}" placeholder="Email" data-sb-validations="required" id="emailUser"/>
@@ -46,6 +47,7 @@
 				<p class="message">
 					Ya estas registrado? <a th:href="@{/usuario/login}">Inicia Sesion</a>
 				</p>
+				</fieldset>
 			</form>
 			
 		</div>

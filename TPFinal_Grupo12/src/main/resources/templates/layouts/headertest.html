@@ -36,11 +36,17 @@
 								th:href="@{/empleos/inicio}">Inicio
 							</a>
 						</li>
-						<li class="nav-item"><a class="nav-link" th:href="@{/usuario/login}">Login</a></li>
-						<li class="nav-item"><a class="nav-link" th:href="@{/usuario/registro}">Registro</a></li>
+						<!-- <li class="nav-item"><a class="nav-link" th:href="@{/usuario/login}">Login</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/usuario/registro}">Registro</a></li> -->
 						
 						
 					</ul>
+					<form sec:authorize="isAuthenticated()" class="form-inline" form-method="post" th:action="@{/logout}">
+                	<button  th:text="${#authentication.getPrincipal().getUsername() + ' - Salir'}" class="btn btn-outline-danger" type="submit"><i class="fas fa-sign-out-alt"></i></button>
+            		</form>
+
+            		<a sec:authorize="!isAuthenticated()"  th:href="@{/usuario/login}"><button  class="btn btn-outline-success"><i class="fa fa-user"></i> Iniciar Sesión</button></a>
+					
                 </div>
             </div>
         </nav>
