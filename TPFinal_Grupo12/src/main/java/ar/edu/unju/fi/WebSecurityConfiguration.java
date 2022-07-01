@@ -30,8 +30,7 @@ public class WebSecurityConfiguration{
 				.anyRequest().authenticated()
 				.and()
 			.formLogin()
-				.loginPage("/usuario/login")
-				.permitAll()
+				.loginPage("/usuario/login").permitAll()
 				.defaultSuccessUrl("/ciudadano/lista_ciud")
 				.successHandler(autenticacion)
 				.failureUrl("/usuario/login?error=true")
@@ -41,7 +40,12 @@ public class WebSecurityConfiguration{
 			.logout()
 				.permitAll()
 				.logoutUrl("/logout")
-				.logoutSuccessUrl("/empleos/inicio");
+				.invalidateHttpSession(true)
+				.logoutSuccessUrl("/usuario/login").permitAll()
+				.clearAuthentication(true).and()
+			.exceptionHandling().and()
+            .csrf().disable();
+            
 		
 
 		http.headers().frameOptions().sameOrigin();
