@@ -1,12 +1,13 @@
 package ar.edu.unju.fi.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -31,9 +32,8 @@ public class Idioma {
 	@Size(min=3, max=15)	
 	private String nombreIdioma;
 	
-	@ManyToOne()
-	@JoinColumn(name = "CURRICULUM_ID")
-	private Curriculum curriculum;
+	@ManyToMany(mappedBy="idiomas")
+	private List<Curriculum> curriculums;
 
 	/**
 	 * Constructor por defecto
@@ -42,56 +42,39 @@ public class Idioma {
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * Construcror parametrizado
-	 * 
-	 * @param idioma_id identificador univoco BD
-	 * @param idioma    valor idioma de Idioma
-	 */
-	public Idioma(long idioma_id, String nombreIdioma) {
+	public Idioma(long idioma_id,
+			@NotNull(message = "Debe completar Idioma") @Size(min = 3, max = 15) String nombreIdioma,
+			List<Curriculum> curriculums) {
 		super();
 		this.idioma_id = idioma_id;
 		this.nombreIdioma = nombreIdioma;
+		this.curriculums = curriculums;
 	}
 
-	/*
-	 * metodos accesores
-	 */
-
-	/**
-	 * Devuelve id de Idioma
-	 * 
-	 * @return idioma_id
-	 */
 	public long getIdioma_id() {
 		return idioma_id;
 	}
 
-	/**
-	 * Asigna valor al id de idioma de Idioma
-	 * 
-	 * @param idioma_id
-	 */
 	public void setIdioma_id(long idioma_id) {
 		this.idioma_id = idioma_id;
 	}
 
-	/**
-	 * Devuelve idioma de Idioma
-	 * 
-	 * @return idioma
-	 */
 	public String getNombreIdioma() {
 		return nombreIdioma;
 	}
 
-	/**
-	 * Asigna valor a idioma de Idioma
-	 * 
-	 * @param idioma
-	 */
 	public void setNombreIdioma(String nombreIdioma) {
 		this.nombreIdioma = nombreIdioma;
 	}
+
+	public List<Curriculum> getCurriculums() {
+		return curriculums;
+	}
+
+	public void setCurriculums(List<Curriculum> curriculums) {
+		this.curriculums = curriculums;
+	}
+	
+	
 
 }
