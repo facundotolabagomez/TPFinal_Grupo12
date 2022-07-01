@@ -56,7 +56,7 @@
 					<div class="mb-3">
 						<label for="EmpleadorPass" class="form-label">PASSWORD</label> <input
 							th:field="*{password}" type="password" class="form-control"
-							id="EmpleadorPass">
+							id="EmpleadorPass" disabled="disabled">
 						<div class="text-danger"
 							th:if="${#fields.hasErrors('password')}"
 							th:errors="*{password}"></div>
@@ -91,7 +91,7 @@
 					<div class="mb-3">
 						<label for="EmpleadorEmail" class="form-label">EMAIL</label>
 						<input th:field="*{email}" type="email" class="form-control"
-							id="EmpleadorEmail">
+							id="EmpleadorEmail" disabled="disabled">
 						<div class="text-danger" th:if="${#fields.hasErrors('email')}"
 							th:errors="*{email}"></div>
 					</div>
@@ -136,6 +136,22 @@
 							id="EmpleadorDesc">
 						<div class="text-danger" th:if="${#fields.hasErrors('descripcion')}"
 							th:errors="*{descripcion}"></div>
+					</div>
+					
+					<div class="mb-3">
+						<label for="EmpleadorUsuarioID" class="form-label">USUARIO</label>
+						<input type="hidden"  th:field="*{usuario.usuario_id}" type="number" class="form-control"
+							id="EmpleadorUsuarioID" disabled="disabled">
+						<div class="text-danger" th:if="${#fields.hasErrors('usuario.usuario_id)}"
+							th:errors="*{usuario.usuario_id}"></div>
+					</div>
+					
+					<div class="mb-3">
+						<label for="EmpleadorExiste" class="form-label">EXISTE EMPLEADOR</label>
+						<input type="hidden"  th:field="*{existeEmpleador}" type="number" class="form-control"
+							id="EmpleadorExiste" disabled="disabled">
+						<div class="text-danger" th:if="${#fields.hasErrors('existeEmpleador')}"
+							th:errors="*{existeEmpleador}"></div>
 					</div>					
 
 

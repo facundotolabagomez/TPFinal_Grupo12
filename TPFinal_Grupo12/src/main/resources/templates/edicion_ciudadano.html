@@ -40,7 +40,7 @@
 					<div class="mb-3">
 						<input type="hidden" th:field="*{ciudadano_id}" /> <label
 							for="ciudadanoId" class="form-label">ID</label> <input
-							th:value="${provincia_id}" type="number" class="form-control"
+							th:value="${ciudadano_id}" type="number" class="form-control"
 							id="ciudadanoId" disabled="disabled">
 					</div>
 
@@ -77,6 +77,15 @@
 							th:if="${#fields.hasErrors('apellidoCiudadano')}"
 							th:errors="*{apellidoCiudadano}"></div>
 					</div>
+					
+					<div class="mb-3">
+						<label for="CiudadanoEmail" class="form-label">EMAIL</label>
+						<input th:field="*{email}" type="text"
+							class="form-control" id="CiudadanoEmail" disabled="disabled">
+						<div class="text-danger"
+							th:if="${#fields.hasErrors('email')}"
+							th:errors="*{email}"></div>
+					</div>
 
 					<div class="mb-3">
 						<label for="CiudadanoEstCiv" class="form-label">ESTADO
@@ -109,14 +118,39 @@
 						<div class="text-danger" th:if="${#fields.hasErrors('fechaNac')}"
 							th:errors="*{fechaNac}"></div>
 					</div>
-
-					<!-- <div class="mb-3">
+					
+					<div class="mb-3">
 						<label for="CiudadanoPassword" class="form-label">PASSWORD</label>
-						<input th:field="*{password}" type="password" class="form-control"
-							id="CiudadanoPassword">
-						<div class="text-danger" th:if="${#fields.hasErrors('password')}"
+						<input th:field="*{password}" type="password"
+							class="form-control" id="iudadanoPassword" disabled="disabled">
+						<div class="text-danger"
+							th:if="${#fields.hasErrors('password')}"
 							th:errors="*{password}"></div>
-					</div> -->
+					</div>
+
+					<div class="mb-3">
+						<label for="CiudadanoCurriculum" class="form-label">CURRICULUM</label>
+						<input type="hidden"  th:field="*{curriculum.curriculum_id}" type="number" class="form-control"
+							id="CiudadanoCurriculum" disabled="disabled">
+						<div class="text-danger" th:if="${#fields.hasErrors('curriculum.curriculum_id')}"
+							th:errors="*{curriculum.curriculum_id}"></div>
+					</div> 
+					
+					<div class="mb-3">
+						<label for="CiudadanoUsuarioID" class="form-label">USUARIO</label>
+						<input type="hidden"  th:field="*{usuario.usuario_id}" type="number" class="form-control"
+							id="CiudadanoUsuarioID" disabled="disabled">
+						<div class="text-danger" th:if="${#fields.hasErrors('usuario.usuario_id)}"
+							th:errors="*{usuario.usuario_id}"></div>
+					</div>
+					
+					<div class="mb-3">
+						<label for="CiudadanoExiste" class="form-label">EXISTE CIUDADANO</label>
+						<input type="hidden"  th:field="*{existeCiudadano}" type="number" class="form-control"
+							id="CiudadanoExiste" disabled="disabled">
+						<div class="text-danger" th:if="${#fields.hasErrors('existeCiudadano')}"
+							th:errors="*{existeCiudadano}"></div>
+					</div> 
 
 
 					<button type="submit" class="btn btn-primary">Guardar Cambios</button>
