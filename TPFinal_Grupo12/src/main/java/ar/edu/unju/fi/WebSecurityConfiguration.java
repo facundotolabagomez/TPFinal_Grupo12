@@ -25,7 +25,7 @@ public class WebSecurityConfiguration{
 
 		http.authorizeRequests()
 				.antMatchers("/login")
-				.permitAll().antMatchers("/", "/empleos/inicio", "/usuario/registro", "/usuario/guardar", "/provincia/guardar", "/provincia/nuevo_prov","/provincia/lista_prov").permitAll()
+				.permitAll().antMatchers("/", "/empleos/inicio", "/usuario/registro", "/usuario/guardar").permitAll()
 				.antMatchers(resources).permitAll()
 				.anyRequest().authenticated()
 				.and()
@@ -40,6 +40,7 @@ public class WebSecurityConfiguration{
 				.and()
 			.logout()
 				.permitAll()
+				.logoutUrl("/logout")
 				.logoutSuccessUrl("/empleos/inicio");
 		
 

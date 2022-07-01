@@ -25,9 +25,9 @@
 	<div class="login-page">
 		<div class="form">
 			<form class="login-form" th:action="@{/usuario/login}" method="POST" th:object="${usuario}">
-				<input th:field="*{usuario_id}" type="hidden" class="form-control"	id="usuarioId" th:value="${usuario_id}">
-				<input type="text" placeholder="Email" /> 
-				<input type="password" placeholder="Contraseña" />
+				
+				<input type="text" class="form-control" th:field="*{emailUser}" placeholder="Email" id="emailUser"/>
+				<input type="password" class="form-control" th:field="*{passwordUser}" placeholder="Contraseña" id="passwordUser" />
 				<button type="submit">Entrar</button>
 				<p class="message">
 					No estas registrado? <a th:href="@{/usuario/registro}">Crear una cuenta</a>

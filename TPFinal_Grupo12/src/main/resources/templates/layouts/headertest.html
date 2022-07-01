@@ -33,28 +33,13 @@
 						<li class="nav-item">
 							<a class="nav-link active"
 								aria-current="page" 
-								href="">Inicio
+								th:href="@{/empleos/inicio}">Inicio
 							</a>
 						</li>
-						<li class="nav-item"><a class="nav-link" href="">-</a></li>
-						<li class="nav-item"><a class="nav-link" href="">-</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/usuario/login}">Login</a></li>
+						<li class="nav-item"><a class="nav-link" th:href="@{/usuario/registro}">Registro</a></li>
 						
-						<li class="nav-item dropdown">
-							<a	class="nav-link dropdown-toggle" 
-								id="navbarDropdown"
-								role="button" 
-								data-bs-toggle="dropdown"
-								aria-haspopup="true" 
-								aria-expanded="false" href="#">
-								ELEGIR 
-							</a>
-							<ul class="dropdown-menu" 
-								aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="">BUSCO TRABAJO</a></li>
-								<li><hr class="dropdown-divider"></li>
-								<li><a class="dropdown-item" href="">EMPRESA</a></li>
-							</ul>
-						</li>
+						
 					</ul>
                 </div>
             </div>
