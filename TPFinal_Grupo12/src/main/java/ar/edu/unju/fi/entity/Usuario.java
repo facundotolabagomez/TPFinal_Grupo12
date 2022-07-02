@@ -26,16 +26,16 @@ public class Usuario {
 	private long usuario_id;
 	
 	@Column(name = "USUARIO_EMAIL", length = 50)
-	//@NotNull(message = "Debe completar el Email")
+	@NotNull(message = "Debe completar el Email")
 	@Email
 	private String emailUser;
 	
 	@Column(name = "USUARIO_PASS", length = 100)
-	//@NotNull(message = "Debe completar Contraseña")
+	@NotNull(message = "Debe completar Contraseña")
 	private String passwordUser;
 	
 	@Column(name = "TIPOUSUARIO", length = 15)
-	//@NotNull(message = "Seleccionar el tipo de usuario")
+	@NotNull(message = "Seleccionar el tipo de usuario")
 	@Size(min=5, max=15)	
 	private String tipoUsuario;
 	

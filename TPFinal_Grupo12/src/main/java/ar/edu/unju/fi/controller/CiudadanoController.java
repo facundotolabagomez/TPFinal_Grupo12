@@ -101,11 +101,8 @@ public class CiudadanoController {
 			Curriculum cv = curriculumService.buscarCurriculum(idcv);
 			ciudadano.setCurriculum(cv);
 		}
-		Usuario user = usuarioService.buscarUsuario(email, true);
-		LOGGER.info(user.getTipoUsuario());
-		LOGGER.info(user.getEmailUser());
-		LOGGER.info(user.getPasswordUser());
 		
+		Usuario user = usuarioService.buscarUsuario(email, true);
 		ciudadano.setUsuario(user);
 		LOGGER.info(ciudadano.getUsuario());
 		
