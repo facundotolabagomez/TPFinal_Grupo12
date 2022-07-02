@@ -13,6 +13,6 @@ public interface ICiudadanoRepository  extends JpaRepository<Ciudadano, Long> {
 	
 	public Ciudadano findByEmail(String email);
 
-	
+	public Ciudadano findById(long ciudadano_id);
 
 }

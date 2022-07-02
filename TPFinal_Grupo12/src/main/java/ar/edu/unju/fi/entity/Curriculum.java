@@ -59,12 +59,12 @@ public class Curriculum {
 	private List <Idioma> idiomas;
 	
 	@Column(name = "CONOC_INFOR", length = 50)
-	@NotNull(message = "Debe completar Conocimientos Informaticos")
+	//@NotNull(message = "Debe completar Conocimientos Informaticos")
 	@Size(min=20, max=50)	
 	private String conocInfor;
 	
 	@Column(name = "INFO_COMPLEMEN", length = 50)
-	@NotNull(message = "Debe completar Info Complementaria")
+	//@NotNull(message = "Debe completar Info Complementaria")
 	@Size(min=20, max=50)	
 	private String infoComplem;
 	

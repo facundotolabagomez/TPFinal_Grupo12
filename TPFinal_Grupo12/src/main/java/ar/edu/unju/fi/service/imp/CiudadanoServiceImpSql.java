@@ -40,7 +40,10 @@ public class CiudadanoServiceImpSql implements ICiudadanoService {
 	@Override
 	public void eliminarCiudadano(long ciudadano_id) {
 		// TODO Auto-generated method stub
-		ciudadanoRepository.deleteById(ciudadano_id);
+		Ciudadano ciudadano = ciudadanoRepository.findById(ciudadano_id);
+		ciudadano.setExisteCiudadano(false);
+		ciudadanoRepository.save(ciudadano);
+		//ciudadanoRepository.deleteById(ciudadano_id);
 	}
 
 	@Override
