@@ -85,7 +85,7 @@ public class Ciudadano {
 	@Column(name = "CIUDADANO_PASS", length = 100)
 	private String password;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "CURRICULUM_ID")
 	//@NotNull (message= "Debe Seleccionar el Curriculum")
 	private Curriculum curriculum;
@@ -96,7 +96,7 @@ public class Ciudadano {
 	 private Usuario usuario;
 	 */
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "USUARIO_ID")
 	private Usuario usuario;
 	
