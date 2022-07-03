@@ -28,17 +28,20 @@
 
 	<section class="page-section bg-light" id="team" style="padding-top: 1rem;">
 		<div class="container">
-			<div class="text-center">
+			<div class="text-center" >
 
 				<header	style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
 						<h3>Home Usuario</h3>
 				</header>				
 
-				<div class="btn-group">
-					<a class="btn btn-primary" href="" role="button">Editar Datos</a>
-				</div>
-				<div class="btn-group">
-					<a class="btn btn-primary" href="#" role="button">CV</a>
+				<div class="btn-group" th:object="${ciudadano}">
+					<a class="btn btn-primary" th:href="@{/ciudadano/edicion/{email}(email=${ciudadano.email})}" role="button">Editar Datos</a>
+            	</div>
+				<div class="btn-group" th:object="${curriculum}">
+					<a class="btn btn-primary" th:href="@{/cv/edicion/{curriculum_id}(curriculum_id=${curriculum.curriculum_id})}" role="button">CV</a>
+            	</div>
+            	<div class="btn-group">
+					<a class="btn btn-primary" href="" role="button">Inscribir a cursos</a>
 				</div>
 				<div class="btn-group">
 					<a class="btn btn-primary" href="" role="button">Buscar Ofertas Laborales</a>

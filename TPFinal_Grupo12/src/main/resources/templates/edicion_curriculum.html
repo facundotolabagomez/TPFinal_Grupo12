@@ -32,42 +32,25 @@
 			<!--inicio de contenedor row-->
 			<section class="col-md-12" style="margin: auto">
 
-				<form th:action="@{/curriculum/guardar}" method="POST"
-					th:object="${curriculum}">
+				<form th:action="@{/curriculum/guardar}" method="POST" th:object="${curriculum}">
 					<header
 						style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
 						<h3>Cargar CV</h3>
 					</header>
 					<div class="mb-3">
-						<input type="hidden" th:field="*{curriculum_id}" /> <label
-							for="CurriculumId" class="form-label">ID</label> <input
-							th:value="${curriculum_id}" type="number" class="form-control"
-							id="CurriculumId" disabled="disabled">
+						<!-- <input type="hidden" th:field="*{curriculum_id}" /> -->
+						<!-- <label for="ciudadanoId" class="form-label">ID</label>  -->
+						<input th:value="${curriculum_id}" type="hidden" class="form-control" id="CurriculumId" readonly>
 					</div>
-					
 					<div class="mb-3">
-						<input type="hidden" th:field="*{ciudadano.ciudadano_id}" /> <label
-							for="CurriculumCiudID" class="form-label">ID</label> <input
-							th:value="${ciudadano.ciudadano_id}" type="number" class="form-control"
-							id="CurriculumCiudID" disabled="disabled">
-					</div>					
-				
-
-					<div class="mb-3">
-						<label for="ExpLaboralId" class="form-label">Experiencia Laboral</label>
-						<div>
-							<input class="checkb" type="checkbox" name="ExpLaboralId"
-								th:each="expLaboral: ${expLaboral}"
-								th:text="${expLaboral.experiencia}"
-								th:value="${expLaboral.experiencia_id}" />
-						</div>
-					</div>
+					<div class="btn-group" >
+						<a class="btn btn-primary" th:href="@{/expLab/edicion/{expLaboral}(expLaboral=${curriculum.expLaboral})}" role="button">EXP LABORAL/ES</a>
+            		</div>
+            		</div>
 
 					<div class="mb-3">
 						<label for="CurriculumEduc" class="form-label">EDUCACION</label> 
-						<select
-							th:field="*{educacion.educacion_id}" class="form-control"
-							id="CurriculumEduc">
+						<select	th:field="*{educacion.educacion_id}" class="form-control" id="CurriculumEduc">
 							<option th:each="educacion : ${educacion}"
 								th:value="${educacion.educacion_id}"
 								th:text="${educacion.nivelAlcanzado}" />
@@ -75,46 +58,35 @@
 					</div>
 
 					<div class="mb-3">
-						<label for="IdiomasId" class="form-label">IDIOMAS</label>
-						<div>
-							<input class="checkb" type="checkbox" name="IdiomasId"
-								th:each="idiomas: ${idiomas}" th:text="${idiomas.nombreIdioma}"
-								th:value="${idiomas.idioma_id}" />
-						</div>
+						<div class="btn-group" >
+						<a class="btn btn-primary" th:href="@{/idioma/edicion/{idioma}(idioma=${curriculum.idiomas})}" role="button">IDIOMAS</a>
+            		</div>
 					</div>
 
 					<div class="mb-3">
 						<label for="CurriculumConInf" class="form-label">CONOCIMIENTOS DE INFORMATICA</label> 
-						<input th:field="*{conocInfor}" type="text"
-							class="form-control" id="CurriculumConInf">
-						<div class="text-danger"
-							th:if="${#fields.hasErrors('conocInfor')}"
-							th:errors="*{conocInfor}"></div>
+						<input th:field="*{conocInfor}" type="text" class="form-control" id="CurriculumConInf">
+						<div class="text-danger" th:if="${#fields.hasErrors('conocInfor')}"	th:errors="*{conocInfor}"></div>
 					</div>
 
 					<div class="mb-3">
 						<label for="CurricumulInfoComp" class="form-label">INFORMACION COMPLEMENTARIA</label> 
-						<input th:field="*{infoComplem}" type="text"
-							class="form-control" id="CurricumulInfoComp">
-						<div class="text-danger"
-							th:if="${#fields.hasErrors('infoComplem')}"
-							th:errors="*{infoComplem}"></div>
+						<input th:field="*{infoComplem}" type="text" class="form-control" id="CurricumulInfoComp">
+						<div class="text-danger" th:if="${#fields.hasErrors('infoComplem')}" th:errors="*{infoComplem}"></div>
 					</div>
 					
 					<div class="mb-3">
-						<!-- <label for="CiudadanoExiste" class="form-label">EXISTE CIUDADANO</label> -->
+						
 						<select style="visibility:hidden" th:value="${existeCurriculum}" th:field="*{existeCurriculum}" id="existeCurriculum" name="existeCurriculum" class="form-label" aria-label="select">
 							<option th:value="1">true option</option>
 							<option th:value="0">false option</option>
 						</select>
 						
-						<!-- <input type="hidden" th:value="${existeCiudadano}" th:field="*{existeCiudadano}" type="number" class="form-control" id="CiudadanoExiste" > -->
 					</div> 
 
 
 					<button type="submit" class="btn btn-primary">Cargar CV</button>
-					<a th:href="@{/empleos/inicio}" id="cancel"
-						class="btn btn-secondary">Cancelar</a>
+					<a th:href="@{/ciudadano/home}" id="cancel" class="btn btn-secondary">Cancelar</a>
 				</form>
 			</section>
 		</div>

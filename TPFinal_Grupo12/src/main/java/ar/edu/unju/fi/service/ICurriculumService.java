@@ -11,6 +11,6 @@ public interface ICurriculumService {
 	public void modificarCurriculum(Curriculum curriculum);
 	public void eliminarCiudadano (long curriculum_id);
 	public Curriculum buscarCurriculum(long curriculum_id);
-	//public Curriculum buscarCurriculumPorIdyExise(long curriculum_id, boolean existeCurriculum); 
+	//public Curriculum buscarCurriculumPorCiudadanoId(long ciudadano_id); 
 
 }
