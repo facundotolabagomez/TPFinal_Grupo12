@@ -10,7 +10,7 @@ public interface ICurriculumRepository extends JpaRepository<Curriculum, Long> {
 	
 	public Curriculum findById(long curriculum_id);
 	
-	//public Curriculum findByIdAndExisteCurriculum(long curriculum_id, boolean existeCurriculum);
+	//public Curriculum findByCiudadano_Id(long ciudadano_id);
 
 	
 

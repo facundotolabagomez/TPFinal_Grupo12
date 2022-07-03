@@ -50,6 +50,12 @@ public class CurriculumServiceImpSql implements ICurriculumService {
 		return curriculumRepository.findById(curriculum_id);
 	}
 
+	/*
+	 * @Override public Curriculum buscarCurriculumPorCiudadanoId(long ciudadano_id)
+	 * { // TODO Auto-generated method stub return
+	 * curriculumRepository.findByCiudadanoId(ciudadano_id); }
+	 */
+
 	
 
 }

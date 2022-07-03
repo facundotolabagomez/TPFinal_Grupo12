@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,6 +50,11 @@ public class CiudadanoController {
 	
 	@GetMapping("/home")
 	public String getHomeUsuarioPage(Model model) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = ((UserDetails)principal).getUsername();
+		Ciudadano c = ciudadanoService.buscarCiudadanoPorEmail(username);
+		model.addAttribute("curriculum",c.getCurriculum());
+		model.addAttribute("ciudadano", c);
 		return "home_usuario"; 
 	}
 	
@@ -186,7 +192,7 @@ public class CiudadanoController {
 		LOGGER.info("Se modificó ciudadano");
 		
 		
-		mav.addObject("ciudadano", ciudadanoService.getListaCiudadano());
+		mav.addObject("ciudadano", ciudadano);
 		return mav;
 	} 
 	
