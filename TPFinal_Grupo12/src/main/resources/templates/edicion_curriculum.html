@@ -9,7 +9,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>empleAR - Modificar CV</title>
+<title>empleAR - Edicion CV</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="../assets/LogoIcono.ico" />
 <!-- Font Awesome icons (free version)-->
@@ -44,7 +44,8 @@
 					</div>
 					<div class="mb-3">
 					<div class="btn-group" >
-						<a class="btn btn-primary" th:href="@{/expLab/edicion/{expLaboral}(expLaboral=${curriculum.expLaboral})}" role="button">EXP LABORAL/ES</a>
+						<!-- <a class="btn btn-primary" th:href="@{/expLab/edicion/{expLaboral}(expLaboral=${curriculum.expLaboral})}" role="button">EXP LABORAL/ES</a> -->
+						<a class="btn btn-primary" th:href="@{/cv/editarExpLab/{curriculum_id}(curriculum_id=${curriculum.curriculum_id})}"  role="button">EXP LABORAL/ES</a>
             		</div>
             		</div>
 

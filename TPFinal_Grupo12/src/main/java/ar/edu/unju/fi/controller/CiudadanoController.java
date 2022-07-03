@@ -53,8 +53,11 @@ public class CiudadanoController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = ((UserDetails)principal).getUsername();
 		Ciudadano c = ciudadanoService.buscarCiudadanoPorEmail(username);
+		boolean cvExiste = c.getCurriculum().isExisteCurriculum();
+		LOGGER.info(cvExiste);
 		model.addAttribute("curriculum",c.getCurriculum());
 		model.addAttribute("ciudadano", c);
+		model.addAttribute("cvexiste", cvExiste);
 		return "home_usuario"; 
 	}
 	

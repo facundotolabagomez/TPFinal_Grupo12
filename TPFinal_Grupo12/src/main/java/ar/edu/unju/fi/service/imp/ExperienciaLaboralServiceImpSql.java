@@ -53,13 +53,7 @@ public class ExperienciaLaboralServiceImpSql implements IExperienciaLaboralServi
 	@Override
 	public ExperienciaLaboral buscarExperiencia(long experiencia_id) {
 		// TODO Auto-generated method stub
-		return null;
+		return expRepository.findById(experiencia_id);
 	}
-
-	/*@Override
-	public ExperienciaLaboral buscarExperiencia(long experiencia_id) {
-		// TODO Auto-generated method stub
-		return expRepository,findById(long experiencia_id);
-	}*/
 
 }

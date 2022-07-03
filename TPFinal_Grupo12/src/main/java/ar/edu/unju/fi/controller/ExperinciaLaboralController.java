@@ -10,10 +10,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import ar.edu.unju.fi.entity.Curriculum;
 import ar.edu.unju.fi.entity.ExperienciaLaboral;
+import ar.edu.unju.fi.service.ICurriculumService;
 import ar.edu.unju.fi.service.IExperienciaLaboralService;
 
 
@@ -24,43 +28,45 @@ public class ExperinciaLaboralController {
 	@Autowired
 	@Qualifier("ExperienciaLaboralServiceImpSql")
 	private IExperienciaLaboralService expService;
+	@Autowired
+	@Qualifier("CurriculumServiceImpSql")
+	private ICurriculumService cvService;
 
 	private static final Log LOGGER = LogFactory.getLog(ExperinciaLaboralController.class);
 	
-	@GetMapping("/nuevo_experincia")
-	public String getFormExperinciaPage(Model model) {
-		model.addAttribute("experiencia", expService.getExperiencia());
+	@GetMapping("/nuevo/{cv}")
+	public String getFormExperinciaPage(@PathVariable(value = "cv") long cv, Model model) {
+		model.addAttribute("explab", expService.getExperiencia());
+		model.addAttribute("cv", cvService.buscarCurriculum(cv));
 		return "nuevo_experincia";		
 	}
 	
-	@PostMapping("/guardar")
-	public ModelAndView getListaExperinciaPage(@Validated @ModelAttribute("experiencia")ExperienciaLaboral experiencia, BindingResult bindingResult) {
+	@PostMapping("/guardar/{curriculum_id}")
+	public ModelAndView getExpLabPage(@PathVariable(value = "curriculum_id") long curriculum_id,@Validated @ModelAttribute("explab")ExperienciaLaboral explab, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			LOGGER.error("No se cumplen las reglas de validación");
-			ModelAndView mav = new ModelAndView("nuevo_experiencia");
-			mav.addObject("experiencia", experiencia);
+			ModelAndView mav = new ModelAndView("nuevo");
+			mav.addObject("explab", explab);
 			return mav;
 		}
-		ModelAndView mavexperincia = new ModelAndView("redirect:/idioma/lista_idio");
-		if (expService.guardarExperiencia(experiencia)) {
-			LOGGER.info("Se guardó nuevo experincia");
+		ModelAndView mavexp = new ModelAndView("redirect:/cv/editarExpLab/"+curriculum_id);
+		explab.setCurriculum(cvService.buscarCurriculum(curriculum_id));
+		if (expService.guardarExperiencia(explab)) {
+			LOGGER.info("Se guardo nueva explab");
 		}
-		mavexperincia.addObject("experincia", expService.getExperiencia());
-		return mavexperincia; 
+		mavexp.addObject("explab", expService.getListaExperienciaLaboral());
+		return mavexp; 
 	} 
 	
-	
-	@PostMapping("/modificar")
-	public ModelAndView editarDatosExperincia(@Validated @ModelAttribute("experiencia") ExperienciaLaboral experiencia, BindingResult bindingResult ) {
-		if(bindingResult.hasErrors()) {
-			LOGGER.info("ocurrió un error "+ experiencia);
-			ModelAndView mav = new ModelAndView("edicion_experincia");
-			mav.addObject("experincia", experiencia);
-			return mav;
-		}
-		ModelAndView mav = new ModelAndView("redirect:/ciudadano/home");
-		expService.modificarExperiencia(experiencia);
-		LOGGER.info("Se modificó experiencia");
+	@GetMapping("/eliminar/{experiencia_id}")
+	public ModelAndView getEliminarExpPage(@PathVariable(value = "experiencia_id") long experiencia_id) {
+		ExperienciaLaboral exp = expService.buscarExperiencia(experiencia_id);
+		long curriculum_id = exp.getCurriculum().getCurriculum_id();
+		Curriculum cv = cvService.buscarCurriculum(curriculum_id);
+		ModelAndView mav = new ModelAndView("redirect:/cv/editarExpLab/"+cv.getCurriculum_id());
+		expService.eliminarExperiencia(experiencia_id);
+		LOGGER.info(cv.getCurriculum_id());
+		LOGGER.info("Se eliminó exp lab");
 		return mav;
-	} 
+	}
 }
