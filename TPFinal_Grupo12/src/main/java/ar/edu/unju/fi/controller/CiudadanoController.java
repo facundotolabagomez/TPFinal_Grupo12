@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import ar.edu.unju.fi.entity.Ciudadano;
 import ar.edu.unju.fi.entity.Curriculum;
 import ar.edu.unju.fi.entity.Usuario;
@@ -21,6 +24,7 @@ import ar.edu.unju.fi.service.ICiudadanoService;
 import ar.edu.unju.fi.service.ICurriculumService;
 import ar.edu.unju.fi.service.IProvinciaService;
 import ar.edu.unju.fi.service.IUsuarioService;
+
 
 
 @Controller
@@ -57,7 +61,7 @@ public class CiudadanoController {
 	}
 
 	*/
-	
+	/*
 	@PostMapping("/guardar")
 	public ModelAndView getDatosCiudadanoPage(@Validated @ModelAttribute("ciudadano")Ciudadano ciudadano, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
@@ -73,7 +77,7 @@ public class CiudadanoController {
 		mavciudadano.addObject("ciudadano", ciudadano);
 		return mavciudadano;
 	}
-	
+	*/
 	
 	//comento el lista ciudadano, porque solo lo usaría el admin
 	/*
@@ -92,8 +96,13 @@ public class CiudadanoController {
 		
 		if (ciudadano.getCurriculum()==null) {
 			Curriculum cv = curriculumService.getCurriculum();
+			LOGGER.info(cv);
 			cv.setExisteCurriculum(false);
-			ciudadano.setCurriculum(cv);
+			if(curriculumService.guardarCurriculum(cv)) {
+				ciudadano.setCurriculum(cv);
+				LOGGER.info("CV SAVE");
+			}
+			
 			LOGGER.info("CV VACIO");
 		}else {
 			LOGGER.info("CV EXISTE");
@@ -105,7 +114,9 @@ public class CiudadanoController {
 		Usuario user = usuarioService.buscarUsuario(email, true);
 		ciudadano.setUsuario(user);
 		LOGGER.info(ciudadano.getUsuario());
-		
+		if(ciudadanoService.guardarCiudadano(ciudadano)) {
+			LOGGER.info("CIUDADANO SAVE");
+		}
 		mav.addObject("ciudadano",ciudadano);
 		mav.addObject("provincia", provinciaService.getListaProvincia());
 		mav.addObject("usuario", ciudadano.getUsuario());
@@ -115,7 +126,7 @@ public class CiudadanoController {
 	}
 	
 	@PostMapping("/modificar")
-	public ModelAndView editarDatosCiudadano(@Validated @ModelAttribute("ciudadano") Ciudadano ciudadano, BindingResult bindingResult ) {
+	public ModelAndView editarDatosCiudadano(@Validated @ModelAttribute("ciudadano") Ciudadano ciudadano, BindingResult bindingResult,RedirectAttributes redirectAttrs ) {
 		if(bindingResult.hasErrors()) {
 			LOGGER.info("ocurrió un error "+ ciudadano);
 			ModelAndView mav = new ModelAndView("edicion_ciudadano");
@@ -124,9 +135,57 @@ public class CiudadanoController {
 			return mav;
 		}
 		ModelAndView mav = new ModelAndView("redirect:/ciudadano/home");
-		ciudadanoService.modificarCiudadano(ciudadano);
+		LOGGER.info("EDAD: --------"+ciudadano.obtenerEdad());
+		if(ciudadano.obtenerEdad()<18) {
+			ciudadano.setExisteCiudadano(false);
+			Usuario user = usuarioService.buscarUsuario(ciudadano.getEmail(), true);
+			
+			
+			try {
+				String error = "Usuario eliminado por no tener la edad apropiada";
+				redirectAttrs
+	            	.addFlashAttribute("mensaje", error)
+	            	.addFlashAttribute("clase", "error");
+				mav.setViewName("redirect:/empleos/error");
+				mav.addObject("error", error);
+				
+				Thread.sleep(1000); 
+			}catch (Exception e) {	}
+			SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
+			user.setExisteUsuario(false);
+			usuarioService.modificarUsuario(user);
+			return mav;
+		}
+		Usuario us = usuarioService.buscarUsuario(ciudadano.getEmail(), true); 
+		if(ciudadano.getUsuario().getEmailUser()==null) {
+			ciudadano.getUsuario().setEmailUser(us.getEmailUser());
+			ciudadano.getUsuario().setPasswordUser(us.getPasswordUser());
+			ciudadano.getUsuario().setEmpleador(us.getEmpleador());
+			ciudadano.getUsuario().setCiudadano(us.getCiudadano());
+			ciudadano.getUsuario().setTipoUsuario(us.getTipoUsuario());
+		}
+		Ciudadano ciud = ciudadanoService.buscarCiudadanoPorEmail(ciudadano.getEmail());
+		LOGGER.info("ciud-------"+ciud);
+		Curriculum cv = curriculumService.buscarCurriculum(ciud.getCurriculum().getCurriculum_id()); 
+		LOGGER.info("cv-------"+cv);
 		
+		if(ciudadano.getCurriculum().isExisteCurriculum()) {
+			//ciudadano.setCurriculum(cv);
+			
+			  ciudadano.getCurriculum().setCiudadano(cv.getCiudadano());
+			  ciudadano.getCurriculum().setConocInfor(cv.getConocInfor());
+			  ciudadano.getCurriculum().setCurriculum_id(cv.getCurriculum_id());
+			  ciudadano.getCurriculum().setEducacion(cv.getEducacion());
+			  ciudadano.getCurriculum().setExisteCurriculum(cv.isExisteCurriculum());
+			  ciudadano.getCurriculum().setExpLaboral(cv.getExpLaboral());
+			  ciudadano.getCurriculum().setIdiomas(cv.getIdiomas());
+			  ciudadano.getCurriculum().setInfoComplem(cv.getInfoComplem());
+		}
+		
+		ciudadanoService.modificarCiudadano(ciudadano);
 		LOGGER.info("Se modificó ciudadano");
+		
+		
 		mav.addObject("ciudadano", ciudadanoService.getListaCiudadano());
 		return mav;
 	} 

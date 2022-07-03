@@ -71,38 +71,48 @@ public class UsuarioController {
 		return mavUs; 
 	} */
 	
+	//REGISTRAR USUARIO 
 	@PostMapping("/guardar")
 	public ModelAndView getHomePage(@Validated @ModelAttribute("usuario")Usuario usuario, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			LOGGER.error("No se cumplen las reglas de validación");
-			ModelAndView mav = new ModelAndView("nuevo_provincia");
+			ModelAndView mav = new ModelAndView("registro");
 			mav.addObject("usuario", usuario);
 			return mav;
 		}
-		ModelAndView mav = new ModelAndView("redirect:/empleos/inicio");
-		//preguntamos si el tipo de usuario es ciudadano
-		if (usuario.getTipoUsuario().equals("CIUDADANO")) {
-			//en caso de ser asi, le asignamos el id de un ciudadano nuevo
-			Ciudadano ciudadano = ciudadanoService.getCiudadano();
-			//y a este ciudadano nuevo le asignamos el mismo email y pass del usuario
-			ciudadano.setEmail(usuario.getEmailUser());
-			ciudadano.setPassword(usuario.getPasswordUser());
-			ciudadano.setExisteCiudadano(true);
-			usuario.setCiudadano(ciudadano);
-		}else if (usuario.getTipoUsuario().equals("EMPLEADOR")) {
-			//en caso de ser empleador, le asignamos el id de un empleador nuevo
-			Empleador empleador = empleadorService.getEmpleador();
-			//y a este empleador nuevo le asignamos el mismo email y pass del usuario
-			empleador.setEmail(usuario.getEmailUser());
-			empleador.setPassword(usuario.getPasswordUser());
-			empleador.setExisteEmpleador(true);
-			usuario.setEmpleador(empleador);
-		}else {
-			LOGGER.error("NO SE PUDO VINCULAR NI CON CIUDADANO NI CON EMPLEADOR");
-		}
+		ModelAndView mav = new ModelAndView("redirect:/usuario/login");
+		try {
+			//preguntamos si el tipo de usuario es ciudadano
+			if (usuario.getTipoUsuario().equals("CIUDADANO")) {
+				//en caso de ser asi, le asignamos el id de un ciudadano nuevo
+				Ciudadano ciudadano = ciudadanoService.getCiudadano();
+				//y a este ciudadano nuevo le asignamos el mismo email y pass del usuario
+				ciudadano.setEmail(usuario.getEmailUser());
+				ciudadano.setPassword(usuario.getPasswordUser());
+				ciudadano.setExisteCiudadano(true);
+				usuario.setCiudadano(ciudadano);
+			}else if (usuario.getTipoUsuario().equals("EMPLEADOR")) {
+				//en caso de ser empleador, le asignamos el id de un empleador nuevo
+				Empleador empleador = empleadorService.getEmpleador();
+				//y a este empleador nuevo le asignamos el mismo email y pass del usuario
+				empleador.setEmail(usuario.getEmailUser());
+				empleador.setPassword(usuario.getPasswordUser());
+				empleador.setExisteEmpleador(true);
+				usuario.setEmpleador(empleador);
+			}else {
+				LOGGER.error("NO SE PUDO VINCULAR NI CON CIUDADANO NI CON EMPLEADOR");
+			}
 			
-		if (usuarioService.guardarUsuario(usuario)) {
-			LOGGER.info("Se guardo el nuevo usuario");
+			if (usuarioService.guardarUsuario(usuario)) {
+				LOGGER.info("Se guardo el nuevo usuario");
+			}else {
+				LOGGER.info("HUBO UN PROBLEMA PARA GUARDAR EL USUARIO");
+			}
+			
+			
+		}catch (Exception e){
+			mav.addObject("formUsuarioErrorMessage", e.getMessage());
+			LOGGER.error("USUARIO YA EXISTE");
 		}
 		mav.addObject("usuario");
 		return mav; 

@@ -41,9 +41,8 @@ public class UsuarioServiceImpSql implements IUsuarioService {
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
 		usuario.setPasswordUser(bCryptPasswordEncoder.encode(pw));
 		usuario.setExisteUsuario(true);
-		
 		if (usuarioRepository.save(usuario)!=null) {
-			return true;
+				return true;
 		}
 		return false;
 	}
@@ -76,6 +75,13 @@ public class UsuarioServiceImpSql implements IUsuarioService {
 	public Usuario getUsuario() {
 		// TODO Auto-generated method stub
 		return new Usuario();
+	}
+
+	@Override
+	public void modificarUsuario(Usuario usuario) {
+		// TODO Auto-generated method stub
+		usuarioRepository.save(usuario);
+		
 	}
 
 }

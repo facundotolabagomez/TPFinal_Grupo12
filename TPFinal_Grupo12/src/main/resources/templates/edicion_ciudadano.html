@@ -90,17 +90,19 @@
 					</div>
 
 					<div class="mb-3">
-						<label for="CiudadanoEstCiv" class="form-label">ESTADO
-							CIVIL</label> <input th:field="*{estadoCivil}" type="text"
-							class="form-control" id="CiudadanoEstCiv">
-						<div class="text-danger"
-							th:if="${#fields.hasErrors('estadoCivil')}"
-							th:errors="*{estadoCivil}"></div>
+						<label for="CiudadanoEstCiv" class="form-label">ESTADO CIVIL</label> 
+						<select name="CiudadanoEstCiv" class="form-control selectpicker" th:field="*{estadoCivil}" >
+							<option selected="selected"  th:value="'SOLTERO'" >SOLTERO/A</option>
+   							<option th:value="'CASADO'">CASADO/A</option>
+   							<option th:value="'DIVORCIADO'">DIVORCIADO/A</option>
+   							<option th:value="'VIUDO'">VIUDO/A</option>
+						</select><br>
+						
 					</div>
 
 					<div class="mb-3">
-						<label for="CiudadanoProv" class="form-label">PROVINCIA</label> <select
-							th:field="*{provincia.provincia_id}" class="form-control" id="CiudadanoProv">
+						<label for="CiudadanoProv" class="form-label">PROVINCIA</label> 
+						<select th:field="*{provincia.provincia_id}" class="form-control" id="CiudadanoProv">
 							<option th:each="provincia : ${provincia}"	th:value="${provincia.provincia_id}" th:text="${provincia.nombreProvincia}" />
 						</select>					
 					</div>
