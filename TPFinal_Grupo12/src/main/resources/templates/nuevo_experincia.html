@@ -9,6 +9,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
+<title>empleAR - Nueva Exp Lab</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="../assets/LogoIcono.ico" />
 <!-- Font Awesome icons (free version)-->
@@ -21,42 +22,39 @@
 	rel="stylesheet" type="text/css" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <!-- <link href="../css/styles.css" rel="stylesheet" /> -->
-<title>Home Usuario</title>
+
 </head>
 <body>
 	<header th:replace="/layouts/headertest::headertest"></header>
 
-	<section class="page-section bg-light" id="team" style="padding-top: 1rem;">
-		<div class="container">
-			<div class="text-center" >
+	<div class="container bg-light">
+		<div class="row">
+			<!--inicio de contenedor row-->
+			<section class="col-md-12" style="margin: auto">
 
-				<header	style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
-						<h3>Home Usuario</h3>
-				</header>				
+				<form th:action="@{/exp/guardar/{curriculum_id}(curriculum_id=${cv.curriculum_id})}" method="POST" th:object="${explab}">
+					<header
+						style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
+						<h3> Cargar Exp Laboral</h3>
+					</header>
+					<div class="mb-3">
+						<input th:value="${experiencia_id}" type="hidden" class="form-control" id="experienciaId" readonly>
+					</div>
+					<div class="mb-3">
+						<label for="experiencia" class="form-label">EXPERIENCIA</label> 
+						<input th:field="*{experiencia}" type="text" class="form-control" id="experiencia" 
+						placeholder="Complete todos los datos de su experiencia laboral">
+												
+						<!-- <div class="text-danger" th:if="${#fields.hasErrors('experiencia')}" th:errors="*{experiencia}"></div> -->
+					</div>
 
-				<div class="btn-group" th:object="${ciudadano}">
-					<a class="btn btn-primary" th:href="@{/ciudadano/edicion/{email}(email=${ciudadano.email})}" role="button">Editar Datos</a>
-            	</div>
-				<div class="btn-group" th:object="${curriculum}">
-					<a class="btn btn-primary" th:href="@{/cv/edicion/{curriculum_id}(curriculum_id=${curriculum.curriculum_id})}" role="button">CV</a>
-            	</div>
-            	<div class="btn-group">
-					<a class="btn btn-primary" href="" role="button">Inscribir a cursos</a>
-				</div>
-				<div class="btn-group">
-					<a class="btn btn-primary" th:disabled="${cvexiste} == false" th:href="${cvexiste} == true ? (@{/ofertaLab/Lista}) : '#'" role="button">Buscar Ofertas Laborales</a>
-				</div>
-
-				<div class="btn-group">
-					<a class="btn btn-success" href="#" role="button">Eliminar Cuenta</a>
-				</div>
-			
-			</div>
+					<button type="submit" class="btn btn-primary">Enviar</button>
+				</form>
+			</section>
 		</div>
-	</section>
 
-
-	<footer th:replace="/layouts/footertest::footertest"></footer>
+	</div>
+<footer th:replace="/layouts/footertest::footertest"></footer>
 
 	<script src="/webjars/jquery/jquery.min.js" type="text/javascript"></script>
 	<script src="/webjars/popper.js/umd/popper.min.js"
@@ -74,5 +72,5 @@
 	<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
 	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-	</body>
-	</html>
+</body>
+</html>

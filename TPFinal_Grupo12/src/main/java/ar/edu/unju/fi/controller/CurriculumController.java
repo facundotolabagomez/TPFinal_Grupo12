@@ -7,6 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import ar.edu.unju.fi.entity.Curriculum;
-import ar.edu.unju.fi.entity.Educacion;
+import ar.edu.unju.fi.entity.ExperienciaLaboral;
+import ar.edu.unju.fi.entity.Idioma;
 import ar.edu.unju.fi.service.ICurriculumService;
 import ar.edu.unju.fi.service.IEducacionService;
+import ar.edu.unju.fi.service.IExperienciaLaboralService;
 import ar.edu.unju.fi.service.IIdiomaService;
 
 
@@ -40,11 +43,10 @@ public class CurriculumController {
 	@Qualifier("IdiomaServiceImpSql")
 	private IIdiomaService idiomaService;
 	
-	/* falta crear este servicio
 	@Autowired
 	@Qualifier("ExperienciaLaboralServiceImpSql")
-	private ExperienciaLaboralService explabService;
-	*/
+	private IExperienciaLaboralService explabService;
+	
 	
 	private static final Log LOGGER = LogFactory.getLog(CurriculumController.class);
 	
@@ -82,17 +84,53 @@ public class CurriculumController {
 	public ModelAndView getEditarCiudadanoPage(@PathVariable(value="curriculum_id")long curriculum_id) {
 		ModelAndView mav = new ModelAndView("edicion_curriculum");
 		Curriculum curri = curriculumService.buscarCurriculum(curriculum_id);
-		List<Educacion> edu = educacionService.getListaEducacion();
-		LOGGER.info(curri);
-		mav.addObject("educacion", edu);
-		mav.addObject("curriculum",curri);
-		/*
-		 * mav.addObject("provincia", provinciaService.getListaProvincia());
-		 * mav.addObject("usuario", ciudadano.getUsuario()); mav.addObject("curriculum",
-		 * ciudadano.getCurriculum());
-		 */
 		
+		//Si el curriculum tiene cargado la educacion e idioma, entonces 
+		//lo ponemos en existe y podra buscar ofertas laborales
+		if ((curri.getEducacion()!=null)&&(curri.getIdiomas()!=null)) {
+			curri.setExisteCurriculum(true);
+		}
+		
+		List<ExperienciaLaboral> list_explab;
+		//Si tiene exp laboral, mantenemos la misma y la pasamos al mav
+		//Si no tiene le creamos una para que pueda llenarla
+		if (curri.getExpLaboral()==null) {
+			list_explab = explabService.getListaExperienciaLaboral();
+			curri.setExpLaboral(list_explab);
+		}else {
+			list_explab = curri.getExpLaboral();
+		}
+		
+		List<Idioma> list_idioma;
+		//Si tiene lista de idiomas, mantenemos la misma y la pasamos al mav
+		//Si no tiene le creamos una para que pueda llenarla
+		if (curri.getIdiomas()==null) {
+			list_idioma = idiomaService.getListaIdioma();
+			curri.setIdiomas(list_idioma);
+		}else {
+			list_idioma = curri.getIdiomas();
+		}
+		
+		LOGGER.info(curri);
+		
+		if(curriculumService.guardarCurriculum(curri)) {
+			LOGGER.info("CURRICULUM SAVE");
+		}
+		mav.addObject("educacion", educacionService.getListaEducacion());
+		mav.addObject("curriculum",curri);
+		mav.addObject("explab",list_explab);
+		mav.addObject("idioma",list_idioma);
+			
 		return mav;
+	}
+	
+	
+	@GetMapping("/editarExpLab/{curriculum_id}")
+	public String getEditarExpLabListPage(@PathVariable(value="curriculum_id")long curriculum_id,Model model) {
+		Curriculum cv = curriculumService.buscarCurriculum(curriculum_id);
+		model.addAttribute("explab", cv.getExpLaboral());
+		model.addAttribute("cv", curriculumService.buscarCurriculum(curriculum_id));
+		return "edicion_explab";
 	}
 
 }

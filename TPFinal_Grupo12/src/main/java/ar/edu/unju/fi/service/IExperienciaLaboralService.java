@@ -11,5 +11,5 @@ public interface IExperienciaLaboralService {
 	public void eliminarExperiencia (long experiencia_id);
 	public List<ExperienciaLaboral> getListaExperienciaLaboral();
 	public ExperienciaLaboral buscarExperiencia(long experiencia_id);
-
+	
 }
