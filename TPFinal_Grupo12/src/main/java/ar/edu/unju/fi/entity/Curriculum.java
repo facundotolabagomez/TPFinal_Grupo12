@@ -34,9 +34,10 @@ public class Curriculum {
 	@Column(name="CURRICULUM_ID")	
 	private long curriculum_id;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	//@OneToOne
 	@JoinColumn(name = "CIUDADANO_ID")
-	//@NotNull (message= "Debe Seleccionar el Ciudadano")
 	private Ciudadano ciudadano;
 	
 	@OneToMany(

@@ -22,5 +22,11 @@ public class IndexController {
 		public String getAdminPage(Model model) {
 			return "admin-access"; 
 		}
+		
+		@GetMapping("/error")
+		public String getErrorPage(Model model) {
+			model.addAttribute("error");
+			return "page_error";
+		}
 	}
 

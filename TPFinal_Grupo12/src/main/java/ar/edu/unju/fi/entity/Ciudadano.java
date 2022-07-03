@@ -1,6 +1,7 @@
 package ar.edu.unju.fi.entity;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -96,7 +97,7 @@ public class Ciudadano {
 	 private Usuario usuario;
 	 */
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "USUARIO_ID")
 	private Usuario usuario;
 	
@@ -297,7 +298,11 @@ public class Ciudadano {
 		this.existeCiudadano = existeCiudadano;
 	}
 	
-	
+	public int obtenerEdad() {
+		Period p = Period.between(this.fechaNac, LocalDate.now());
+		int anios = p.getYears();
+		return anios;
+	}
 		
 	
 
