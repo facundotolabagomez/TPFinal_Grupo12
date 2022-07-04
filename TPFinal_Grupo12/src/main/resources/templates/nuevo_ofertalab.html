@@ -32,25 +32,22 @@
 			<!--inicio de contenedor row-->
 			<section class="col-md-12" style="margin: auto">
 
-				<form th:action="@{/ciudadano/guardar}" method="POST"
-					th:object="${ofertaLaboral}">
+				<form th:action="@{/ofertalab/guardaroferta/{email}(email=${empleador.email})}" method="POST" th:object="${ofertalab}">
 					<header
 						style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
 						<h3>Nueva Oferta Laboral</h3>
 					</header>
 					<div class="mb-3">
-						<input type="hidden" th:field="*{oferta_id}" /> <label
-							for="OfertaId" class="form-label">ID</label> <input
-							th:value="${oferta_id}" type="number" class="form-control"
-							id="OfertaId" disabled="disabled">
+						<input type="hidden" th:field="*{oferta_id}" /> 
+						<label for="OfertaId" class="form-label">ID</label> 
+						<input th:value="${oferta_id}" type="number" 
+								class="form-control" id="OfertaId" disabled="disabled">
 					</div>
 
 					<div class="mb-3">
-						<label for="OfertaVac" class="form-label">CANTIDAD DE VACANTES</label> <input
-							th:field="*{cantVacantes}" type="number" class="form-control"
-							id="OfertaVac" placeholder="Solo numeros sin puntos">
-						<div class="text-danger" th:if="${#fields.hasErrors('cantVacantes')}"
-							th:errors="*{cantVacantes}"></div>
+						<label for="OfertaVac" class="form-label">CANTIDAD DE VACANTES</label> 
+						<input th:field="*{cantVacantes}" type="number" class="form-control" id="OfertaVac" placeholder="">
+						<div class="text-danger" th:if="${#fields.hasErrors('cantVacantes')}" th:errors="*{cantVacantes}"></div>
 					</div>
 
 					<div class="mb-3">

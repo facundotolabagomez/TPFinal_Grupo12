@@ -58,7 +58,9 @@ public class EmpleadorServiceImpSql implements IEmpleadorService {
 	@Override
 	public Empleador buscarEmpleadorPorEmail(String email) {
 		// TODO Auto-generated method stub
-		return null;
+		return empleadorRepository.findByEmail(email);
 	}
+
+	
 
 }

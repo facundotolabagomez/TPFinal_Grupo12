@@ -42,7 +42,7 @@ public class Empleador {
 	
 	@Column(name = "CUIT", length = 13)
 	//@NotNull(message = "Debe Ingresar CUIT")
-	@Size(min=13, max=13)
+	//@Size(min=13, max=13)
 	private String cuit;
 	
 	@Column(name = "EMPLEADOR_PASS", length = 100)
@@ -50,12 +50,12 @@ public class Empleador {
 	
 	@Column(name = "RAZON_SOCIAL", length = 20)
 	//@NotNull(message = "Debe Ingresar Razon Social")
-	@Size(min=5, max=20)
+	//@Size(min=5, max=20)
 	private String razonSocial;
 	
 	@Column(name = "NOMBRE_COM", length = 20)
 	//@NotNull(message = "Debe Ingresar Nombre Comercial")
-	@Size(min=5, max=20)
+	//@Size(min=5, max=20)
 	private String nombreComercial;
 	
 	@Column(name = "INICIO_ACT", length = 10)
@@ -70,12 +70,12 @@ public class Empleador {
 	
 	@Column(name = "TELEFONO", length = 14)	
 	//@NotNull (message = "Debe completar el Telefono")
-	@Size(min=10,max=14)	
+	//@Size(min=10,max=14)	
 	private String telefono;
 	
 	@Column(name = "DOMICILIO", length = 30)	
 	//@NotNull (message = "Debe completar el Domicilio")
-	@Size(min=10,max=30)
+	//@Size(min=10,max=30)
 	private String domicilio;
 	
 	@ManyToOne()
@@ -87,7 +87,7 @@ public class Empleador {
 	
 	@Column(name = "DESCRIPCION", length = 140)
 	//@NotNull(message = "Debe completar Descripcion")
-	@Size(min=10, max=140)
+	//@Size(min=10, max=140)
 	private String descripcion;
 	
 	@OneToMany(
@@ -110,7 +110,7 @@ public class Empleador {
 	 private Usuario usuario;
 	 */
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "USUARIO_ID")
 	private Usuario usuario;
 	

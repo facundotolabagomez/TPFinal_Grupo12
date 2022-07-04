@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,58 +33,58 @@ public class OfertaLaboral {
 	private long oferta_id;
 
 	@Column(name = "CANT_VACANTES")
-	@NotEmpty(message = "Debe completar Cantidad de Vacantes")
+	//@NotEmpty(message = "Debe completar Cantidad de Vacantes")
 	private int cantVacantes;
 
 	@Column(name = "PUESTO_REQ", length = 50)
-	@NotNull(message = "Debe completar Puesto Requerido")
-	@Size(min = 10, max = 50)
+	//@NotNull(message = "Debe completar Puesto Requerido")
+	//@Size(min = 10, max = 50)
 	private String puestoRequerido;
 
 	@Column(name = "RESUMEN_PUESTO", length = 150)
-	@NotNull(message = "Debe completar Resumen de Puesto")
-	@Size(min = 10, max = 150)
+	//@NotNull(message = "Debe completar Resumen de Puesto")
+	//@Size(min = 10, max = 150)
 	private String resumenPuesto;
 
 	@Column(name = "DISP_HORARIA", length = 15)
-	@NotNull(message = "Debe completar Disponibilidad Horaria")
-	@Size(min = 5, max = 15)
+	//@NotNull(message = "Debe completar Disponibilidad Horaria")
+	//@Size(min = 5, max = 15)
 	private String dispHoraria;
 
 	@Column(name = "PRINC_TAREAS", length = 150)
-	@NotNull(message = "Debe completar Principales Tareas")
-	@Size(min = 10, max = 150)
+	//@NotNull(message = "Debe completar Principales Tareas")
+	//@Size(min = 10, max = 150)
 	private String princTareas;
 
 	@Column(name = "DATOS_CONTACTO", length = 20)
-	@NotNull(message = "Debe completar Datos de Contacto")
-	@Size(min = 5, max = 20)
+	//@NotNull(message = "Debe completar Datos de Contacto")
+	//@Size(min = 5, max = 20)
 	private String datosContacto;
 
 	@Column(name = "JORNADA", length = 15)
-	@NotNull(message = "Debe completar Jornada")
-	@Size(min = 5, max = 15)
+	//@NotNull(message = "Debe completar Jornada")
+	//@Size(min = 5, max = 15)
 	private String jornada;
 
 	@Column(name = "REQUISITOS", length = 100)
-	@NotNull(message = "Debe completar Requisitos")
-	@Size(min = 10, max = 100)
+	//@NotNull(message = "Debe completar Requisitos")
+	//@Size(min = 10, max = 100)
 	private String requisitos;
 
 	@Column(name = "SALARIO", length = 10)
-	@NotNull(message = "Debe completar Salario")
-	@Size(min = 4, max = 10)
+	//@NotNull(message = "Debe completar Salario")
+	//@Size(min = 4, max = 10)
 	private double salario;
 
 	@Column(name = "BENEFICIOS", length = 100)
-	@NotNull(message = "Debe completar Beneficios")
+	//@NotNull(message = "Debe completar Beneficios")
 	@Size(min = 5, max = 100)
 	private String beneficios;
 
 	@Column(name = "DISPONIBLE")
 	private boolean disponible;
 
-	@ManyToOne()
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "EMPLEADOR_ID")
 	private Empleador empleador;
 

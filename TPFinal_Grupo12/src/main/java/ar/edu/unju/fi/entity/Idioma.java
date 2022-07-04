@@ -28,8 +28,8 @@ public class Idioma {
 	private long idioma_id;
 	
 	@Column(name = "NOMBRE_IDIOMA", length = 15)
-	@NotNull(message = "Debe completar Idioma")
-	@Size(min=3, max=15)	
+	//@NotNull(message = "Debe completar Idioma")
+	//@Size(min=3, max=15)	
 	private String nombreIdioma;
 	
 	@ManyToMany(mappedBy="idiomas")

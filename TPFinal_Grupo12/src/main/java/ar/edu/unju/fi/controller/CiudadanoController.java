@@ -54,7 +54,7 @@ public class CiudadanoController {
 		String username = ((UserDetails)principal).getUsername();
 		Ciudadano c = ciudadanoService.buscarCiudadanoPorEmail(username);
 		boolean cvExiste = c.getCurriculum().isExisteCurriculum();
-		LOGGER.info(cvExiste);
+		LOGGER.info("CVEXISTE?"+cvExiste);
 		model.addAttribute("curriculum",c.getCurriculum());
 		model.addAttribute("ciudadano", c);
 		model.addAttribute("cvexiste", cvExiste);

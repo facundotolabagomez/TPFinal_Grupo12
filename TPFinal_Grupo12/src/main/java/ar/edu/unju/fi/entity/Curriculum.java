@@ -35,7 +35,7 @@ public class Curriculum {
 	private long curriculum_id;
 	
 	
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(cascade = {CascadeType.PERSIST})
 	//@OneToOne
 	@JoinColumn(name = "CIUDADANO_ID")
 	private Ciudadano ciudadano;
@@ -61,12 +61,12 @@ public class Curriculum {
 	
 	@Column(name = "CONOC_INFOR", length = 50)
 	//@NotNull(message = "Debe completar Conocimientos Informaticos")
-	@Size(min=20, max=50)	
+	//@Size(min=20, max=50)	
 	private String conocInfor;
 	
 	@Column(name = "INFO_COMPLEMEN", length = 50)
 	//@NotNull(message = "Debe completar Info Complementaria")
-	@Size(min=20, max=50)	
+	//@Size(min=20, max=50)	
 	private String infoComplem;
 	
 	@Column(name = "EXISTECURRICULUM")
@@ -177,6 +177,8 @@ public class Curriculum {
 		this.existeCurriculum = existeCurriculum;
 	}
 	
-	
+	public void addIdioma (Idioma idioma) {
+		this.idiomas.add(idioma);
+	}
 	
 }

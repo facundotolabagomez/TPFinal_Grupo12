@@ -56,4 +56,10 @@ public class IdiomaServiceImpSql implements IIdiomaService {
 		return idiomaRepository.findByNombreIdioma(nombreIdioma);
 	}
 
+	@Override
+	public Idioma buscarIdiomaPorId(long idioma_id) {
+		// TODO Auto-generated method stub
+		return idiomaRepository.findById(idioma_id);
+	}
+
 }
