@@ -32,7 +32,7 @@
 			<!--inicio de contenedor row-->
 			<section class="col-md-12" style="margin: auto">
 
-				<form th:action="@{/curriculum/guardar}" method="POST" th:object="${curriculum}">
+				<form th:action="@{/cv/guardar/{curriculum_id}(curriculum_id=${curriculum_id})}" method="POST" th:object="${curriculum}">
 					<header
 						style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
 						<h3>Cargar CV</h3>
@@ -48,7 +48,11 @@
 						<a class="btn btn-primary" th:href="@{/cv/editarExpLab/{curriculum_id}(curriculum_id=${curriculum.curriculum_id})}"  role="button">EXP LABORAL/ES</a>
             		</div>
             		</div>
-
+            		<div class="mb-3">
+						<div class="btn-group" >
+						<a class="btn btn-primary" th:href="@{/cv/editarIdiomaList/{curriculum_id}(curriculum_id=${curriculum.curriculum_id})}" role="button">IDIOMAS</a>
+            		</div>
+					</div>
 					<div class="mb-3">
 						<label for="CurriculumEduc" class="form-label">EDUCACION</label> 
 						<select	th:field="*{educacion.educacion_id}" class="form-control" id="CurriculumEduc">
@@ -58,11 +62,6 @@
 						</select>
 					</div>
 
-					<div class="mb-3">
-						<div class="btn-group" >
-						<a class="btn btn-primary" th:href="@{/idioma/edicion/{idioma}(idioma=${curriculum.idiomas})}" role="button">IDIOMAS</a>
-            		</div>
-					</div>
 
 					<div class="mb-3">
 						<label for="CurriculumConInf" class="form-label">CONOCIMIENTOS DE INFORMATICA</label> 

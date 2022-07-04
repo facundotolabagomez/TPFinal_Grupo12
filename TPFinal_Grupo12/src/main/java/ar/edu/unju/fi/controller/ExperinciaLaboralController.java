@@ -69,4 +69,6 @@ public class ExperinciaLaboralController {
 		LOGGER.info("Se eliminó exp lab");
 		return mav;
 	}
+	
+	
 }

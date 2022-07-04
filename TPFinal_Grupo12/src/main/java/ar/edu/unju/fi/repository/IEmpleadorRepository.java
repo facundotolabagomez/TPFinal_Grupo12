@@ -10,5 +10,6 @@ public interface IEmpleadorRepository extends JpaRepository<Empleador, Long>  {
 		
 	public Empleador findByCuit(String cuit);
 	public Empleador findByEmail(String email);
+	
 
 }

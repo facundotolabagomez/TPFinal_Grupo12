@@ -13,5 +13,6 @@ public interface IIdiomaService {
 	public void eliminarIdioma (long idioma_id);
 	public List<Idioma> getListaIdioma();
 	public Idioma buscarIdioma(String nombreIdioma);
+	public Idioma buscarIdiomaPorId(long idioma_id);
 
 }

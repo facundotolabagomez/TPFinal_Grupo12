@@ -32,131 +32,94 @@
 			<!--inicio de contenedor row-->
 			<section class="col-md-12" style="margin: auto">
 
-				<form th:action="@{/empleador/modificar}" method="POST"
-					th:object="${empleador}">
+				<form th:action="@{/empleador/modificar}" method="POST"	th:object="${empleador}">
 					<header
 						style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
-						<h3>Editar Datos Empresa</h3>
+						<h3>Modificar Datos de Empleador</h3>
 					</header>
 					<div class="mb-3">
-						<input type="hidden" th:field="*{empleador_id}" /> <label
-							for="empleadorID" class="form-label">ID</label> <input
-							th:value="${empleador_id}" type="number" class="form-control"
-							id="empleadorID" disabled="disabled">
+						<!--  <input type="hidden" th:field="*{ciudadano_id}" />  --> 
+						<!-- <label for="ciudadanoId" class="form-label">ID</label>  -->
+						<input th:value="${empleador_id}" type="hidden" class="form-control" id="ciudadanoId" readonly>
 					</div>
 
 					<div class="mb-3">
 						<label for="EmpleadorCuit" class="form-label">CUIT</label> <input
-							th:field="*{cuit}" type="number" class="form-control"
-							id="EmpleadorCuit" placeholder="Solo numeros sin puntos">
-						<div class="text-danger" th:if="${#fields.hasErrors('cuit')}"
-							th:errors="*{cuit}"></div>
-					</div>
-
-					<div class="mb-3">
-						<label for="EmpleadorPass" class="form-label">PASSWORD</label> <input
-							th:field="*{password}" type="password" class="form-control"
-							id="EmpleadorPass" disabled="disabled">
-						<div class="text-danger"
-							th:if="${#fields.hasErrors('password')}"
-							th:errors="*{password}"></div>
-					</div>
-
-					<div class="mb-3">
-						<label for="EmpleadorRSoc" class="form-label">RAZON SOCIAL</label>
-						<input th:field="*{razonSocial}" type="text"
-							class="form-control" id="EmpleadorRSoc">
-						<div class="text-danger"
-							th:if="${#fields.hasErrors('razonSocial')}"
-							th:errors="*{razonSocial}"></div>
-					</div>
-
-					<div class="mb-3">
-						<label for="EmpleadorNCom" class="form-label">NOMBRE COMERCIAL</label> 
-						<input th:field="*{nombreComercial}" type="text"
-							class="form-control" id="EmpleadorNCom">
-						<div class="text-danger"
-							th:if="${#fields.hasErrors('nombreComercial')}"
-							th:errors="*{nombreComercial}"></div>
+							th:field="*{cuit}" type="text" class="form-control"	id="EmpleadorCuit" placeholder="XX-XXXXXXXX-X">
+						<div class="text-danger" th:if="${#fields.hasErrors('cuit')}" th:errors="*{cuit}"></div>
 					</div>
 					
 					<div class="mb-3">
-						<label for="EmpleadorIAct" class="form-label">INICIO ACTIVIDAD</label> 
-						<input th:field="*{inicioActividad}" type="date"
-							class="form-control" id="EmpleadorIAct">
-						<div class="text-danger" th:if="${#fields.hasErrors('inicioActividad')}"
-							th:errors="*{inicioActividad}"></div>
+						<label for="EmpleadorRazonS" class="form-label">RAZON SOCIAL</label> <input
+							th:field="*{razonSocial}" type="text" class="form-control"	id="EmpleadorRazonS">
+						<div class="text-danger" th:if="${#fields.hasErrors('razonSocial')}" th:errors="*{razonSocial}"></div>
+					</div>
+
+					<div class="mb-3">
+						<label for="EmpleadorNombreC" class="form-label">NOMBRE COMERCIAL</label>
+						<input th:field="*{nombreComercial}" type="text" class="form-control" id="EmpleadorNombreC">
+						<div class="text-danger" th:if="${#fields.hasErrors('nombreComercial')}" th:errors="*{nombreComercial}"></div>
+					</div>
+					<div class="mb-3">
+						<label for="EmpleadorFechaInicio" class="form-label">FECHA INICIO DE ACTIVIDAD</label> 
+						<input th:field="*{inicioActividad}" type="date" class="form-control" id="EmpleadorFechaInicio">
+						<div class="text-danger" th:if="${#fields.hasErrors('inicioActividad')}" th:errors="*{inicioActividad}"></div>
 					</div>
 					
 					<div class="mb-3">
 						<label for="EmpleadorEmail" class="form-label">EMAIL</label>
-						<input th:field="*{email}" type="email" class="form-control"
-							id="EmpleadorEmail" disabled="disabled">
-						<div class="text-danger" th:if="${#fields.hasErrors('email')}"
-							th:errors="*{email}"></div>
+						<input th:field="*{email}" type="text" class="form-control" id="EmpleadorEmail" readonly>
+						<div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+					</div>
+					
+					<div class="mb-3">
+						<label for="EmpleadorPassword" class="form-label">PASSWORD</label>
+						<input th:field="*{password}" th:value="${password}" type="text" class="form-control" id="EmpleadorPassword" readonly>
+						<div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
 					</div>
 					
 					<div class="mb-3">
 						<label for="EmpleadorTelefono" class="form-label">TELEFONO</label>
-						<input th:field="*{telefono}" type="number" class="form-control"
-							id="EmpleadorTelefono">
-						<div class="text-danger" th:if="${#fields.hasErrors('telefono')}"
-							th:errors="*{telefono}"></div>
+						<input th:field="*{telefono}" type="number" class="form-control" id="EmpleadorTelefono" placeholder="3885666777">
+						<div class="text-danger" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></div>
 					</div>
 					
 					<div class="mb-3">
 						<label for="EmpleadorDomicilio" class="form-label">DOMICILIO</label>
-						<input th:field="*{domicilio}" type="text" class="form-control"
-							id="EmpleadorDomicilio">
-						<div class="text-danger" th:if="${#fields.hasErrors('domicilio')}"
-							th:errors="*{domicilio}"></div>
+						<input th:field="*{domicilio}" type="text" class="form-control" id="EmpleadorDomicilio">
+						<!-- <div class="text-danger" th:if="${#fields.hasErrors('domicilio)}" th:errors="*{domicilio}"></div> -->
 					</div>
-
+					
 					<div class="mb-3">
-						<label for="EmpleadorProv" class="form-label">PROVINCIA</label> <select
-							th:field="*{provincia.provincia_id}" class="form-control"
-							id="EmpleadorProv">
-							<option th:each="provincia : ${provincia}"
-								th:value="${provincia.provincia_id}"
-								th:text="${provincia.nombreProvincia}" />
+						<label for="CiudadanoProv" class="form-label">PROVINCIA</label> 
+						<select th:field="*{provincia.provincia_id}" class="form-control" id="CiudadanoProv">
+							<option th:each="provincia : ${provincia}"	th:value="${provincia.provincia_id}" th:text="${provincia.nombreProvincia}" />
 						</select>					
 					</div>
-
+					
 					<div class="mb-3">
-						<label for="EmpleadorPWeb" class="form-label">PAGINA WEB(opcional)</label>
-						<input th:field="*{pagWeb}" type="text" class="form-control"
-							id="EmpleadorPWeb">
-						<div class="text-danger" th:if="${#fields.hasErrors('pagWeb')}"
-							th:errors="*{pagWeb}"></div>
+						<label for="EmpleadorPagW" class="form-label">PAGINA WEB (OPCIONAL)</label>
+						<input th:field="*{pagWeb}" type="text" class="form-control" id="EmpleadorPagW" placeholder="www.tupaginaempresa.com">
+						
 					</div>
 					
 					<div class="mb-3">
-						<label for="EmpleadorDesc" class="form-label">DESCRIPCION</label>
-						<input th:field="*{descripcion}" type="text" class="form-control"
-							id="EmpleadorDesc">
-						<div class="text-danger" th:if="${#fields.hasErrors('descripcion')}"
-							th:errors="*{descripcion}"></div>
+						<label for="EmpleadorDescripcion" class="form-label">DESCRIPCION</label>
+						<input th:field="*{descripcion}" type="text" class="form-control" id="EmpleadorDescripcion" placeholder="Algunas palabras acerca de tu empresa">
+						<!-- <div class="text-danger" th:if="${#fields.hasErrors('descripcion)}" th:errors="*{descripcion}"></div> -->
 					</div>
-					
 					<div class="mb-3">
-						<label for="EmpleadorUsuarioID" class="form-label">USUARIO</label>
-						<input type="hidden"  th:field="*{usuario.usuario_id}" type="number" class="form-control"
-							id="EmpleadorUsuarioID" disabled="disabled">
-						<div class="text-danger" th:if="${#fields.hasErrors('usuario.usuario_id)}"
-							th:errors="*{usuario.usuario_id}"></div>
-					</div>
+						<select style="visibility:hidden" th:value="${existeEmpleador}" th:field="*{existeEmpleador}" id="existeEmpleador" name="existeEmpleador" class="form-label" aria-label="select">
+							<option th:value="1">true option</option>
+							<option th:value="0">false option</option>
+						</select>
+						
+						<!-- <input type="hidden" th:value="${existeCiudadano}" th:field="*{existeCiudadano}" type="number" class="form-control" id="CiudadanoExiste" > -->
+					</div> 
 					
-					<div class="mb-3">
-						<label for="EmpleadorExiste" class="form-label">EXISTE EMPLEADOR</label>
-						<input type="hidden"  th:field="*{existeEmpleador}" type="number" class="form-control"
-							id="EmpleadorExiste" disabled="disabled">
-						<div class="text-danger" th:if="${#fields.hasErrors('existeEmpleador')}"
-							th:errors="*{existeEmpleador}"></div>
-					</div>					
-
-
+					
 					<button type="submit" class="btn btn-primary">Guardar Cambios</button>
-					<a th:href="@{/empleos/inicio}" id="cancel" class="btn btn-secondary">Cancelar</a>
+					<a th:href="@{/empleador/home}" id="cancel" class="btn btn-secondary">Cancelar</a>
 				</form>
 			</section>
 		</div>

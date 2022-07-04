@@ -9,5 +9,7 @@ import ar.edu.unju.fi.entity.Idioma;
 public interface IIdiomaRepository extends JpaRepository<Idioma, Long>{
 	
 	public Idioma findByNombreIdioma(String nombreIdioma);
+	
+	public Idioma findById(long idioma_id);
 
 }

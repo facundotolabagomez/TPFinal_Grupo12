@@ -50,8 +50,8 @@ public class CurriculumController {
 	
 	private static final Log LOGGER = LogFactory.getLog(CurriculumController.class);
 	
-	@PostMapping("/guardar")
-	public ModelAndView getDatosCurriculumPage(@Validated @ModelAttribute("curriculum")Curriculum curriculum, BindingResult bindingResult) {
+	@PostMapping("/guardar/{curriculum_id}")
+	public ModelAndView getDatosCurriculumPage(@Validated @ModelAttribute("curriculum")Curriculum curriculum,@PathVariable(value="curriculum_id")long curriculum_id, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			LOGGER.error("No se cumplen las reglas de validación");
 			ModelAndView mav = new ModelAndView("nuevo_curriculum");
@@ -59,12 +59,49 @@ public class CurriculumController {
 			return mav;
 		}
 		ModelAndView mavcurriculum = new ModelAndView("redirect:/ciudadano/home");
-		if (curriculumService.guardarCurriculum(curriculum)) {
-			LOGGER.info("Se guardo el curriculum");
+		Curriculum curri = curriculumService.buscarCurriculum(curriculum_id);
+		//curri.getIdiomas().
+		//Idioma idi = idiomaService.buscarIdiomaPorId(idioma.getIdioma_id());
+		
+		LOGGER.info("curriculum get educacion"+curriculum.getEducacion());
+		LOGGER.info("curriculum get explist"+curriculum.getExpLaboral());
+		if ((curriculum.getEducacion()!=null)&&(curriculum.getIdiomas()!=null)) {
+			curri.setExisteCurriculum(true);
 		}
-		mavcurriculum.addObject("curriculum", curriculum);
+		
+		List<ExperienciaLaboral> list_explab;
+		//Si tiene exp laboral, mantenemos la misma y la pasamos al mav
+		//Si no tiene le creamos una para que pueda llenarla
+		if (curri.getExpLaboral()==null) {
+			list_explab = explabService.getListaExperienciaLaboral();
+			curri.setExpLaboral(list_explab);
+		}else {
+			list_explab = curri.getExpLaboral();
+		}
+		
+		List<Idioma> list_idioma;
+		//Si tiene lista de idiomas, mantenemos la misma y la pasamos al mav
+		//Si no tiene le creamos una para que pueda llenarla
+		if (curri.getIdiomas()==null) {
+			list_idioma = idiomaService.getListaIdioma();
+			curri.setIdiomas(list_idioma);
+		}else {
+			list_idioma = curri.getIdiomas();
+		}
+		
+		LOGGER.info(curri);
+		if(curriculumService.guardarCurriculum(curri)) {
+			LOGGER.info("CURRICULUM UPDATE");
+		}
+		
+		mavcurriculum.addObject("curriculum", curri);
+		mavcurriculum.addObject("educacion", educacionService.getListaEducacion());
+		mavcurriculum.addObject("explab",list_explab);
+		mavcurriculum.addObject("idioma",list_idioma);
 		return mavcurriculum;
 	}
+	
+	
 	
 	@PostMapping("/modificar")
 	public ModelAndView editarDatosCiudadano(@Validated @ModelAttribute("curriculum") Curriculum curriculum, BindingResult bindingResult ) {
@@ -131,6 +168,15 @@ public class CurriculumController {
 		model.addAttribute("explab", cv.getExpLaboral());
 		model.addAttribute("cv", curriculumService.buscarCurriculum(curriculum_id));
 		return "edicion_explab";
+	}
+	
+	@GetMapping("/editarIdiomaList/{curriculum_id}")
+	public String getEditarIdiomaListPage(@PathVariable(value="curriculum_id")long curriculum_id,Model model) {
+		Curriculum cv = curriculumService.buscarCurriculum(curriculum_id);
+		model.addAttribute("idiomas", cv.getIdiomas());
+		model.addAttribute("cv", curriculumService.buscarCurriculum(curriculum_id));
+		model.addAttribute("idioma", idiomaService.getListaIdioma());
+		return "lista_seleccionar";
 	}
 
 }

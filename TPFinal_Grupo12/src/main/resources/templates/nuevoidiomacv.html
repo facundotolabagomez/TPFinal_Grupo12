@@ -9,6 +9,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
+<title>empleAR - Nueva Exp Lab</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="../assets/LogoIcono.ico" />
 <!-- Font Awesome icons (free version)-->
@@ -21,49 +22,38 @@
 	rel="stylesheet" type="text/css" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <!-- <link href="../css/styles.css" rel="stylesheet" /> -->
-<title>Home Empresa</title>
+
 </head>
 <body>
 	<header th:replace="/layouts/headertest::headertest"></header>
 
+	<div class="container bg-light">
+		<div class="row">
+			<!--inicio de contenedor row-->
+			<section class="col-md-12" style="margin: auto">
 
+				<form th:action="@{/idioma/guardarlist/{curriculum_id}(curriculum_id=${cv.curriculum_id})}" method="POST" th:object="${idiomalistacv}">
+					<header
+						style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
+						<h3> ELEGIR IDIOMA</h3>
+					</header>
+					<div class="mb-3">
+						<label for="nombreIdioma" class="form-label">Idioma:</label> 
+						<select	th:field="*{idioma_id}" class="form-control" id="nombreIdioma">
+							<option th:each="idioma : ${idioma}" 
+									th:value="${idioma.idioma_id}"
+									th:text="${idioma.nombreIdioma}" />
+						</select>
+						
+					</div>
 
-
-	<section class="page-section bg-light" id="team">
-		<div class="container">
-			<div class="text-center">
-
-				<header	style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
-						<h3>Home Empresa</h3>
-				</header>				
-
-				<div class="btn-group" th:object="${empleador}">
-					<a class="btn btn-primary" th:href="@{/empleador/edicion/{email}(email=${empleador.email})}" role="button">Editar Datos</a>
-            	</div>
-				
-				<div class="btn-group" th:object="${empleador}">
-					<a class="btn btn-primary" th:href="@{/ofertalab/nueva/{email}(email=${empleador.email})}" role="button">Nueva Oferta Laboral</a>
-            	</div>
-            	<div class="btn-group" th:object="${empleador}">
-					<a class="btn btn-primary" th:href="@{/ofertalab/lista_ofertas/{email}(email=${empleador.email})}" role="button">Ver Mis OFertas Laborales</a>
-            	</div>
-				<div class="btn-group">
-					<a class="btn btn-primary" href="" role="button">Ver Postulantes</a>
-				</div>				
-				<div class="btn-group">
-					<a class="btn btn-primary" href="" role="button">Ver Contratados</a>
-				</div>
-
-				<div class="btn-group">
-					<a class="btn btn-success" href="#" role="button">Eliminar Cuenta</a>
-				</div>
-			
-			</div>
+					<button type="submit" class="btn btn-primary">Enviar</button>
+				</form>
+			</section>
 		</div>
-	</section>
 
-
-	<footer th:replace="/layouts/footertest::footertest"></footer>
+	</div>
+<footer th:replace="/layouts/footertest::footertest"></footer>
 
 	<script src="/webjars/jquery/jquery.min.js" type="text/javascript"></script>
 	<script src="/webjars/popper.js/umd/popper.min.js"
@@ -81,5 +71,5 @@
 	<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
 	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 	<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-	</body>
-	</html>
+</body>
+</html>
