@@ -14,5 +14,6 @@ public interface ICiudadanoService {
 	public List<Ciudadano> getListaCiudadano();
 	public Ciudadano buscarCiudadano(int dni);
 	public Ciudadano buscarCiudadanoPorEmail(String email);
+	public Ciudadano buscarCiudadanoPorOferta(long oferta_id);
 
 }

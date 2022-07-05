@@ -84,7 +84,7 @@
 					<div class="mb-3">
 						<label for="EmpleadorDomicilio" class="form-label">DOMICILIO</label>
 						<input th:field="*{domicilio}" type="text" class="form-control" id="EmpleadorDomicilio">
-						<div class="text-danger" th:if="${#fields.hasErrors('domicilio)}" th:errors="*{domicilio}"></div> 
+						<!-- <div class="text-danger" th:if="${#fields.hasErrors('domicilio)}" th:errors="*{domicilio}"></div>  -->
 					</div>
 					
 					<div class="mb-3">
@@ -103,7 +103,7 @@
 					<div class="mb-3">
 						<label for="EmpleadorDescripcion" class="form-label">DESCRIPCION</label>
 						<input th:field="*{descripcion}" type="text" class="form-control" id="EmpleadorDescripcion" placeholder="Algunas palabras acerca de tu empresa">
-						<div class="text-danger" th:if="${#fields.hasErrors('descripcion)}" th:errors="*{descripcion}"></div> 
+						<!-- <div class="text-danger" th:if="${#fields.hasErrors('descripcion)}" th:errors="*{descripcion}"></div>  -->
 					</div>
 					<div class="mb-3">
 						<select style="visibility:hidden" th:value="${existeEmpleador}" th:field="*{existeEmpleador}" id="existeEmpleador" name="existeEmpleador" class="form-label" aria-label="select">

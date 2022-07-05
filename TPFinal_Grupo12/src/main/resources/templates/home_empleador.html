@@ -48,10 +48,10 @@
 					<a class="btn btn-primary" th:href="@{/ofertalab/lista_ofertas/{email}(email=${empleador.email})}" role="button">Ver Mis OFertas Laborales</a>
             	</div>
 				<div class="btn-group">
-					<a class="btn btn-primary" href="" role="button">Ver Postulantes</a>
+					<a class="btn btn-primary" th:href="@{/ofertalab/postulantesListEmp/{email}(email=${empleador.email})}" role="button">Ver Postulados</a>
 				</div>				
 				<div class="btn-group">
-					<a class="btn btn-primary" href="" role="button">Ver Contratados</a>
+					<a class="btn btn-primary" th:href="@{/ofertalab/contratadoEmpresa/{emailEmp}(emailEmp=${empleador.email})}" role="button">Ver Contratados</a>
 				</div>
 
 				<div class="btn-group">

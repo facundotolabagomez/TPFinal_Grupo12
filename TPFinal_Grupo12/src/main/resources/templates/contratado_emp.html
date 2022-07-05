@@ -33,39 +33,34 @@
 			<section class="col-md-9" style="margin: auto">
 				<header
 					style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
-					<h3>Ofertas Laborales</h3>
+					<h3>CONTRATADOS POR LA EMPRESA</h3>
 				</header>
 				<br>
 				<div class="col-12 d-flex justify-content-center">
 					<table class="table table-striped table-hover">
 						<tr>
-							<th>ID</th>
-							<th>PUESTO REQUERIDO</th>
-							<th>VACANTE</th>
-							<th>RESUMEN</th>
-							<th>DISP HORARIA</th>
-							<th>JORNADA</th>
-							<th>PRINC TAREAS</th>
-							<th>SALARIO</th>
-							<th>OPCIONES</th>
-
-						</tr>
-						<tr th:each="oferta: ${ofertalab}">
-							<td th:text="${oferta.oferta_id}"></td>
-							<td th:text="${oferta.puestoRequerido}"></td>
-							<td th:text="${oferta.cantVacantes}"></td>
-							<td th:text="${oferta.resumenPuesto}"></td>
-							<td th:text="${oferta.dispHoraria}"></td>
-							<td th:text="${oferta.jornada}"></td>
-							<td th:text="${oferta.princTareas}"></td>
-							<td th:text="${oferta.salario}"></td>
-							<td> <a th:href="@{/ofertalab/postular/{oferta_id}/{email}(oferta_id=${oferta.oferta_id},email=${ciudadano.email})}" id="postular" class="btn btn-danger">Postular</a></td>
+							<th>NOMBRE/S</th>
+							<th>APELLIDO/S</th>
+							<th>TELEFONO</th>
+							<th>EDAD</th>
+							<th>OPCIONES</th>					
+							
+						</tr>	
+						<tr th:each="cont: ${contratados}">
+							<td th:value="${cont.nombresCiudadano}" th:text="${cont.nombresCiudadano}"></td>
+							<td th:value="${cont.apellidoCiudadano}" th:text="${cont.apellidoCiudadano}"></td>
+							<td th:value="${cont.telefono}" th:text="${cont.telefono}"></td>
+							<td th:value="${cont.obtenerEdad}" th:text="${cont.obtenerEdad}"></td>
+							<td>
+							<a href="#" id="Cv" class="btn btn-secondary">CV</a>
+							  
+							</td>
 						</tr>
 					</table>
 					<br>
 					
 				</div>
-				<a th:href="@{/ciudadano/home}" id="cancel" class="btn btn-secondary">Cancelar</a>
+				<a th:href="@{/empleador/home}" id="cancel" class="btn btn-secondary">Cancelar</a>
 			</section>
 		</div>
 

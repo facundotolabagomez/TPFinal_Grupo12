@@ -2,6 +2,7 @@ package ar.edu.unju.fi.service;
 
 import java.util.List;
 
+import ar.edu.unju.fi.entity.Ciudadano;
 import ar.edu.unju.fi.entity.Empleador;
 import ar.edu.unju.fi.entity.OfertaLaboral;
 import ar.edu.unju.fi.entity.Provincia;
@@ -16,5 +17,6 @@ public interface IOfertaLaboralService {
 	public List<OfertaLaboral> buscarOfertaPorEmpleador(Empleador empleador);
 	public List<OfertaLaboral> buscarTodasOferta();
 	public List<OfertaLaboral> buscarOfertaPorProv(Provincia provincia);
+	public List<OfertaLaboral> buscarOfertaPorCiudadano(Ciudadano ciudadano);
 
 }
