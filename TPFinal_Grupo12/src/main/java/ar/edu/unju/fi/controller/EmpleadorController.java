@@ -128,6 +128,8 @@ public class EmpleadorController {
 		}else {
 			emp.setCiudadanos(empleador.getCiudadanos());
 		}
+		
+		
 		if (empleador.getCuit()!=null) {
 			emp.setCuit(empleador.getCuit());
 		}

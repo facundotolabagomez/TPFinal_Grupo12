@@ -1,7 +1,5 @@
 package ar.edu.unju.fi.entity;
 
-import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,20 +7,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  * Clase que representa los datos del postulante
  * 
- * @author Elio
- * @version 1.0
+ * 
  */
 
 @Entity
@@ -36,28 +28,22 @@ public class Curriculum {
 	
 	
 	@OneToOne(cascade = {CascadeType.PERSIST})
-	//@OneToOne
 	@JoinColumn(name = "CIUDADANO_ID")
 	private Ciudadano ciudadano;
 	
-	@OneToMany(
-			mappedBy = "curriculum", 
-			cascade = CascadeType.ALL, 
-			orphanRemoval = false)
-	private List<ExperienciaLaboral> expLaboral;
+	@Column(name = "IDIOMA", length = 50)
+	//@NotNull(message = "Debe completar Conocimientos Informaticos")
+	//@Size(min=20, max=50)	
+	private String idioma;
+	
+	@Column(name = "EXP_LABORAL", length = 50)
+	//@NotNull(message = "Debe completar Conocimientos Informaticos")
+	//@Size(min=20, max=50)	
+	private String expLab;
 	
 	@ManyToOne()
 	@JoinColumn(name = "EDUCACION_ID")
 	private Educacion educacion;
-	
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(
-			name= "rel_curriculums_idiomas",
-			joinColumns= {@JoinColumn(name="CURRICULUM_ID")},
-			inverseJoinColumns= {@JoinColumn(name="IDIOMA_ID")}
-			)
-	
-	private List <Idioma> idiomas;
 	
 	@Column(name = "CONOC_INFOR", length = 50)
 	//@NotNull(message = "Debe completar Conocimientos Informaticos")
@@ -81,23 +67,6 @@ public class Curriculum {
 	}
 
 
-	public Curriculum(long curriculum_id, Ciudadano ciudadano, List<ExperienciaLaboral> expLaboral, Educacion educacion,
-			List<Idioma> idiomas,
-			@NotNull(message = "Debe completar Conocimientos Informaticos") @Size(min = 20, max = 50) String conocInfor,
-			@NotNull(message = "Debe completar Info Complementaria") @Size(min = 20, max = 50) String infoComplem,
-			boolean existeCurriculum) {
-		super();
-		this.curriculum_id = curriculum_id;
-		this.ciudadano = ciudadano;
-		this.expLaboral = expLaboral;
-		this.educacion = educacion;
-		this.idiomas = idiomas;
-		this.conocInfor = conocInfor;
-		this.infoComplem = infoComplem;
-		this.existeCurriculum = existeCurriculum;
-	}
-
-
 	public long getCurriculum_id() {
 		return curriculum_id;
 	}
@@ -118,13 +87,23 @@ public class Curriculum {
 	}
 
 
-	public List<ExperienciaLaboral> getExpLaboral() {
-		return expLaboral;
+	public String getIdioma() {
+		return idioma;
 	}
 
 
-	public void setExpLaboral(List<ExperienciaLaboral> expLaboral) {
-		this.expLaboral = expLaboral;
+	public void setIdioma(String idioma) {
+		this.idioma = idioma;
+	}
+
+
+	public String getExpLab() {
+		return expLab;
+	}
+
+
+	public void setExpLab(String expLab) {
+		this.expLab = expLab;
 	}
 
 
@@ -135,16 +114,6 @@ public class Curriculum {
 
 	public void setEducacion(Educacion educacion) {
 		this.educacion = educacion;
-	}
-
-
-	public List<Idioma> getIdiomas() {
-		return idiomas;
-	}
-
-
-	public void setIdiomas(List<Idioma> idiomas) {
-		this.idiomas = idiomas;
 	}
 
 
@@ -176,9 +145,8 @@ public class Curriculum {
 	public void setExisteCurriculum(boolean existeCurriculum) {
 		this.existeCurriculum = existeCurriculum;
 	}
+
+
 	
-	public void addIdioma (Idioma idioma) {
-		this.idiomas.add(idioma);
-	}
 	
 }

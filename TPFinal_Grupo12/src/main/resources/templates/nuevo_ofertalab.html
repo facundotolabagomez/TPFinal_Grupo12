@@ -30,100 +30,72 @@
 	<div class="container bg-light">
 		<div class="row">
 			<!--inicio de contenedor row-->
-			<section class="col-md-12" style="margin: auto">
+			<section class="col-md-6" style="margin: auto">
 
 				<form th:action="@{/ofertalab/guardaroferta/{email}(email=${empleador.email})}" method="POST" th:object="${ofertalab}">
-					<header
-						style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
+					<header style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
 						<h3>Nueva Oferta Laboral</h3>
 					</header>
 					<div class="mb-3">
-						<input type="hidden" th:field="*{oferta_id}" /> 
-						<label for="OfertaId" class="form-label">ID</label> 
-						<input th:value="${oferta_id}" type="number" 
-								class="form-control" id="OfertaId" disabled="disabled">
+						<input th:value="${oferta_id}" type="hidden" class="form-control" id="OfertaId" readonly>
 					</div>
-
+					<div class="mb-3">
+						<label for="OfertaPReq" class="form-label">PUESTO REQUERIDO</label> 
+						<input autofocus th:field="*{puestoRequerido}" type="text" class="form-control" id="OfertaPReq">
+						<div class="text-danger" th:if="${#fields.hasErrors('puestoRequerido')}" th:errors="*{puestoRequerido}"></div>
+					</div>
+					<div class="mb-3">
+						<label for="OfertaResP" class="form-label">RESUMEN PUESTO</label>
+						<input th:field="*{resumenPuesto}" type="text" class="form-control" id="OfertaResP">
+						<div class="text-danger" th:if="${#fields.hasErrors('resumenPuesto')}" th:errors="*{resumenPuesto}"></div>
+					</div>
+					<div class="mb-3">
+						<label for="OfertaPrT" class="form-label">PRINCIPALES TAREAS</label> 
+						<input th:field="*{princTareas}" type="text" class="form-control" id="OfertaPrT">
+						<div class="text-danger" th:if="${#fields.hasErrors('princTareas')}" th:errors="*{princTareas}"></div>
+					</div>
 					<div class="mb-3">
 						<label for="OfertaVac" class="form-label">CANTIDAD DE VACANTES</label> 
 						<input th:field="*{cantVacantes}" type="number" class="form-control" id="OfertaVac" placeholder="">
 						<div class="text-danger" th:if="${#fields.hasErrors('cantVacantes')}" th:errors="*{cantVacantes}"></div>
 					</div>
-
-					<div class="mb-3">
-						<label for="OfertaPReq" class="form-label">PUESTO REQUERIDO</label> <input
-							th:field="*{puestoRequerido}" type="text" class="form-control"
-							id="OfertaPReq">
-						<div class="text-danger"
-							th:if="${#fields.hasErrors('puestoRequerido')}"
-							th:errors="*{puestoRequerido}"></div>
-					</div>
-
-					<div class="mb-3">
-						<label for="OfertaResP" class="form-label">RESUMEN PUESTO</label>
-						<input th:field="*{resumenPuesto}" type="text"
-							class="form-control" id="OfertaResP">
-						<div class="text-danger"
-							th:if="${#fields.hasErrors('resumenPuesto')}"
-							th:errors="*{resumenPuesto}"></div>
-					</div>
-
 					<div class="mb-3">
 						<label for="OfertaDH" class="form-label">DISPONIBILIDAD HORARIA</label> 
-						<input th:field="*{dispHoraria}" type="text"
-							class="form-control" id="OfertaDH">
-						<div class="text-danger"
-							th:if="${#fields.hasErrors('dispHoraria')}"
-							th:errors="*{dispHoraria}"></div>
+						<select name="OfertaDH" class="form-control selectpicker" th:field="*{dispHoraria}" >
+							<option selected="selected"  th:value="'MATUTINO'" >MATUTINO</option>
+   							<option th:value="'DIURNO'">DIURNO</option>
+   							<option th:value="'NOCTURNO'">NOCTURNO</option>
+						</select><br>
 					</div>
-					
-					<div class="mb-3">
-						<label for="OfertaPrT" class="form-label">PRINCIPALES TAREAS</label> 
-						<input th:field="*{princTareas}" type="text"
-							class="form-control" id="OfertaPrT">
-						<div class="text-danger"
-							th:if="${#fields.hasErrors('princTareas')}"
-							th:errors="*{princTareas}"></div>
-					</div>
-
 					<div class="mb-3">
 						<label for="OfertaDC" class="form-label">DATOS DE CONTACTO</label>
-						<input th:field="*{datosContacto}" type="text" class="form-control"
-							id="OfertaDC">
-						<div class="text-danger" th:if="${#fields.hasErrors('datosContacto')}"
-							th:errors="*{tdatosContacto}"></div>
+						<input th:field="*{datosContacto}" type="text" class="form-control" id="OfertaDC">
+						<div class="text-danger" th:if="${#fields.hasErrors('datosContacto')}" th:errors="*{tdatosContacto}"></div>
 					</div>
-					
 					<div class="mb-3">
 						<label for="OfertaJornada" class="form-label">JORNADA</label>
-						<input th:field="*{jornada}" type="text" class="form-control"
-							id="OfertaJornada">
-						<div class="text-danger" th:if="${#fields.hasErrors('jornada')}"
-							th:errors="*{jornada}"></div>
+						<select name="OfertaJornada" class="form-control selectpicker" th:field="*{jornada}" >
+							<option selected="selected"  th:value="'COMPLETA'" >TIEMPO COMPLETO</option>
+   							<option th:value="'PARCIAL'">TIEMPO PARCIAL</option>
+   							<option th:value="'REDUCIDO'">REDUCIDO</option>
+   							<option th:value="'PARTIDO'">PARTIDO</option>
+						</select><br>
 					</div>
-					
 					<div class="mb-3">
 						<label for="OfertaRequisitos" class="form-label">REQUISITOS</label>
-						<input th:field="*{requisitos}" type="text" class="form-control"
-							id="OfertaJornada">
-						<div class="text-danger" th:if="${#fields.hasErrors('requisitos')}"
-							th:errors="*{requisitos}"></div>
+						<input th:field="*{requisitos}" type="text" class="form-control" id="OfertaJornada">
+						<div class="text-danger" th:if="${#fields.hasErrors('requisitos')}" th:errors="*{requisitos}"></div>
 					</div>
 					
 					<div class="mb-3">
 						<label for="OfertaSalario" class="form-label">SALARIO</label>
-						<input th:field="*{salario}" type="number" class="form-control"
-							id="OfertaSalario" placeholder="Solo numeros sin puntos">
-						<div class="text-danger" th:if="${#fields.hasErrors('salario')}"
-							th:errors="*{salario}"></div>
+						<input th:field="*{salario}" type="number" class="form-control" id="OfertaSalario" placeholder="">
+						<div class="text-danger" th:if="${#fields.hasErrors('salario')}" th:errors="*{salario}"></div>
 					</div>
-					
 					<div class="mb-3">
 						<label for="OfertaBeneficios" class="form-label">BENEFICIOS</label>
-						<input th:field="*{beneficios}" type="text" class="form-control"
-							id="OfertaBeneficios">
-						<div class="text-danger" th:if="${#fields.hasErrors('beneficios')}"
-							th:errors="*{beneficios}"></div>
+						<input th:field="*{beneficios}" type="text" class="form-control" id="OfertaBeneficios">
+						<div class="text-danger" th:if="${#fields.hasErrors('beneficios')}" th:errors="*{beneficios}"></div>
 					</div>	
 
 					<button type="submit" class="btn btn-primary">Crear Oferta Laboral</button>

@@ -36,7 +36,7 @@ public class UsuarioServiceImpSql implements IUsuarioService {
 	@Override
 	public boolean guardarUsuario(Usuario usuario) {
 		// TODO Auto-generated method stub
-		LOGGER.info("ENCRIPTANDO PASS");
+		LOGGER.info("ENCRIPTANDO PASS----");
 		String pw = usuario.getPasswordUser();
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
 		usuario.setPasswordUser(bCryptPasswordEncoder.encode(pw));

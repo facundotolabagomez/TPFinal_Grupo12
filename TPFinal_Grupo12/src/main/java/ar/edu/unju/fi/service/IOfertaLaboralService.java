@@ -4,6 +4,7 @@ import java.util.List;
 
 import ar.edu.unju.fi.entity.Empleador;
 import ar.edu.unju.fi.entity.OfertaLaboral;
+import ar.edu.unju.fi.entity.Provincia;
 
 public interface IOfertaLaboralService {
 	
@@ -13,5 +14,7 @@ public interface IOfertaLaboralService {
 	public void eliminarOfertaLab (long oferta_id);
 	public OfertaLaboral buscarOfertaLab(long oferta_id);
 	public List<OfertaLaboral> buscarOfertaPorEmpleador(Empleador empleador);
+	public List<OfertaLaboral> buscarTodasOferta();
+	public List<OfertaLaboral> buscarOfertaPorProv(Provincia provincia);
 
 }

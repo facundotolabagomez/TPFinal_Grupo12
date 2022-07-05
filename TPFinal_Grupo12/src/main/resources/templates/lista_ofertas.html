@@ -30,7 +30,7 @@
 	<div class="container bg-light">
 		<div class="row">
 			<!--inicio de contenedor row-->
-			<section class="col-md-12" style="margin: auto">
+			<section class="col-md-9" style="margin: auto">
 				<header
 					style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
 					<h3>Ofertas Laborales</h3>
@@ -41,18 +41,27 @@
 						<tr>
 							<th>ID</th>
 							<th>PUESTO REQUERIDO</th>
+							<th>VACANTE</th>
 							<th>RESUMEN</th>
-							
+							<th>DISP HORARIA</th>
+							<th>JORNADA</th>
+							<th>PRINC TAREAS</th>
+							<th>SALARIO</th>
 
 						</tr>
 						<tr th:each="oferta: ${ofertalab}">
 							<td th:text="${oferta.oferta_id}"></td>
 							<td th:text="${oferta.puestoRequerido}"></td>
+							<td th:text="${oferta.cantVacantes}"></td>
 							<td th:text="${oferta.resumenPuesto}"></td>
+							<td th:text="${oferta.dispHoraria}"></td>
+							<td th:text="${oferta.jornada}"></td>
+							<td th:text="${oferta.princTareas}"></td>
+							<td th:text="${oferta.salario}"></td>
 						</tr>
 					</table>
 					<br>
-					<br>
+					
 				</div>
 			</section>
 		</div>
