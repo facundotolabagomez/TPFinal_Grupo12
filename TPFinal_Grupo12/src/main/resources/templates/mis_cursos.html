@@ -9,7 +9,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>empleAR - Cursos Online</title>
+<title>empleAR - Mis Cursos</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="../assets/LogoIcono.ico" />
 <!-- Font Awesome icons (free version)-->
@@ -30,7 +30,7 @@
 		<div class="container bg-light">
 	<div class="row"> <!--inicio de contenedor row-->
 	<section class="col-md-12" style="margin: auto">	
-	<header style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;"><h3> Cursos Online</h3></header><br>
+	<header style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;"><h3>Mis Cursos</h3></header><br>
 	
 			<div class="col-12 d-flex justify-content-center">
 				<table class="table table-striped table-hover">
@@ -48,9 +48,9 @@
 							<td th:text="${curso.categoria}"></td>
 							<td th:text="${curso.detalles}"></td>
 																												
-							<td>
-							<a th:href="@{/inscripcion/{curso_id}/{email}" id="inscribirseCurso" class="btn btn-success">Inscribirme</a>
-							</td>
+							<!-- <td>
+							<a th:href="@{/ciudadano/inscripcion/}+${curso.nombreCurso}" id="inscribirseCurso" class="btn btn-success">Inscribirme</a>
+							</td> -->
 						</tr>
 					</table>
 				<br><br>
