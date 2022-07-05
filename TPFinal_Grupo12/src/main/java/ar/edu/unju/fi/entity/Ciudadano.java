@@ -79,7 +79,8 @@ public class Ciudadano {
 	private String telefono;
 	
 	@Column(name = "FECHA_NAC", length = 10)
-	//@NotNull(message="Debe ingresar Fecha de Nacimiento") @Past(message="Debe ser fecha anterior a la actual")
+	//@NotNull(message="Debe ingresar Fecha de Nacimiento") 
+	//@Past(message="Debe ser fecha anterior a la actual")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaNac;
 	

@@ -104,12 +104,6 @@ public class Empleador {
 			)
 	private List <Ciudadano> ciudadanos;
 	
-	/*
-	 @ManyToOne()
-	 @JoinColumn(name = "USUARIO_ID") 
-	 private Usuario usuario;
-	 */
-	
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "USUARIO_ID")
 	private Usuario usuario;

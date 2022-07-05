@@ -9,7 +9,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>empleAR - Sitio Oficial</title>
+<title>empleAR - Ofertas Laborales</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="../assets/LogoIcono.ico" />
 <!-- Font Awesome icons (free version)-->
@@ -22,7 +22,7 @@
 	rel="stylesheet" type="text/css" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <!-- <link href="../css/styles.css" rel="stylesheet" /> -->
-<title>Inicio</title>
+
 </head>
 <body>
 	<header th:replace="/layouts/headertest::headertest"></header>
@@ -30,37 +30,43 @@
 	<div class="container bg-light">
 		<div class="row">
 			<!--inicio de contenedor row-->
-			<section class="col-md-12" style="margin: auto">
+			<section class="col-md-9" style="margin: auto">
+				<header
+					style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
+					<h3>Ofertas Laborales</h3>
+				</header>
+				<br>
+				<div class="col-12 d-flex justify-content-center">
+					<table class="table table-striped table-hover">
+						<tr>
+							<th>ID</th>
+							<th>PUESTO REQUERIDO</th>
+							<th>VACANTE</th>
+							<th>RESUMEN</th>
+							<th>DISP HORARIA</th>
+							<th>JORNADA</th>
+							<th>PRINC TAREAS</th>
+							<th>SALARIO</th>
 
-				<form th:action="@{/idioma/guardar}" method="POST"
-					th:object="${idioma}">
-					<header
-						style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
-						<h3> Cargar Idioma</h3>
-					</header>
-					<div class="mb-3">
-						<input type="hidden" th:field="*{idioma_id}" /> <label
-							for="idiomaId" class="form-label">ID</label> <input
-							th:value="${idioma_id}" type="number" class="form-control"
-							id="idiomaId" disabled="disabled">
-					</div>
-
-					<div class="mb-3">
-						<label for="NombreIdiomaId" class="form-label">Nombre
-							Idioma</label> <input th:field="*{nombreIdioma}" type="text"
-							class="form-control" id="NombreIdiomaId">
-						<div class="text-danger"
-							th:if="${#fields.hasErrors('nombreIdioma')}"
-							th:errors="*{nombreIdioma}"></div>
-					</div>
-
-					<button type="submit" class="btn btn-primary">Enviar</button>
-				</form>
+						</tr>
+						<tr th:each="oferta: ${ofertalab}">
+							<td th:text="${oferta.oferta_id}"></td>
+							<td th:text="${oferta.puestoRequerido}"></td>
+							<td th:text="${oferta.cantVacantes}"></td>
+							<td th:text="${oferta.resumenPuesto}"></td>
+							<td th:text="${oferta.dispHoraria}"></td>
+							<td th:text="${oferta.jornada}"></td>
+							<td th:text="${oferta.princTareas}"></td>
+							<td th:text="${oferta.salario}"></td>
+						</tr>
+					</table>
+					<br>
+					
+				</div>
 			</section>
 		</div>
 
 	</div>
-
 
 
 	<footer th:replace="/layouts/footertest::footertest"></footer>

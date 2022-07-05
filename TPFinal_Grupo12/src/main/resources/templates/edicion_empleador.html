@@ -30,16 +30,13 @@
 	<div class="container bg-light">
 		<div class="row">
 			<!--inicio de contenedor row-->
-			<section class="col-md-12" style="margin: auto">
+			<section class="col-md-6" style="margin: auto">
 
 				<form th:action="@{/empleador/modificar}" method="POST"	th:object="${empleador}">
-					<header
-						style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
+					<header style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
 						<h3>Modificar Datos de Empleador</h3>
 					</header>
 					<div class="mb-3">
-						<!--  <input type="hidden" th:field="*{ciudadano_id}" />  --> 
-						<!-- <label for="ciudadanoId" class="form-label">ID</label>  -->
 						<input th:value="${empleador_id}" type="hidden" class="form-control" id="ciudadanoId" readonly>
 					</div>
 
@@ -87,7 +84,7 @@
 					<div class="mb-3">
 						<label for="EmpleadorDomicilio" class="form-label">DOMICILIO</label>
 						<input th:field="*{domicilio}" type="text" class="form-control" id="EmpleadorDomicilio">
-						<!-- <div class="text-danger" th:if="${#fields.hasErrors('domicilio)}" th:errors="*{domicilio}"></div> -->
+						<div class="text-danger" th:if="${#fields.hasErrors('domicilio)}" th:errors="*{domicilio}"></div> 
 					</div>
 					
 					<div class="mb-3">
@@ -106,15 +103,13 @@
 					<div class="mb-3">
 						<label for="EmpleadorDescripcion" class="form-label">DESCRIPCION</label>
 						<input th:field="*{descripcion}" type="text" class="form-control" id="EmpleadorDescripcion" placeholder="Algunas palabras acerca de tu empresa">
-						<!-- <div class="text-danger" th:if="${#fields.hasErrors('descripcion)}" th:errors="*{descripcion}"></div> -->
+						<div class="text-danger" th:if="${#fields.hasErrors('descripcion)}" th:errors="*{descripcion}"></div> 
 					</div>
 					<div class="mb-3">
 						<select style="visibility:hidden" th:value="${existeEmpleador}" th:field="*{existeEmpleador}" id="existeEmpleador" name="existeEmpleador" class="form-label" aria-label="select">
 							<option th:value="1">true option</option>
 							<option th:value="0">false option</option>
 						</select>
-						
-						<!-- <input type="hidden" th:value="${existeCiudadano}" th:field="*{existeCiudadano}" type="number" class="form-control" id="CiudadanoExiste" > -->
 					</div> 
 					
 					

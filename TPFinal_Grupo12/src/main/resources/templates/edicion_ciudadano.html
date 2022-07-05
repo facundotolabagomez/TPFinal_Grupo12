@@ -30,51 +30,42 @@
 	<div class="container bg-light">
 		<div class="row">
 			<!--inicio de contenedor row-->
-			<section class="col-md-12" style="margin: auto">
+			<section class="col-md-6" style="margin: auto">
 
-				<form th:action="@{/ciudadano/modificar}" method="POST"	th:object="${ciudadano}">
+				<form th:action="@{/ciudadano/modificar}" method="POST"	th:object="${ciudadano}" >
 					<header
 						style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
 						<h3>Modificar Datos de Usuario</h3>
 					</header>
 					<div class="mb-3">
-						<!--  <input type="hidden" th:field="*{ciudadano_id}" />  --> 
-						<!-- <label for="ciudadanoId" class="form-label">ID</label>  -->
 						<input th:value="${ciudadano_id}" type="hidden" class="form-control" id="ciudadanoId" readonly>
 					</div>
 
 					<div class="mb-3">
-						<label for="CiudadanoDNI" class="form-label">DNI</label> <input
-							th:field="*{dni}" type="number" class="form-control"
-							id="CiudadanoDNI" placeholder="Solo numeros sin puntos">
-						<div class="text-danger" th:if="${#fields.hasErrors('dni')}"
-							th:errors="*{dni}"></div>
+						<label for="CiudadanoDNI" class="form-label">DNI</label> 
+						<input autofocus th:field="*{dni}" type="number" class="form-control" id="CiudadanoDNI" placeholder="Solo numeros sin puntos">
+						<div class="text-danger" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></div>
 					</div>
-					
-						<div class="mb-3">
-						<label for="CiudadanoNumeroTram" class="form-label">NUMERO DE TRAMITE</label> <input
-							th:field="*{numeroTramite}" type="number" class="form-control"
-							id="CiudadanoNumeroTram" placeholder="Solo numeros sin puntos">
-						<div class="text-danger" th:if="${#fields.hasErrors('numeroTramite')}"
-							th:errors="*{numeroTramite}"></div>
-					</div>
-
 					<div class="mb-3">
-						<label for="CiudadanoNombres" class="form-label">NOMBRES</label> <input
-							th:field="*{nombresCiudadano}" type="text" class="form-control"
-							id="CiudadanoNombres">
-						<div class="text-danger"
-							th:if="${#fields.hasErrors('nombresCiudadano')}"
-							th:errors="*{nombresCiudadano}"></div>
+						<label for="CiudadanoNumeroTram" class="form-label">NUMERO DE TRAMITE</label> 
+						<input th:field="*{numeroTramite}" type="number" class="form-control" id="CiudadanoNumeroTram" placeholder="11 DIGITOS">
+						<div class="text-danger" th:if="${#fields.hasErrors('numeroTramite')}" th:errors="*{numeroTramite}"></div>
+					</div>
+					<div class="mb-3">
+						<label for="CiudadanoFechaNac" class="form-label">FECHA	NACIMIENTO</label> 
+						<input th:field="*{fechaNac}" type="date" class="form-control" id="CiudadanoFechaNac">
+						<div class="text-danger" th:if="${#fields.hasErrors('fechaNac')}" th:errors="*{fechaNac}"></div>
+					</div>
+					<div class="mb-3">
+						<label for="CiudadanoNombres" class="form-label">NOMBRES</label> 
+						<input th:field="*{nombresCiudadano}" type="text" class="form-control" id="CiudadanoNombres">
+						<div class="text-danger" th:if="${#fields.hasErrors('nombresCiudadano')}" th:errors="*{nombresCiudadano}"></div>
 					</div>
 
 					<div class="mb-3">
 						<label for="CiudadanoApellido" class="form-label">APELLIDO</label>
-						<input th:field="*{apellidoCiudadano}" type="text"
-							class="form-control" id="CiudadanoApellido">
-						<div class="text-danger"
-							th:if="${#fields.hasErrors('apellidoCiudadano')}"
-							th:errors="*{apellidoCiudadano}"></div>
+						<input th:field="*{apellidoCiudadano}" type="text" class="form-control" id="CiudadanoApellido">
+						<div class="text-danger" th:if="${#fields.hasErrors('apellidoCiudadano')}" th:errors="*{apellidoCiudadano}"></div>
 					</div>
 					
 					<div class="mb-3">
@@ -116,13 +107,6 @@
 					</div>
 
 					<div class="mb-3">
-						<label for="CiudadanoFechaNac" class="form-label">FECHA	NACIMIENTO</label> <input th:field="*{fechaNac}" type="date"
-							class="form-control" id="CiudadanoFechaNac">
-						<div class="text-danger" th:if="${#fields.hasErrors('fechaNac')}"
-							th:errors="*{fechaNac}"></div>
-					</div>
-					
-					<div class="mb-3">
 						<input type="hidden" th:field="*{usuario.usuario_id}" /> 
 						<!-- <label for="ciudadanoId" class="form-label">ID</label>  -->
 						<input th:value="${usuario.usuario_id}" type="hidden" class="form-control" id="usuarioId" readonly>
@@ -130,7 +114,6 @@
 					
 					<div class="mb-3">
 						<input type="hidden" th:field="*{curriculum.curriculum_id}" /> 
-						<!-- <label for="ciudadanoId" class="form-label">ID</label>  -->
 						<input th:value="${curriculum.curriculum_id}" type="hidden" class="form-control" id="curriculumId" readonly>
 					</div>
 					

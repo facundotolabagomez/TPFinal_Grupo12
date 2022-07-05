@@ -56,7 +56,7 @@ public class OfertaLaboral {
 	//@Size(min = 10, max = 150)
 	private String princTareas;
 
-	@Column(name = "DATOS_CONTACTO", length = 20)
+	@Column(name = "DATOS_CONTACTO", length = 50)
 	//@NotNull(message = "Debe completar Datos de Contacto")
 	//@Size(min = 5, max = 20)
 	private String datosContacto;

@@ -30,30 +30,26 @@
 	<div class="container bg-light">
 		<div class="row">
 			<!--inicio de contenedor row-->
-			<section class="col-md-12" style="margin: auto">
+			<section class="col-md-6" style="margin: auto">
 
-				<form th:action="@{/cv/guardar/{curriculum_id}(curriculum_id=${curriculum_id})}" method="POST" th:object="${curriculum}">
+				<form th:action="@{/cv/guardar/{curriculum_id}/{email}(curriculum_id=${curriculum_id},email=${ciudadano.email})}" method="POST" th:object="${curriculum}">
 					<header
 						style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
 						<h3>Cargar CV</h3>
 					</header>
+					
 					<div class="mb-3">
-						<!-- <input type="hidden" th:field="*{curriculum_id}" /> -->
-						<!-- <label for="ciudadanoId" class="form-label">ID</label>  -->
-						<input th:value="${curriculum_id}" type="hidden" class="form-control" id="CurriculumId" readonly>
+						<label for="CurriculumIdioma" class="form-label">IDIOMA</label> 
+						<input th:field="*{idioma}" type="text" class="form-control" id=CurriculumIdioma>
+						<div class="text-danger" th:if="${#fields.hasErrors('idioma')}"	th:errors="*{idioma}"></div>
 					</div>
+					
 					<div class="mb-3">
-					<div class="btn-group" >
-						<!-- <a class="btn btn-primary" th:href="@{/expLab/edicion/{expLaboral}(expLaboral=${curriculum.expLaboral})}" role="button">EXP LABORAL/ES</a> -->
-						<a class="btn btn-primary" th:href="@{/cv/editarExpLab/{curriculum_id}(curriculum_id=${curriculum.curriculum_id})}"  role="button">EXP LABORAL/ES</a>
-            		</div>
-            		</div>
+						<label for="CurriculumExpLab" class="form-label">EXPERIENCIA LABORAL</label> 
+						<input th:field="*{expLab}" type="text" class="form-control" id="CurriculumExpLab">
+						<div class="text-danger" th:if="${#fields.hasErrors('expLab')}"	th:errors="*{expLab}"></div>
+					</div>
             		<div class="mb-3">
-						<div class="btn-group" >
-						<a class="btn btn-primary" th:href="@{/cv/editarIdiomaList/{curriculum_id}(curriculum_id=${curriculum.curriculum_id})}" role="button">IDIOMAS</a>
-            		</div>
-					</div>
-					<div class="mb-3">
 						<label for="CurriculumEduc" class="form-label">EDUCACION</label> 
 						<select	th:field="*{educacion.educacion_id}" class="form-control" id="CurriculumEduc">
 							<option th:each="educacion : ${educacion}"
@@ -61,8 +57,6 @@
 								th:text="${educacion.nivelAlcanzado}" />
 						</select>
 					</div>
-
-
 					<div class="mb-3">
 						<label for="CurriculumConInf" class="form-label">CONOCIMIENTOS DE INFORMATICA</label> 
 						<input th:field="*{conocInfor}" type="text" class="form-control" id="CurriculumConInf">
@@ -76,15 +70,11 @@
 					</div>
 					
 					<div class="mb-3">
-						
 						<select style="visibility:hidden" th:value="${existeCurriculum}" th:field="*{existeCurriculum}" id="existeCurriculum" name="existeCurriculum" class="form-label" aria-label="select">
 							<option th:value="1">true option</option>
 							<option th:value="0">false option</option>
 						</select>
-						
 					</div> 
-
-
 					<button type="submit" class="btn btn-primary">Cargar CV</button>
 					<a th:href="@{/ciudadano/home}" id="cancel" class="btn btn-secondary">Cancelar</a>
 				</form>

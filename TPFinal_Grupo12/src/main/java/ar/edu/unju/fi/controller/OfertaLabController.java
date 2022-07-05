@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.unju.fi.entity.Ciudadano;
 import ar.edu.unju.fi.entity.Empleador;
 import ar.edu.unju.fi.entity.OfertaLaboral;
+import ar.edu.unju.fi.entity.Provincia;
+import ar.edu.unju.fi.service.ICiudadanoService;
 import ar.edu.unju.fi.service.IEmpleadorService;
 import ar.edu.unju.fi.service.IOfertaLaboralService;
 
@@ -32,6 +35,10 @@ public class OfertaLabController {
 	@Qualifier("EmpleadorServiceImpSql")
 	private IEmpleadorService empleadorService;
 	
+	@Autowired
+	@Qualifier("CiudadanoServiceImpSql")
+	private ICiudadanoService ciudadanoService;
+	
 	private static final Log LOGGER = LogFactory.getLog(OfertaLabController.class);
 	
 	@GetMapping("/nueva/{email}")
@@ -42,8 +49,6 @@ public class OfertaLabController {
 		LOGGER.info("Nueva Oferta exitosa");
 		return "nuevo_ofertalab";
 	}
-	
-	
 	
 	@GetMapping("/lista_ofertas/{email}")
 	public String getListaOfertasPage(@PathVariable(value="email")String email,Model model) {
@@ -69,7 +74,6 @@ public class OfertaLabController {
 		if(ofertalabService.guardarOfertaLab(ofertalab)) {
 			LOGGER.info("Oferta guardada-----------------");
 		}
-			
 		emp.getOferLaborales().add(ofertalab);
 		
 		if (empleadorService.guardarEmpleador(emp)) {
@@ -77,6 +81,23 @@ public class OfertaLabController {
 		}
 		mavoferta.addObject("ofertalab", ofertalabService.buscarOfertaPorEmpleador(emp));
 		return mavoferta; 
+	}
+	
+	@GetMapping("/lista_ofertas_prov/{email}")
+	public String getListaOfertasDelCiudadanoProvinciaPage(@PathVariable(value="email")String email,Model model) {
+		Ciudadano ciud = ciudadanoService.buscarCiudadanoPorEmail(email);
+		Provincia prov = ciud.getProvincia();
+		model.addAttribute("ofertalab", ofertalabService.buscarOfertaPorProv(prov));
+		model.addAttribute("ciudadano", ciud);
+		return "listaOfertaProv";
+	}
+	@GetMapping("/lista_ofertas_all/{email}")
+	public String getListaOfertasDelCiudadanoTodasPage(@PathVariable(value="email")String email,Model model) {
+		Ciudadano ciud = ciudadanoService.buscarCiudadanoPorEmail(email);
+		
+		model.addAttribute("ofertalab", ofertalabService.buscarTodasOferta());
+		model.addAttribute("ciudadano", ciud);
+		return "listaOfertasTodas";
 	}
 	
 

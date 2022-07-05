@@ -38,13 +38,16 @@
 					<a class="btn btn-primary" th:href="@{/ciudadano/edicion/{email}(email=${ciudadano.email})}" role="button">Editar Datos</a>
             	</div>
 				<div class="btn-group" th:object="${curriculum}">
-					<a class="btn btn-primary" th:href="@{/cv/edicion/{curriculum_id}(curriculum_id=${curriculum.curriculum_id})}" role="button">CV</a>
-            	</div>
+					<a class="btn btn-primary" th:href="@{/cv/edicion/{curriculum_id}/{email}(curriculum_id=${curriculum.curriculum_id},email=${ciudadano.email})}" role="button">CV</a>
+            	</div>									
             	<div class="btn-group">
 					<a class="btn btn-primary" href="" role="button">Inscribir a cursos</a>
 				</div>
 				<div class="btn-group">
-					<a class="btn btn-primary" th:disabled="${cvexiste} == false" th:href="${cvexiste} == true ? (@{/ofertaLab/Lista}) : '#'" role="button">Buscar Ofertas Laborales</a>
+					<a class="btn btn-primary" th:disabled="${cvexiste} == false" th:href="${cvexiste} == true ? (@{/ofertalab/lista_ofertas_all/{email}(email=${ciudadano.email})}) : '#'" role="button">Buscar Todas las Ofertas</a>
+				</div>
+				<div class="btn-group">
+					<a class="btn btn-primary" th:disabled="${cvexiste} == false" th:href="${cvexiste} == true ? (@{/ofertalab/lista_ofertas_prov/{email}(email=${ciudadano.email})}) : '#'" role="button">Buscar Ofertas en mi provincia</a>
 				</div>
 
 				<div class="btn-group">
