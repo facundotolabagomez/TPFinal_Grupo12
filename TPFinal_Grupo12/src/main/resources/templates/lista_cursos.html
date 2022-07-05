@@ -49,7 +49,7 @@
 							<td th:text="${curso.detalles}"></td>
 																												
 							<td>
-							<a th:href="@{/inscripcion/{curso_id}/{email}" id="inscribirseCurso" class="btn btn-success">Inscribirme</a>
+							<a th:href="@{/cursos/inscripcion/{curso_id}/{email}(curso_id=${curso.curso_id},email=${ciudadano.email})}" id="inscribirseCurso" class="btn btn-success">Inscribirme</a>
 							</td>
 						</tr>
 					</table>

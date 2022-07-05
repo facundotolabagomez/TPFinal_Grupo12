@@ -170,7 +170,7 @@ public class OfertaLabController {
 		
 		return "postulaciones_empleador";
 	}
-	
+	//aprieta boton
 	@GetMapping("/contratacion/{emailEmp}/{emailCiud}")
 	public ModelAndView getContratacionEmpPage(@PathVariable(value = "emailEmp")String emailEmp,@PathVariable(value = "emailCiud")String emailCiud) {
 		
@@ -190,7 +190,7 @@ public class OfertaLabController {
 		
 		return mavidi;
 	}
-	
+	//carga pagina de lista
 	@GetMapping("/contratadoEmpresa/{emailEmp}")
 	public String getListaContratados(@PathVariable(value = "emailEmp")String emailEmp,Model model) {
 		Empleador emp = empleadorService.buscarEmpleadorPorEmail(emailEmp);
