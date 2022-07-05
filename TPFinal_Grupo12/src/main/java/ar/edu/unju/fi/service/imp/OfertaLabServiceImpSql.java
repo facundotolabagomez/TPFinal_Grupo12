@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.edu.unju.fi.entity.Ciudadano;
 import ar.edu.unju.fi.entity.Empleador;
 import ar.edu.unju.fi.entity.OfertaLaboral;
 import ar.edu.unju.fi.entity.Provincia;
@@ -70,6 +71,12 @@ public class OfertaLabServiceImpSql implements IOfertaLaboralService {
 	public List<OfertaLaboral> buscarOfertaPorProv(Provincia provincia) {
 		// TODO Auto-generated method stub
 		return ofertalabRepository.findByEmpleadorProvincia(provincia);
+	}
+
+	@Override
+	public List<OfertaLaboral> buscarOfertaPorCiudadano(Ciudadano ciudadano) {
+		// TODO Auto-generated method stub
+		return ofertalabRepository.findByCiudadano(ciudadano);
 	}
 
 }

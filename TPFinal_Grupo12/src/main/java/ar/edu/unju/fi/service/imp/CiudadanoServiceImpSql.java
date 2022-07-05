@@ -64,4 +64,10 @@ public class CiudadanoServiceImpSql implements ICiudadanoService {
 		return ciudadanoRepository.findByEmail(email);
 	}
 
+	@Override
+	public Ciudadano buscarCiudadanoPorOferta(long oferta_id) {
+		// TODO Auto-generated method stub
+		return ciudadanoRepository.findByOfertas(oferta_id);
+	}
+
 }

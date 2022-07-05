@@ -1,5 +1,8 @@
 package ar.edu.unju.fi.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +102,103 @@ public class OfertaLabController {
 		model.addAttribute("ciudadano", ciud);
 		return "listaOfertasTodas";
 	}
+	
+	
+	@GetMapping("/postular/{oferta_id}/{email}")
+	public ModelAndView getPostularEnOfertaPage(@PathVariable(value = "oferta_id")long oferta_id,@PathVariable(value = "email")String email) {
+		
+		ModelAndView mavidi = new ModelAndView("redirect:/ofertalab/postuladoList/"+email);
+		Ciudadano ciu = ciudadanoService.buscarCiudadanoPorEmail(email);
+		OfertaLaboral ofer = ofertalabService.buscarOfertaLab(oferta_id);
+				
+		ciu.getOfertas().add(ofer);
+		
+		if (ciudadanoService.guardarCiudadano(ciu)) {
+			LOGGER.info("Se guardo la postulacion");
+		}
+		mavidi.addObject("ofertalab", ofer.getCiudadano());
+		return mavidi;
+	}
+	
+	@GetMapping("/postuladoList/{email}")
+	public String getListaPostulacionesPage(@PathVariable(value = "email")String email,Model model) {
+		
+		//ModelAndView mavidi = new ModelAndView("redirect:/ofertalab/postuladoList/"+email);
+		Ciudadano ciu = ciudadanoService.buscarCiudadanoPorEmail(email);
+		//OfertaLaboral ofer = ofertalabService.buscarOfertaLab(oferta_id);
+		ciu.getOfertas();
+		List<OfertaLaboral> listof = new ArrayList<OfertaLaboral>();
+		
+		for (int i=0;i<ciu.getOfertas().size();i++) {
+			OfertaLaboral ofe = ofertalabService.buscarOfertaLab(ciu.getOfertas().get(i).getOferta_id());
+			listof.add(ofe);
+			LOGGER.info(ofe);
+		}
+		
+		model.addAttribute("postulaciones", listof);
+		model.addAttribute("ciudadano", ciu);
+		
+		return "postulaciones_ciudadano";
+	}
+	
+	@GetMapping("/postulantesListEmp/{email}")
+	public String getListaPostulacionesVerCiudEmpPage(@PathVariable(value = "email")String email,Model model) {
+		Empleador emp = empleadorService.buscarEmpleadorPorEmail(email);
+		//OfertaLaboral ofer = ofertalabService.buscarOfertaLab(oferta_id);
+		emp.getOferLaborales();
+		List<OfertaLaboral> listof = new ArrayList<OfertaLaboral>();
+		List<Ciudadano> listpost = new ArrayList<Ciudadano>();
+				
+		for (int i=0;i<emp.getOferLaborales().size();i++) {
+			OfertaLaboral ofe = ofertalabService.buscarOfertaLab(emp.getOferLaborales().get(i).getOferta_id());
+			listof.add(ofe);
+			LOGGER.info(ofe);
+		}
+		
+		for (int i=0;i<listof.size();i++) {
+			//recorremos la lista de ofertas
+			for(int j=0;j<listof.get(i).getCiudadano().size();j++) {
+				//recorro los ciudadanos dentro de esa oferta
+				Ciudadano ciu = ciudadanoService.buscarCiudadanoPorEmail(listof.get(i).getCiudadano().get(j).getEmail());
+				listpost.add(ciu);
+			}
+		}
+		
+		
+		model.addAttribute("postulaciones", listpost);
+		model.addAttribute("empleador", emp);
+		
+		return "postulaciones_empleador";
+	}
+	
+	@GetMapping("/contratacion/{emailEmp}/{emailCiud}")
+	public ModelAndView getContratacionEmpPage(@PathVariable(value = "emailEmp")String emailEmp,@PathVariable(value = "emailCiud")String emailCiud) {
+		
+		Empleador emp = empleadorService.buscarEmpleadorPorEmail(emailEmp);
+		LOGGER.info(emp.getEmail());
+		Ciudadano ciud = ciudadanoService.buscarCiudadanoPorEmail(emailCiud);
+		LOGGER.info(ciud.getEmail());
+		
+		emp.getCiudadanos().add(ciud); 
+		
+		if(empleadorService.guardarEmpleador(emp)) {
+			LOGGER.info("Se ha contratado un puesto nuevo");
+		}
+		ModelAndView mavidi = new ModelAndView("redirect:/ofertalab/contratadoEmpresa/"+emailEmp);
+		mavidi.addObject("contratado", emp.getCiudadanos());
+		mavidi.addObject("empleador", emp);
+		
+		return mavidi;
+	}
+	
+	@GetMapping("/contratadoEmpresa/{emailEmp}")
+	public String getListaContratados(@PathVariable(value = "emailEmp")String emailEmp,Model model) {
+		Empleador emp = empleadorService.buscarEmpleadorPorEmail(emailEmp);
+		model.addAttribute("contratados", emp.getCiudadanos());
+		model.addAttribute("empleador", emp);
+		return "contratado_emp";
+	}
+	
 	
 
 }

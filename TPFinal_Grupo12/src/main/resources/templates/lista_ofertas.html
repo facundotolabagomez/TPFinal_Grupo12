@@ -47,7 +47,6 @@
 							<th>JORNADA</th>
 							<th>PRINC TAREAS</th>
 							<th>SALARIO</th>
-
 						</tr>
 						<tr th:each="oferta: ${ofertalab}">
 							<td th:text="${oferta.oferta_id}"></td>
@@ -58,14 +57,17 @@
 							<td th:text="${oferta.jornada}"></td>
 							<td th:text="${oferta.princTareas}"></td>
 							<td th:text="${oferta.salario}"></td>
+							
 						</tr>
 					</table>
 					<br>
 					
 				</div>
+				<a th:href="@{/empleador/home}" id="cancel" class="btn btn-secondary">Volver</a>
 			</section>
+			
 		</div>
-
+		
 	</div>
 
 
