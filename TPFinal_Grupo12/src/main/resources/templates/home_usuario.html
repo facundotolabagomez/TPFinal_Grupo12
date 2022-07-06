@@ -50,7 +50,10 @@
 					<a class="btn btn-primary" th:disabled="${cvexiste} == false" th:href="${cvexiste} == true ? (@{/ofertalab/lista_ofertas_all/{email}(email=${ciudadano.email})}) : '#'" role="button">Buscar Todas las Ofertas</a>
 				</div>
 				<div class="btn-group">
-					<a class="btn btn-primary" th:disabled="${cvexiste} == false" th:href="${cvexiste} == true ? (@{/ofertalab/lista_ofertas_prov/{email}(email=${ciudadano.email})}) : '#'" role="button">Buscar Ofertas en mi provincia</a>
+					<a class="btn btn-primary" th:disabled="${cvexiste} == false" th:href="${cvexiste} == true ? (@{/ofertalab/postuladoList/{email}(email=${ciudadano.email})}) : '#'" role="button">Mis Postulaciones</a>
+				</div>
+				<div class="btn-group">
+					<a class="btn btn-primary" th:href="@{/ofertalab/contratadoCiu/{emailCiu}(emailCiu=${ciudadano.email})}" role="button">MIS CONTRATOS</a>
 				</div>
 
 				<div class="btn-group">

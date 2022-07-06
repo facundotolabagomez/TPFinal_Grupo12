@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -96,6 +97,13 @@ public class CurriculumController {
 		
 		mavcurriculum.addObject("curriculum", curri);
 		return mavcurriculum;
+	}
+	
+	@GetMapping("/verCv/{curriculum_id}")
+	public String getListaCursosPage(@PathVariable(value = "curriculum_id")long curriculum_id,Model model) {
+		Curriculum cv = curriculumService.buscarCurriculum(curriculum_id);
+		model.addAttribute("curriculum", cv);
+		return "mostrar_curriculum";
 	}
 	
 		

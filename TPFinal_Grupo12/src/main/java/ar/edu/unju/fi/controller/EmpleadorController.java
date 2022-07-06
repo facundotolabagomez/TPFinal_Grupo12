@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.unju.fi.entity.Empleador;
 import ar.edu.unju.fi.entity.Usuario;
 import ar.edu.unju.fi.service.IEmpleadorService;
-import ar.edu.unju.fi.service.IOfertaLaboralService;
 import ar.edu.unju.fi.service.IProvinciaService;
 import ar.edu.unju.fi.service.IUsuarioService;
 
@@ -39,9 +38,12 @@ public class EmpleadorController {
 	@Qualifier("UsuarioServiceImpSql")
 	private IUsuarioService usuarioService;
 	
-	@Autowired
-	@Qualifier("OfertaLabServiceImpSql")
-	private IOfertaLaboralService oferService;
+	/*
+	 * @Autowired
+	 * 
+	 * @Qualifier("OfertaLabServiceImpSql") private IOfertaLaboralService
+	 * oferService;
+	 */
 
 	private static final Log LOGGER = LogFactory.getLog(EmpleadorController.class);
 	

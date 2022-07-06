@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <link type="text/css" rel="stylesheet"
 	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"></link>
+	<base href="/">
 <link type="text/css" rel="stylesheet" href="../css/styles.css"></link>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -37,46 +38,43 @@
 				</header>
 				<br>
 
-				<div class="col-12 d-flex justify-content-center">
-
-					<table class="table table-bordered">
+				<div class="table-responsive" >
+					<table class="table table-bordered" >
 						<thead>
 							<tr>
 								<th>CAMPOS</th>
 								<th>DATOS</th>
 							</tr>
 						</thead>
-						<tbody th:object ="${curriculum}">
+						<tbody th:object="${curriculum}">
 							<tr>
-								<td >EXPERIENCIA LABORAL</td>														
-								<td th:text="${#strings.listJoin(curriculum.expLaboral, ', ')}"></td>
+								<td >IDIOMAS</td>														
+								<td th:text="${curriculum.idioma}"></td>
 							</tr>
 							<tr>
-								<td>EDUCACION</td>
-								<td th:text="${educacion.nivelAlcanzado}"></td>
+								<td>EXPERIENCIA LAB</td>
+								<td th:text="${curriculum.expLab}"></td>
 							</tr>
 							<tr>
-								<td>IDIOMAS</td>
-								<td th:text="${#strings.listJoin(idiomas.nombreIdioma, ', ')}"></td>
+								<td>EDUCACION ALCANZADA</td>
+								<td th:text="${curriculum.educacion.getNivelAlcanzado}"></td>
 							</tr>
 							<tr>
 								<td >CONOCIMIENTOS DE INFORMATICA</td>
-								<td th:text="${expLaboral}"></td>
+								<td th:text="${curriculum.conocInfor}"></td>
 							</tr>
 							<tr>
 								<td>INFO COMPLEMETARIA</td>
-								<td th:text="${conocInfor}"></td>
+								<td th:text="${curriculum.infoComplem}"></td>
 							</tr>
 						</tbody>
 					</table>
 					<br>
-					
-					<a th:href="@{/empleador/home}" id="cancel"class="btn btn-secondary">Salir</a>
-
 				</div>
 			</section>
+			
 		</div>
-
+		<a th:href="@{/empleador/home}" id="cancel"class="btn btn-secondary">Salir</a>
 	</div>
 
 

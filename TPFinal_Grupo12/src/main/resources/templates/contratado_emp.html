@@ -4,12 +4,13 @@
 <meta charset="utf-8">
 <link type="text/css" rel="stylesheet"
 	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"></link>
+	<base href="/">
 <link type="text/css" rel="stylesheet" href="../css/styles.css"></link>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>empleAR - Ofertas Laborales</title>
+<title>empleAR - Contratados por Empresa</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="../assets/LogoIcono.ico" />
 <!-- Font Awesome icons (free version)-->
@@ -38,6 +39,7 @@
 				<br>
 				<div class="col-12 d-flex justify-content-center">
 					<table class="table table-striped table-hover">
+						
 						<tr>
 							<th>NOMBRE/S</th>
 							<th>APELLIDO/S</th>
@@ -52,7 +54,7 @@
 							<td th:value="${cont.telefono}" th:text="${cont.telefono}"></td>
 							<td th:value="${cont.obtenerEdad}" th:text="${cont.obtenerEdad}"></td>
 							<td>
-							<a href="#" id="Cv" class="btn btn-secondary">CV</a>
+							<a th:href="@{/cv/verCv/{curriculum_id}(curriculum_id=${cont.curriculum.curriculum_id})}" id="Cv" class="btn btn-secondary">CV</a>
 							  
 							</td>
 						</tr>
