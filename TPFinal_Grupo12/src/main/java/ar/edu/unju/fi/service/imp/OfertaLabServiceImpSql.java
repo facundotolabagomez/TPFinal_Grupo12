@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import ar.edu.unju.fi.entity.Ciudadano;
 import ar.edu.unju.fi.entity.Empleador;
 import ar.edu.unju.fi.entity.OfertaLaboral;
-import ar.edu.unju.fi.entity.Provincia;
 import ar.edu.unju.fi.repository.IOfertaLabRepository;
 import ar.edu.unju.fi.service.IOfertaLaboralService;
 
@@ -67,16 +66,22 @@ public class OfertaLabServiceImpSql implements IOfertaLaboralService {
 		return ofertalabRepository.findAll();
 	}
 
-	@Override
-	public List<OfertaLaboral> buscarOfertaPorProv(Provincia provincia) {
-		// TODO Auto-generated method stub
-		return ofertalabRepository.findByEmpleadorProvincia(provincia);
-	}
+	/*
+	 * @Override public List<OfertaLaboral> buscarOfertaPorProv(Provincia provincia)
+	 * { // TODO Auto-generated method stub return
+	 * ofertalabRepository.findByEmpleadorProvincia(provincia); }
+	 */
 
 	@Override
 	public List<OfertaLaboral> buscarOfertaPorCiudadano(Ciudadano ciudadano) {
 		// TODO Auto-generated method stub
 		return ofertalabRepository.findByCiudadano(ciudadano);
+	}
+
+	@Override
+	public List<OfertaLaboral> buscarOfertaPorPalabra(String keyword) {
+		// TODO Auto-generated method stub
+		return ofertalabRepository.findByKeyword(keyword);
 	}
 
 }

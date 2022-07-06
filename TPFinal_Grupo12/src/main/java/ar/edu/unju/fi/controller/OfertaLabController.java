@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.unju.fi.entity.Ciudadano;
 import ar.edu.unju.fi.entity.Empleador;
 import ar.edu.unju.fi.entity.OfertaLaboral;
-import ar.edu.unju.fi.entity.Provincia;
 import ar.edu.unju.fi.service.ICiudadanoService;
 import ar.edu.unju.fi.service.IEmpleadorService;
 import ar.edu.unju.fi.service.IOfertaLaboralService;
@@ -86,20 +85,18 @@ public class OfertaLabController {
 		return mavoferta; 
 	}
 	
-	@GetMapping("/lista_ofertas_prov/{email}")
-	public String getListaOfertasDelCiudadanoProvinciaPage(@PathVariable(value="email")String email,Model model) {
-		Ciudadano ciud = ciudadanoService.buscarCiudadanoPorEmail(email);
-		Provincia prov = ciud.getProvincia();
-		model.addAttribute("ofertalab", ofertalabService.buscarOfertaPorProv(prov));
-		model.addAttribute("ciudadano", ciud);
-		return "listaOfertaProv";
-	}
+	
+	
+	//trae todas las ofertas de la lista
 	@GetMapping("/lista_ofertas_all/{email}")
-	public String getListaOfertasDelCiudadanoTodasPage(@PathVariable(value="email")String email,Model model) {
+	public String getListaOfertasDelCiudadanoTodasPage(@PathVariable(value="email")String email,Model model,String keyword) {
 		Ciudadano ciud = ciudadanoService.buscarCiudadanoPorEmail(email);
-		
-		model.addAttribute("ofertalab", ofertalabService.buscarTodasOferta());
 		model.addAttribute("ciudadano", ciud);
+		if(keyword!=null) {
+			model.addAttribute("ofertalab", ofertalabService.buscarOfertaPorPalabra(keyword));
+		}else {
+			model.addAttribute("ofertalab", ofertalabService.buscarTodasOferta());
+		}
 		return "listaOfertasTodas";
 	}
 	
@@ -199,6 +196,16 @@ public class OfertaLabController {
 		return "contratado_emp";
 	}
 	
+	//carga pagina de lista
+	@GetMapping("/contratadoCiu/{emailCiu}")
+		public String getListaContratosCiu(@PathVariable(value = "emailCiu")String emailCiu,Model model) {
+			Ciudadano ciud = ciudadanoService.buscarCiudadanoPorEmail(emailCiu);
+			LOGGER.info(ciud.getEmpleadores().size());
+			LOGGER.info(ciud.getEmpleadores().get(0).getEmail());
+			model.addAttribute("contratos", ciud.getEmpleadores());
+			model.addAttribute("ciudadano", ciud);
+			return "contratado_ciu";
+		}
 	
 
 }

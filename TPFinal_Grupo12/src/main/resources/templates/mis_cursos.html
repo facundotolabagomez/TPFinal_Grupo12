@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <link type="text/css" rel="stylesheet"
 	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"></link>
+	<base href="/">
 <link type="text/css" rel="stylesheet" href="../css/styles.css"></link>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -47,18 +48,16 @@
 							<td th:text="${curso.nombreCurso}"></td>
 							<td th:text="${curso.categoria}"></td>
 							<td th:text="${curso.detalles}"></td>
-																												
-							<!-- <td>
-							<a th:href="@{/ciudadano/inscripcion/}+${curso.nombreCurso}" id="inscribirseCurso" class="btn btn-success">Inscribirme</a>
-							</td> -->
+							
 						</tr>
 					</table>
 				<br><br>
 				
 			</div>
 			</section>
+			
 			</div>
-		
+		<a th:href="@{/ciudadano/home}" id="cancel" class="btn btn-secondary">Volver Home</a>
 		</div>
 	
 	

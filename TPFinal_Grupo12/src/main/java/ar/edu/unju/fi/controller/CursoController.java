@@ -55,7 +55,7 @@ public class CursoController {
 		
 		Ciudadano ciud = ciudadanoService.buscarCiudadanoPorEmail(email);
 		Curso cur = cursoService.buscarCurso(curso_id);
-		ModelAndView mavcurso = new ModelAndView("redirect:/cursos/lista/"+email);
+		ModelAndView mavcurso = new ModelAndView("redirect:/cursos/miscursos/"+email);
 		ciud.getCursos().add(cur);
 		if (ciudadanoService.guardarCiudadano(ciud)) {
 			//LOGGER.info("Inscripto en curso = "+cur.getNombreCurso());

@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <link type="text/css" rel="stylesheet"
 	th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"></link>
+	<base href="/">
 <link type="text/css" rel="stylesheet" href="../css/styles.css"></link>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -30,13 +31,20 @@
 	<div class="container bg-light">
 		<div class="row">
 			<!--inicio de contenedor row-->
-			<section class="col-md-9" style="margin: auto">
+			<section class="col-md-12" style="margin: auto">
 				<header
 					style="background-color: #005DA9; color: white; text-align: center; margin-top: 1.4%; border-radius: 10px;">
 					<h3>Ofertas Laborales</h3>
 				</header>
 				<br>
+				<form th:action="@{/ofertalab/lista_ofertas_all/{email}(email=${ciudadano.email})}" method="get">
+					<input id="txtSearch" type="text" name="keyword">
+					<button type="submit">Buscar</button>
+				</form>
+				<br>
 				<div class="col-12 d-flex justify-content-center">
+				
+				
 					<table class="table table-striped table-hover">
 						<tr>
 							<th>ID</th>
